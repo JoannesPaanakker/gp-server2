@@ -15,8 +15,8 @@ Route::get('/', function () {
     return 'Green Platform API';
 });
 
-Route::get('/reviews', 'reviewsController@index');
-Route::get('/pages', 'pagesController@index');
+Route::get('/reviews', 'ReviewsController@index');
+Route::get('/pages', 'PagesController@index');
 
 Route::post('/save-login', 'UsersController@store');
 
