@@ -18,9 +18,16 @@ class UsersController extends Controller
 		$user->first_name = $request['firstName'];
 		$user->last_name = $request['lastName'];
 		
+        $returning_user = $user->exists;
+
 		$user->save();
 
-        return response()->json(['status' => 'success', 'user_id' => $user->id]);
+        if($returning_user){
+            return response()->json(['status' => 'success', 'new_user' => 'false', 'user_id' => $user->id]);
+        }else{
+            return response()->json(['status' => 'success', 'new_user' => 'true', 'user_id' => $user->id]);    
+        }
+        
     }
 
 
