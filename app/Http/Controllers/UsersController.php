@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\User;
+use App\Page;
+use App\Review;
 
 class UsersController extends Controller
 {
@@ -20,6 +22,7 @@ class UsersController extends Controller
 
         return response()->json(['status' => 'success', 'user_id' => $user->id]);
     }
+
 
 
 }

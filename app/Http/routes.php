@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -15,10 +16,25 @@ Route::get('/', function () {
     return 'Green Platform API';
 });
 
-Route::get('/reviews', 'ReviewsController@index');
+Route::get('/users/{user}/pages', 'PagesController@userPages');
+Route::post('/users/{user}/pages', 'PagesController@store');
+Route::get('/users/{user}/reviews', 'ReviewsController@userReviews');
+Route::post('/users/{user}/reviews', 'ReviewsController@store');
+
 Route::get('/pages', 'PagesController@index');
+Route::get('/pages/{page}', 'PagesController@show');
+Route::get('/pages/{page}/reviews', 'ReviewsController@pageReviews');
+Route::post('/pages/get-by-id', 'PagesController@getById');
+
+Route::get('/reviews', 'ReviewsController@index');
+Route::get('/reviews/{review}', 'ReviewsController@show');
+
+Route::get('/tips', 'TipsController@index');
+Route::post('/tips', 'TipsController@store');
+
 
 Route::post('/save-login', 'UsersController@store');
+
 
 Route::auth();
 
