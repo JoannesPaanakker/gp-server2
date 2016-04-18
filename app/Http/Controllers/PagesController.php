@@ -61,9 +61,9 @@ class PagesController extends Controller
     	$page->address = $request['address'];
     	$page->rating = $request['rating'];
         $page->about = $request['about'];
-        $page->lat = $request['lat'];
-        $page->lng = $request['lng'];
-    	$page->google_place_id = $request['place_id'];
+        if(!empty($request['lat']))$page->lat = $request['lat'];
+        if(!empty($request['lng']))$page->lng = $request['lng'];
+    	if(!empty($request['place_id']))$page->google_place_id = $request['place_id'];
     	$user->pages()->save($page);
 
     	// upload photo and generate thumbs
