@@ -41,8 +41,8 @@ class ReviewsController extends Controller
     public function pageReviews(Page $page){
     	$reviews = $page->reviews()->get();
     	foreach($reviews as $index => $review){
-            $reviews[$index]->thumb = env('APP_URL') . '/files/reviews/' . $review->id . '/thumb.jpg';
-            $reviews[$index]->picture = env('APP_URL') . '/files/reviews/' . $review->id . '/image.jpg';
+            $reviews[$index]->thumb = $review->getThumb();
+            $reviews[$index]->picture = $review->getImage();
         }
         return $reviews;
     }
