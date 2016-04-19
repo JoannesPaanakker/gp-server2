@@ -28,10 +28,7 @@ class ReviewsController extends Controller
     	return $review;
     }
 
-    public function userReviews($user){
-        $user = User::find($user);
-        if(!$user)return response()->json(['status' => 'empty']);
-
+    public function userReviews(User $user){
         $reviews = $user->reviews()->get();
         foreach($reviews as $index => $review){
             $reviews[$index]->thumb = env('APP_URL') . '/files/reviews/' . $review->id . '/thumb.jpg';
