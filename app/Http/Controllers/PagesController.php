@@ -13,16 +13,16 @@ class PagesController extends Controller
     public function index(){
     	$pages = Page::all();
         foreach($pages as $index => $page){
-            $pages[$index]->thumb = env('APP_URL') . '/files/pages/' . $page->id . '/thumb.jpg';
-            $pages[$index]->picture = env('APP_URL') . '/files/pages/' . $page->id . '/image.jpg';
+            $pages[$index]->thumb = $page->getThumb();
+            $pages[$index]->picture = $page->getImage();
             $pages[$index]->num_reviews = $page->reviews()->count();
         }
     	return $pages;
     }
 
     public function show(Page $page){
-        $page->thumb = env('APP_URL') . '/files/pages/' . $page->id . '/thumb.jpg';
-        $page->picture = env('APP_URL') . '/files/pages/' . $page->id . '/image.jpg';
+        $page->thumb = $page->getThumb();
+        $page->picture = $page->getImage();
         $page->num_reviews = $page->reviews()->count();
         return $page;
     }
@@ -30,8 +30,8 @@ class PagesController extends Controller
     public function userPages(User $user){
 		$pages = $user->pages()->get();
         foreach($pages as $index => $page){
-            $pages[$index]->thumb = env('APP_URL') . '/files/pages/' . $page->id . '/thumb.jpg';
-            $pages[$index]->picture = env('APP_URL') . '/files/pages/' . $page->id . '/image.jpg';
+            $pages[$index]->thumb = $page->getThumb();
+            $pages[$index]->picture = $page->getImage();
             $pages[$index]->num_reviews = $page->reviews()->count();
         }
         return $pages;

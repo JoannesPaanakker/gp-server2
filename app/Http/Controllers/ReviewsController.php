@@ -15,24 +15,24 @@ class ReviewsController extends Controller
     public function index(){    	
     	$reviews = Review::all();
     	foreach($reviews as $index => $review){
-            $reviews[$index]->thumb = env('APP_URL') . '/files/reviews/' . $review->id . '/thumb.jpg';
-            $reviews[$index]->picture = env('APP_URL') . '/files/reviews/' . $review->id . '/image.jpg';
+            $reviews[$index]->thumb = $review->getThumb();
+            $reviews[$index]->picture = $review->getImage();
             $reviews[$index]->place = $review->page->title;
         }
     	return $reviews;
     }
 
     public function show(Review $review){
-        $review->thumb = env('APP_URL') . '/files/reviews/' . $review->id . '/thumb.jpg';
-        $review->picture = env('APP_URL') . '/files/reviews/' . $review->id . '/image.jpg';
+        $review->thumb = $review->getThumb();
+        $review->picture = $review->getPicture();
     	return $review;
     }
 
     public function userReviews(User $user){
         $reviews = $user->reviews()->get();
         foreach($reviews as $index => $review){
-            $reviews[$index]->thumb = env('APP_URL') . '/files/reviews/' . $review->id . '/thumb.jpg';
-            $reviews[$index]->picture = env('APP_URL') . '/files/reviews/' . $review->id . '/image.jpg';
+            $reviews[$index]->thumb = $review->getThumb();
+            $reviews[$index]->picture = $review->getImage();
             $reviews[$index]->place = $review->page->title;
         }
         return $reviews;
