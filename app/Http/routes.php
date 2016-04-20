@@ -25,6 +25,7 @@ Route::get('/pages', 'PagesController@index');
 Route::get('/pages/{page}', 'PagesController@show');
 Route::get('/pages/{page}/reviews', 'ReviewsController@pageReviews');
 Route::post('/pages/get-by-id', 'PagesController@getById');
+Route::get('/pages/nearby/{coordinates}', 'PagesController@getNearBy');
 
 Route::get('/reviews', 'ReviewsController@index');
 Route::get('/reviews/{review}', 'ReviewsController@show');
