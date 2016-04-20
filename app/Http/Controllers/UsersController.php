@@ -12,7 +12,10 @@ class UsersController extends Controller
     
     public function store(){
     	$request = request()->all();
-    	error_log('storing user');
+    	
+        error_log('storing user');
+        error_log(print_r($$request, 1));
+
     	$user = User::firstOrNew(['email' => $request['email']]);
 
 		$user->first_name = $request['firstName'];
