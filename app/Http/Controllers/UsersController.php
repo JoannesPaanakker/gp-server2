@@ -14,7 +14,7 @@ class UsersController extends Controller
     	$request = request()->all();
     	
         error_log('storing user');
-        error_log(print_r($$request, 1));
+        error_log(print_r($request, true));
 
     	$user = User::firstOrNew(['email' => $request['email']]);
 
