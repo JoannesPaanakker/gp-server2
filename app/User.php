@@ -32,6 +32,10 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
+    public function goals(){
+        return $this->hasMany(Goal::class);
+    }
+
     public function tips(){
         return $this->hasMany(Tip::class);
     }

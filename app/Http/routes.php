@@ -33,8 +33,11 @@ Route::get('/reviews/{review}', 'ReviewsController@show');
 Route::get('/tips', 'TipsController@index');
 Route::post('/tips', 'TipsController@store');
 
+Route::get('/users/{user}/goals', 'GoalsController@index');
+Route::post('/users/{user}/goals', 'GoalsController@store');
 
 Route::post('/save-login', 'UsersController@store');
+
 
 
 Route::auth();
