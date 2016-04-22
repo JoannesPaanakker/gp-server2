@@ -33,7 +33,7 @@ class PagesController extends Controller
         
         $nearby_ids = [];
         foreach($places_nearby->results as $place){
-            $nearby_ids[] = $place->id;
+            $nearby_ids[] = "'" . $place->id . "'";
         }
 
         $pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) .')')->get();
