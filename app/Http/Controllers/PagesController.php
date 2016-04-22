@@ -20,9 +20,31 @@ class PagesController extends Controller
     	return $pages;
     }
 
-    public function getNearBy($coordinates){
+    // gets all the pages around the user
+    public function getPagesNearBy($coordinates){
         
-        $api_key = 'AIzaSyAOwPfFyBPqNJl_HYsCrCKPSvJcthkchok';
+        $api_key = env('GOOGLE_API');
+        $type = 'restaurant';
+        $radius = '200'; //metres
+        $rankby = '';
+        $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . $api_key . '&location=' . $coordinates . '&radius=' . $radius . '&type=' . $type . '&rankby=' . $rankby;
+        
+        $places_nearby = json_decode(file_get_contents($google_places_url));
+        
+        $nearby_ids = [];
+        foreach($places_nearby->results as $place){
+            $nearby_ids[] = $place->id;
+        }
+
+        return $nearby_ids;
+
+        //return $places_nearby->results;
+    }
+
+    // gets all places arount the user
+    public function getPlacesNearBy($coordinates){
+        
+        $api_key = env('GOOGLE_API');
         $type = 'restaurant';
         $radius = '200'; //metres
         $rankby = '';
