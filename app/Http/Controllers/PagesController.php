@@ -42,8 +42,6 @@ class PagesController extends Controller
         }
 
         return $pages;
-
-        //return $places_nearby->results;
     }
 
     // gets all places arount the user
