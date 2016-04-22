@@ -36,7 +36,12 @@ class PagesController extends Controller
             $nearby_ids[] = $place->id;
         }
 
-        return $nearby_ids;
+        $pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) .')')->get();
+        foreach($pages as $index => $page){
+            $pages[$index]->num_reviews = $page->reviews()->count();
+        }
+
+        return $pages;
 
         //return $places_nearby->results;
     }
