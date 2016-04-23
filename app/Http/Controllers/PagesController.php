@@ -94,14 +94,18 @@ class PagesController extends Controller
     	$request = request()->all();
     	error_log(print_r($request,1));
 
+        // get info for the place
+        $place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $request['google_place_id'] . '&key=' . env('GOOGLE_API')));
+        $place->result->formatted_address;
+
     	$page = new Page;
-    	$page->title = $request['name'];
-    	$page->address = $request['address'];
+    	$page->title = $place->result->name;
+    	$page->address = $place->result->formatted_address;
     	$page->rating = $request['rating'];
         $page->about = $request['about'];
-        if(!empty($request['lat']))$page->lat = $request['lat'];
-        if(!empty($request['lng']))$page->lng = $request['lng'];
-    	if(!empty($request['place_id']))$page->google_place_id = $request['place_id'];
+        $page->lat = $place->result->geometry->location->lat;
+        $page->lng = $place->result->geometry->location->lng;
+    	$page->google_place_id = $place->result->id;
     	$user->pages()->save($page);
 
     	// upload photo and generate thumbs
