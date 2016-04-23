@@ -92,7 +92,10 @@ class PagesController extends Controller
     public function store(User $user){
 
     	$request = request()->all();
-    	error_log(print_r($request,1));
+
+        $entityBody = file_get_contents('php://input');
+        
+    	error_log(print_r($entityBody,1));
 
         // get info for the place
         $place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $request['google_place_id'] . '&key=' . env('GOOGLE_API')));
