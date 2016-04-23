@@ -93,9 +93,17 @@ class PagesController extends Controller
 
     	$request = request()->all();
 
-        $entityBody = file_get_contents('php://input');
-        
-    	error_log(print_r($entityBody,1));
+        $request_body = @file_get_contents('php://input');
+
+        // Get some information on the file
+        $file_info = new finfo(FILEINFO_MIME);
+
+        // Extract the mime type
+        $mime_type = $file_info->buffer($request_body);
+
+        error_log('post received:');
+    	error_log($mime_type);
+        return;
 
         // get info for the place
         $place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $request['google_place_id'] . '&key=' . env('GOOGLE_API')));
