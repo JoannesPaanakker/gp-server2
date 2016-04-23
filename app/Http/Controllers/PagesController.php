@@ -96,7 +96,7 @@ class PagesController extends Controller
         $request_body = @file_get_contents('php://input');
 
         // Get some information on the file
-        $file_info = new finfo(FILEINFO_MIME);
+        $file_info = new \finfo(FILEINFO_MIME);
 
         // Extract the mime type
         $mime_type = $file_info->buffer($request_body);
