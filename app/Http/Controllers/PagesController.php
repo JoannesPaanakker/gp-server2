@@ -103,6 +103,11 @@ class PagesController extends Controller
 
         error_log('post received:');
     	error_log($mime_type);
+        error_log('headers:');
+        foreach (getallheaders() as $name => $value) {
+            error_log('$name: ' . $value);
+        }
+
         return;
 
         // get info for the place
