@@ -93,18 +93,12 @@ class PagesController extends Controller
 
     	$request = request()->all();
 
-        error_log($user->id);
         error_log('store page');
         error_log(print_r($request, true));
 
         // get info for the place
-        $url = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyAOwPfFyBPqNJl_HYsCrCKPSvJcthkchok';
-        $place = file_get_contents($url);
-        error_log($url);
-        error_log($place);
-
-        $place = json_decode($place);
-
+        $place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $request['google_place_id'] . '&key=' . env('GOOGLE_API')));
+        
     	$page = new Page;
     	$page->title = $place->result->name;
     	$page->address = $place->result->formatted_address;
@@ -115,7 +109,6 @@ class PagesController extends Controller
     	$page->google_place_id = $place->result->id;
     	$user->pages()->save($page);
 
-        error_log($page->id);
     }
 
 
