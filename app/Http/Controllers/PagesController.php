@@ -93,6 +93,9 @@ class PagesController extends Controller
 
     	$request = request()->all();
 
+        error_log('store page');
+        error_log(print_r($request, true));
+
         // get info for the place
         $place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $request['google_place_id'] . '&key=' . env('GOOGLE_API')));
         $place->result->formatted_address;
