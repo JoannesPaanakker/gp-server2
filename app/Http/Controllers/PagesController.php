@@ -92,15 +92,14 @@ class PagesController extends Controller
     public function store(User $user){
 
     	$request = request()->all();
-        
+
         error_log($user->id);
         error_log('store page');
         error_log(print_r($request, true));
 
         // get info for the place
         $place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=47dda0dfc74d81493c968981badeb220cab677bf&key=' . env('GOOGLE_API')));
-        $place->result->formatted_address;
-
+        
     	$page = new Page;
     	$page->title = $place->result->name;
     	$page->address = $place->result->formatted_address;
@@ -111,7 +110,7 @@ class PagesController extends Controller
     	$page->google_place_id = $place->result->id;
     	$user->pages()->save($page);
 
-
+        error_log($page->id);
     }
 
 
