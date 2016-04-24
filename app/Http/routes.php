@@ -23,6 +23,7 @@ Route::post('/users/{user}/reviews', 'ReviewsController@store');
 
 Route::get('/pages', 'PagesController@index');
 Route::get('/pages/{page}', 'PagesController@show');
+Route::post('/pages/{page}/images', 'PagesController@addImage');
 Route::get('/pages/{page}/reviews', 'ReviewsController@pageReviews');
 Route::post('/pages/get-by-id', 'PagesController@getById');
 Route::get('/pages/nearby/{coordinates}', 'PagesController@getPagesNearBy');

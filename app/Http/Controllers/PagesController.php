@@ -93,23 +93,6 @@ class PagesController extends Controller
 
     	$request = request()->all();
 
-        $request_body = @file_get_contents('php://input');
-
-        // Get some information on the file
-        $file_info = new \finfo(FILEINFO_MIME);
-
-        // Extract the mime type
-        $mime_type = $file_info->buffer($request_body);
-
-        error_log('post received:');
-    	error_log($mime_type);
-        error_log('headers:');
-        foreach (getallheaders() as $name => $value) {
-            error_log($name . ' : ' . $value);
-        }
-
-        return;
-
         // get info for the place
         $place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $request['google_place_id'] . '&key=' . env('GOOGLE_API')));
         $place->result->formatted_address;
@@ -124,13 +107,48 @@ class PagesController extends Controller
     	$page->google_place_id = $place->result->id;
     	$user->pages()->save($page);
 
-    	// upload photo and generate thumbs
-    	if(isset($request['file'])){
-			$request['file']->move('files/pages/' . $page->id, 'image.jpg');
-            // generate thumbs
-            Image::make('files/pages/' . $page->id . '/image.jpg')->fit(1000,1000)->save('files/pages/' . $page->id . '/image.jpg')->fit(160,160)->save('files/pages/' . $page->id . '/thumb.jpg');
-		}
-        
     }
+
+
+    public function addImage(Page $page){
+        
+        $request_body = @file_get_contents('php://input');
+
+        // Get some information on the file
+        $file_info = new \finfo(FILEINFO_MIME);
+
+        // Extract the mime type
+        $mime_type = $file_info->buffer($request_body);
+
+        error_log('post received:');
+        error_log($mime_type);
+        error_log('headers:');
+        
+        $headers = getallheaders();
+        foreach (getallheaders() as $name => $value) {
+            error_log($name . ' : ' . $value);
+        }
+
+        if(strstr($mime_type, 'image/png')){
+            $extension = 'png';
+        }elseif(strstr($mime_type, 'image/jpeg')){
+            $extension = 'jpg';
+        }else{
+            error_log('mime not valid');
+            return;
+        }
+
+        // write image from raw post to file
+        file_put_contents('files/pages/' . $page->id . '/image.' . $extension, $request_body);
+    
+        //$request['file']->move('files/pages/' . $page->id, 'image.jpg');
+        // generate thumbs
+        Image::make('files/pages/' . $page->id . '/image.' . $extension)->fit(1000,1000)->save('files/pages/' . $page->id . '/image.jpg')->fit(160,160)->save('files/pages/' . $page->id . '/thumb.jpg');
+    
+
+        return response()->json(['status' => 'success', 'new_user' => 'false', 'user_id' => $user->id]);
+
+    }
+
 
 }
