@@ -92,7 +92,8 @@ class PagesController extends Controller
     public function store(User $user){
 
     	$request = request()->all();
-
+        
+        error_log($user->id);
         error_log('store page');
         error_log(print_r($request, true));
 
@@ -109,6 +110,7 @@ class PagesController extends Controller
         $page->lng = $place->result->geometry->location->lng;
     	$page->google_place_id = $place->result->id;
     	$user->pages()->save($page);
+
 
     }
 
