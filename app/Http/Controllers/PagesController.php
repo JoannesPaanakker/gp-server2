@@ -112,7 +112,6 @@ class PagesController extends Controller
 
         return response()->json(['status' => 'success', 'page_id' => $page->id]);
 
-        
     }
 
 
@@ -143,6 +142,8 @@ class PagesController extends Controller
             error_log('mime not valid');
             return;
         }
+        
+        @mkdir('files/pages/' .  $page->id);
 
         // write image from raw post to file
         file_put_contents('files/pages/' . $page->id . '/image.' . $extension, $request_body);
