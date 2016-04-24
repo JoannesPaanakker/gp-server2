@@ -106,7 +106,7 @@ class PagesController extends Controller
         $page->about = $request['about'];
         $page->lat = $place->result->geometry->location->lat;
         $page->lng = $place->result->geometry->location->lng;
-    	$page->google_place_id = $place->result->id;
+    	$page->google_place_id = $place->result->place_id;
     	$user->pages()->save($page);
 
 
