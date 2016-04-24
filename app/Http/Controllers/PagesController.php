@@ -98,7 +98,7 @@ class PagesController extends Controller
         error_log(print_r($request, true));
 
         // get info for the place
-        $url = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=47dda0dfc74d81493c968981badeb220cab677bf&key=' . env('GOOGLE_API');
+        $url = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyAOwPfFyBPqNJl_HYsCrCKPSvJcthkchok';
         $place = file_get_contents($url);
         error_log($url);
         error_log($place);
