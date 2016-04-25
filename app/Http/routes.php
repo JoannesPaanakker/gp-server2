@@ -31,6 +31,7 @@ Route::get('/places/nearby/{coordinates}', 'PagesController@getPlacesNearBy');
 
 Route::get('/reviews', 'ReviewsController@index');
 Route::get('/reviews/{review}', 'ReviewsController@show');
+Route::post('/reviews/{review}/images', 'ReviewsController@addImage');
 
 Route::get('/tips', 'TipsController@index');
 Route::post('/tips', 'TipsController@store');

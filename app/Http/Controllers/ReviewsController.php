@@ -62,13 +62,53 @@ class ReviewsController extends Controller
         $user->reviews()->save($review);
         $page->reviews()->save($review);
 
-        // upload photo and generate thumbs
-        if(isset($request['file'])){
-            $request['file']->move('files/reviews/' . $review->id, 'image.jpg');
-            Image::make('files/reviews/' . $review->id . '/image.jpg')->fit(1000,1000)->save('files/reviews/' . $review->id . '/image.jpg')->fit(160,160)->save('files/reviews/' . $review->id . '/thumb.jpg');
+        return response()->json(['status' => 'success', 'review_id' => $review->id]);
+
+    }
+
+
+
+
+    public function addImage(Review $review){
+        
+        $request_body = @file_get_contents('php://input');
+
+        // Get some information on the file
+        $file_info = new \finfo(FILEINFO_MIME);
+
+        // Extract the mime type
+        $mime_type = $file_info->buffer($request_body);
+
+        error_log('post received:');
+        error_log($mime_type);
+        error_log('headers:');
+        
+        $headers = getallheaders();
+        foreach (getallheaders() as $name => $value) {
+            error_log($name . ' : ' . $value);
         }
 
+        if(strstr($mime_type, 'image/png')){
+            $extension = 'png';
+        }elseif(strstr($mime_type, 'image/jpeg')){
+            $extension = 'jpg';
+        }else{
+            error_log('mime not valid');
+            return;
+        }
         
+        @mkdir('files/reviews/' .  $review->id);
+
+        // write image from raw post to file
+        file_put_contents('files/reviews/' . $review->id . '/image.' . $extension, $request_body);
+    
+        //$request['file']->move('files/reviews/' . $review->id, 'image.jpg');
+        // generate thumbs
+        Image::make('files/reviews/' . $review->id . '/image.' . $extension)->fit(1000,1000)->save('files/reviews/' . $review->id . '/image.jpg')->fit(160,160)->save('files/reviews/' . $review->id . '/thumb.jpg');
+    
+
+        return response()->json(['status' => 'success', 'new_user' => 'false', 'user_id' => $user->id]);
+
     }
 
 }
