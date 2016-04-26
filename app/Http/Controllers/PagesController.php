@@ -90,8 +90,7 @@ class PagesController extends Controller
     }
 
     public function userPages(User $user){
-        var_dump('getting user pages for user:');
-        var_dump($user);
+        
 		$pages = $user->pages()->get();
         foreach($pages as $index => $page){
             $pages[$index]->thumb = $page->getThumb();
