@@ -15,8 +15,11 @@ class LogRequestsMiddleware
      */
     public function handle($request, Closure $next)
     {
-        
-        error_log('----- New Request: ' . $request->fullUrl());
-        return $next($request);
+        error_log('##### New Request: ' . $request->fullUrl());
+        $response = $next($request);
+        error_log('---------------- Response --------------------');
+        error_log($response);
+        error_log("\n\n");
+        return $response;
     }
 }
