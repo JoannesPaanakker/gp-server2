@@ -44,18 +44,42 @@ class PagesController extends Controller
         return $pages;
     }
 
-    // gets all places arount the user
+    // gets all places without pages around the user
     public function getPlacesNearBy($coordinates){
         
         $api_key = env('GOOGLE_API');
         $type = 'restaurant';
         $radius = '200'; //metres
         $rankby = '';
+
+        // get places nearby from google
         $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . $api_key . '&location=' . $coordinates . '&radius=' . $radius . '&type=' . $type . '&rankby=' . $rankby;
         
         $places_nearby = json_decode(file_get_contents($google_places_url));
         
-        return $places_nearby->results;
+        // build query using these ids
+        $nearby_ids = [];
+        foreach($places_nearby->results as $place){
+            $nearby_ids[] = "'" . $place->place_id . "'";
+        }
+
+        $nearby_pages = [];
+
+        // get nearby pages
+        $pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) .')')->get();
+        foreach($pages as $index => $page){
+            $nearby_pages[] = $page->google_place_id;
+        }
+
+        // exclude those pages from places
+        $places_nearby_without_pages = [];
+        foreach($places_nearby->results as $place){
+            if(!in_array($place->place_id, $nearby_pages)){
+                $places_nearby_without_pages[] = $place;
+            }
+        }
+
+        return $places_nearby_without_pages;
     }
 
     public function show(Page $page){
