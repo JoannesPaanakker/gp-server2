@@ -40,9 +40,10 @@ Route::post('/tips', 'TipsController@store');
 Route::get('/users/{user}/goals', 'GoalsController@index');
 Route::post('/users/{user}/goals', 'GoalsController@store');
 Route::get('/users/{user}/goals/{goal}', 'GoalsController@show');
+Route::get('/users/{user}/goals/{goal}/delete', 'GoalsController@delete');
+Route::post('/users/{user}/goals/{goal}', 'GoalsController@update');
 
 Route::post('/save-login', 'UsersController@store');
-
 
 
 Route::auth();
