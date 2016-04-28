@@ -39,7 +39,7 @@ Route::post('/tips', 'TipsController@store');
 
 Route::get('/users/{user}/goals', 'GoalsController@index');
 Route::post('/users/{user}/goals', 'GoalsController@store');
-Route::post('/users/{user}/goals/{goal}', 'GoalsController@show');
+Route::get('/users/{user}/goals/{goal}', 'GoalsController@show');
 
 Route::post('/save-login', 'UsersController@store');
 
