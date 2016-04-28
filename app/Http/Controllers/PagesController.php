@@ -44,6 +44,12 @@ class PagesController extends Controller
         return $pages;
     }
 
+    public function search($query){
+        error_log('searching');
+        $pages = Page::where('title', 'LIKE', '%' . $query . '%')->get();
+        return $pages;
+    }
+
     // gets all places without pages around the user
     public function getPlacesNearBy($coordinates){
         
@@ -178,7 +184,7 @@ class PagesController extends Controller
         Image::make('files/pages/' . $page->id . '/image.' . $extension)->fit(1000,1000)->save('files/pages/' . $page->id . '/image.jpg')->fit(160,160)->save('files/pages/' . $page->id . '/thumb.jpg');
     
 
-        return response()->json(['status' => 'success', 'new_user' => 'false', 'user_id' => $user->id]);
+        return response()->json(['status' => 'success']);
 
     }
 
