@@ -26,5 +26,10 @@ class GoalsController extends Controller
     	return response()->json(['status' => 'success']);
     }
 
+     public function show(User $user, Goal $goal){
+        // TODO: check if the goal belongs to the user, otherwise 404
+        return $goal;
+    }
+
 
 }
