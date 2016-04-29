@@ -71,6 +71,10 @@ class PagesController extends Controller
 
         $nearby_pages = [];
 
+        if(count($nearby_ids) <= 0){
+            return [];
+        }
+
         // get nearby pages
         $pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) .')')->get();
         foreach($pages as $index => $page){
@@ -84,6 +88,8 @@ class PagesController extends Controller
                 $places_nearby_without_pages[] = $place;
             }
         }
+
+        
 
         return $places_nearby_without_pages;
     }
