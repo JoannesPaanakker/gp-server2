@@ -11,7 +11,6 @@ use App\Goal;
 class GoalsController extends Controller
 {
 
-
 	// list all goals for a user
     public function index(User $user){
     	$goals = $user->goals()->get();
@@ -41,6 +40,7 @@ class GoalsController extends Controller
         // TODO: check if the goal belongs to the user, otherwise 404
         $request = request()->all();
         $goal->title = $request['title'];
+        $goal->completed = ($request['title'] == 'true') ? 1 : 0;
         $goal->save();
         return response()->json(['status' => 'success']);
     }
