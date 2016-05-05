@@ -19,8 +19,11 @@ class UsersController extends Controller
     	$user = User::firstOrNew(['email' => $request['email']]);
 
 		$user->first_name = $request['firstName'];
-		$user->last_name = $request['lastName'];
-		
+        $user->last_name = $request['lastName'];
+        $user->picture = $request['picture'];
+        $user->provider = $request['provider'];
+		$user->provider_id = $request['provider_id'];
+
         $returning_user = $user->exists;
 
 		$user->save();

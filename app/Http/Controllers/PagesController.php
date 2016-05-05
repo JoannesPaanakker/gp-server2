@@ -129,6 +129,8 @@ class PagesController extends Controller
         return $pages;
     }
 
+    
+
     public function store(User $user){
 
     	$request = request()->all();
