@@ -51,7 +51,7 @@ class PagesController extends Controller
 
     public function search($query){
         error_log('searching');
-        $pages = Page::where('title', 'LIKE', '%' . $query . '%')->get();
+        $pages = Page::where('title', 'LIKE', '%' . $query . '%')->take(2)->get();
         foreach($pages as $index => $page){
             $pages[$index]->thumb = $page->getThumb();
             $pages[$index]->picture = $page->getImage();
