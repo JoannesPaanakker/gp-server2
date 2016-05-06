@@ -158,7 +158,20 @@ class PagesController extends Controller
 
 
     public function addImage(Page $page){
+
+        $request = request()->all();
+
+        // upload photo and generate thumbs
+        if(isset($request['file'])){
+            $request['file']->move('files/pages/' . $page->id, 'image.jpg');
+            // generate thumbs
+            Image::make('files/pages/' . $page->id . '/image.jpg')->fit(1000,1000)->save('files/pages/' . $page->id . '/image.jpg')->fit(160,160)->save('files/pages/' . $page->id . '/thumb.jpg');
+        }
         
+        /*
+        #
+        #   Nativescript Image uploading..
+        #
         $request_body = @file_get_contents('php://input');
 
         // Get some information on the file
@@ -193,7 +206,7 @@ class PagesController extends Controller
         //$request['file']->move('files/pages/' . $page->id, 'image.jpg');
         // generate thumbs
         Image::make('files/pages/' . $page->id . '/image.' . $extension)->fit(1000,1000)->save('files/pages/' . $page->id . '/image.jpg')->fit(160,160)->save('files/pages/' . $page->id . '/thumb.jpg');
-    
+        */
 
         return response()->json(['status' => 'success']);
 
