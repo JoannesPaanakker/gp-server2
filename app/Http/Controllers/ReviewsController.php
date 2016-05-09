@@ -23,7 +23,7 @@ class ReviewsController extends Controller
     }
 
     public function show(Review $review){
-
+        $review->date = date('d/m/Y', strtotime($review->created_at));
         $review->thumb = $review->getThumb();
         $review->picture = $review->getImage();
         $review->user = $review->user()->get();
