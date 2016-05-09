@@ -16,7 +16,8 @@ class TipsController extends Controller
     }
 
     public function show(Tip $tip){
-        $tip->user = $tip->user()->get();
+        return 'test';
+        //$tip->user = $tip->user()->get();
         return $tip;
     }
 
