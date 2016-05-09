@@ -25,6 +25,7 @@ class ReviewsController extends Controller
     public function show(Review $review){
         $review->thumb = $review->getThumb();
         $review->picture = $review->getImage();
+        $review->user = $review->user()->get;
     	return $review;
     }
 
@@ -46,7 +47,6 @@ class ReviewsController extends Controller
         }
         return $reviews;
     }
-
 
     public function store(User $user){
         $request = request()->all();
