@@ -23,9 +23,10 @@ class ReviewsController extends Controller
     }
 
     public function show(Review $review){
+
         $review->thumb = $review->getThumb();
         $review->picture = $review->getImage();
-        $review->user = $review->user();
+        $review->user = $review->user()->get();
     	return $review;
     }
 
