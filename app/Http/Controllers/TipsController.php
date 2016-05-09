@@ -15,6 +15,11 @@ class TipsController extends Controller
     	return $tips;
     }
 
+    public function show(Tip $tip){
+        $tip->user = $tip->user()->get();
+        return $tip;
+    }
+
     public function store(){
     	$request = request()->all();
     	$user = User::find($request['userID']);
