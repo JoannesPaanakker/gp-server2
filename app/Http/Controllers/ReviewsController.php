@@ -49,6 +49,9 @@ class ReviewsController extends Controller
         return $reviews;
     }
 
+
+    
+
     public function store(User $user){
         $request = request()->all();
         $page = Page::find($request['page_id']);
@@ -71,6 +74,18 @@ class ReviewsController extends Controller
 
 
     public function addImage(Review $review){
+        
+        $request = request()->all();
+
+        // upload photo and generate thumbs
+        if(isset($request['file'])){
+            $request['file']->move('files/reviews/' . $review->id, 'image.jpg');
+            // generate thumbs
+            Image::make('files/reviews/' . $review->id . '/image.jpg')->fit(1000,1000)->save('files/reviews/' . $review->id . '/image.jpg')->fit(160,160)->save('files/reviews/' . $review->id . '/thumb.jpg');
+        }
+
+        /*
+        ### Nativescript image uploading
         
         $request_body = @file_get_contents('php://input');
 
@@ -107,8 +122,9 @@ class ReviewsController extends Controller
         // generate thumbs
         Image::make('files/reviews/' . $review->id . '/image.' . $extension)->fit(1000,1000)->save('files/reviews/' . $review->id . '/image.jpg')->fit(160,160)->save('files/reviews/' . $review->id . '/thumb.jpg');
     
-
-        return response()->json(['status' => 'success', 'new_user' => 'false', 'user_id' => $user->id]);
+        */
+       
+         return response()->json(['status' => 'success']);
 
     }
 

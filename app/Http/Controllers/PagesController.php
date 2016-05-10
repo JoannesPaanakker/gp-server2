@@ -158,7 +158,6 @@ class PagesController extends Controller
     	$page->google_place_id = $place->result->place_id;
     	$user->pages()->save($page);
 
-
         return response()->json(['status' => 'success', 'page_id' => $page->id]);
 
     }
