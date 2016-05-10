@@ -21,9 +21,10 @@ class TipsController extends Controller
     }
 
     public function hearts(Tip $tip){
-        return 'test';
+
         $tip->hearts = $tip->hearts + 1;
         $tip->save();
+        return response()->json(['status' => 'success']);
     }
 
     public function store(){
