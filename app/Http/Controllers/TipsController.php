@@ -21,7 +21,7 @@ class TipsController extends Controller
     }
 
     public function hearts(Tip $tip){
-        $tip->hearts = $this->hearts + 1;
+        $tip->hearts = $tip->hearts + 1;
         $tip->save();
     }
 
