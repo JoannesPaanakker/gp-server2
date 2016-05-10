@@ -37,6 +37,7 @@ Route::post('/reviews/{review}/images', 'ReviewsController@addImage');
 Route::get('/tips', 'TipsController@index');
 Route::get('/tips/{tip}', 'TipsController@show');
 Route::post('/tips', 'TipsController@store');
+Route::post('/tips/{tip}/hearts', 'TipsController@hearts');
 
 Route::get('/users/{user}/goals', 'GoalsController@index');
 Route::post('/users/{user}/goals', 'GoalsController@store');

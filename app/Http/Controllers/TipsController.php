@@ -16,9 +16,13 @@ class TipsController extends Controller
     }
 
     public function show(Tip $tip){
-
         $tip->user = $tip->user()->get();
         return $tip;
+    }
+
+    public function hearts(Tip $tip){
+        $tip->hearts = $this->hearts + 1;
+        $tip->save();
     }
 
     public function store(){
