@@ -28,12 +28,8 @@ class UsersController extends Controller
 
 		$user->save();
 
-        if($returning_user){
-            return response()->json(['status' => 'success', 'new_user' => 'false', 'user_id' => $user->id]);
-        }else{
-            return response()->json(['status' => 'success', 'new_user' => 'true', 'user_id' => $user->id]);    
-        }
-        
+        return response()->json(['status' => 'success', 'quiz_completed' => $user->quiz_completed, 'user_id' => $user->id]);
+                
     }
 
 
