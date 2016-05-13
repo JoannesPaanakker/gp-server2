@@ -34,7 +34,9 @@ class UsersController extends Controller
 
 
     public function quizCompleted(User $user){
+        $request = request()->all();
         $user->quiz_completed = 1;
+        $user->quiz_score = $request['quiz_score'];
         $user->save();
         return response()->json(['status' => 'success']);
     }
