@@ -20,6 +20,7 @@ Route::get('/users/{user}/pages', 'PagesController@userPages');
 Route::post('/users/{user}/pages', 'PagesController@store');
 Route::get('/users/{user}/reviews', 'ReviewsController@userReviews');
 Route::post('/users/{user}/reviews', 'ReviewsController@store');
+Route::post('/users/{user}/quiz-completed', 'UsersController@quizCompleted');
 
 Route::get('/pages', 'PagesController@index');
 Route::get('/pages/{page}', 'PagesController@show');

@@ -33,5 +33,11 @@ class UsersController extends Controller
     }
 
 
+    public function quizCompleted(User $user){
+        $user->quiz_completed = 1;
+        $user->save;
+        return response()->json(['status' => 'success']);
+    }
+
 
 }
