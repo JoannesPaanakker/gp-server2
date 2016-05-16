@@ -111,6 +111,20 @@ class PagesController extends Controller
         return $page;
     }
 
+
+    public function update(Page $page){
+        $request = request()->all();
+        $page->about = $request['about'];
+        $page->save();
+        return response()->json(['status' => 'success']);
+    }
+
+    public function delete(Page $page){
+        $page->delete();
+        return response()->json(['status' => 'success']);
+    }
+
+
     public function userPages(User $user){
         
 		$pages = $user->pages()->get();

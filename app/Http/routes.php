@@ -30,6 +30,8 @@ Route::get('/pages/{page}/reviews', 'ReviewsController@pageReviews');
 Route::post('/pages/get-by-id', 'PagesController@getById');
 Route::get('/pages/nearby/{coordinates}', 'PagesController@getPagesNearBy');
 Route::get('/places/nearby/{coordinates}', 'PagesController@getPlacesNearBy');
+Route::post('/pages/{page}/update', 'PagesController@update');
+Route::post('/pages/{page}/delete', 'PagesController@delete');
 
 Route::get('/reviews', 'ReviewsController@index');
 Route::get('/reviews/{review}', 'ReviewsController@show');
