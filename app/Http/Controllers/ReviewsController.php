@@ -30,6 +30,16 @@ class ReviewsController extends Controller
     	return $review;
     }
 
+
+    public function update(Review $review){
+        $request = request()->all();
+        $review->title = $request['title'];
+        $review->content = $request['content'];
+        $review->rating = $request['rating'];
+        return $review->save();
+        return response()->json(['status' => 'success']);
+    }
+
     public function userReviews(User $user){
         $reviews = $user->reviews()->get();
         foreach($reviews as $index => $review){

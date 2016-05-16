@@ -33,6 +33,7 @@ Route::get('/places/nearby/{coordinates}', 'PagesController@getPlacesNearBy');
 
 Route::get('/reviews', 'ReviewsController@index');
 Route::get('/reviews/{review}', 'ReviewsController@show');
+Route::post('/reviews/{review}/update', 'ReviewsController@update');
 Route::post('/reviews/{review}/images', 'ReviewsController@addImage');
 
 Route::get('/tips', 'TipsController@index');
