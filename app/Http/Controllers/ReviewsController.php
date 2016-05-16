@@ -40,6 +40,11 @@ class ReviewsController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    public function delete(Review $review){
+        $review->delete();
+        return response()->json(['status' => 'success']);
+    }
+
     public function userReviews(User $user){
         $reviews = $user->reviews()->get();
         foreach($reviews as $index => $review){
