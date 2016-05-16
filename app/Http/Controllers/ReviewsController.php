@@ -36,7 +36,7 @@ class ReviewsController extends Controller
         $review->title = $request['title'];
         $review->content = $request['content'];
         $review->rating = $request['rating'];
-        return $review->save();
+        $review->save();
         return response()->json(['status' => 'success']);
     }
 
