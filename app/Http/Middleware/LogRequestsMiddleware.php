@@ -15,11 +15,14 @@ class LogRequestsMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if(!env('APP_LOG_REQUESTS'))return $next($request);
+
         error_log('##### New Request: (' . $request->method() . ') ' . $request->fullUrl());
         $response = $next($request);
         error_log('---------------- Response --------------------');
         error_log($response);
         error_log("\n\n");
+        
         return $response;
     }
 }
