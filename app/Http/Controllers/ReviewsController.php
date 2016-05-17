@@ -24,8 +24,9 @@ class ReviewsController extends Controller
     public function show(Review $review){
         $review->date = date('d/m/Y', strtotime($review->created_at));
         $review->photos = $review->photos()->get();
-        //$review->thumb = $review->getThumb();
-        //$review->picture = $review->getImage();
+        $review->pictures = $review->getImages();
+        $review->thumb = $review->getThumb();
+        
         $review->user = $review->user()->get();
     	return $review;
     }
@@ -48,7 +49,6 @@ class ReviewsController extends Controller
         $reviews = $user->reviews()->with('photos')->get();
         foreach($reviews as $index => $review){
             $reviews[$index]->thumb = $review->getThumb();
-            $reviews[$index]->images = $review->getImages();
             $reviews[$index]->place = $review->page->title;
         }
         return $reviews;
