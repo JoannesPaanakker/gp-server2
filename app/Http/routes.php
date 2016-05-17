@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -38,6 +37,8 @@ Route::get('/reviews/{review}', 'ReviewsController@show');
 Route::post('/reviews/{review}/update', 'ReviewsController@update');
 Route::post('/reviews/{review}/delete', 'ReviewsController@delete');
 Route::post('/reviews/{review}/images', 'ReviewsController@addImage');
+
+Route::post('/photos/{photo}/delete', 'PhotosController@delete');
 
 Route::get('/tips', 'TipsController@index');
 Route::get('/tips/{tip}', 'TipsController@show');

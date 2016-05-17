@@ -8,28 +8,27 @@ use App\Review;
 use App\User;
 use App\Page;
 use Image;
+use Photo;
 
 class ReviewsController extends Controller
 {
 
     public function index(){    	
-    	$reviews = Review::all();
-    	foreach($reviews as $index => $review){
-            $reviews[$index]->thumb = $review->getThumb();
-            $reviews[$index]->picture = $review->getImage();
+    	$reviews = Review::with('photos')->get();
+        foreach($reviews as $index => $review){
             $reviews[$index]->place = $review->page->title;
         }
-    	return $reviews;
+        return $reviews;
     }
 
     public function show(Review $review){
         $review->date = date('d/m/Y', strtotime($review->created_at));
-        $review->thumb = $review->getThumb();
-        $review->picture = $review->getImage();
+        $review->photos = $review->photos()->get();
+        //$review->thumb = $review->getThumb();
+        //$review->picture = $review->getImage();
         $review->user = $review->user()->get();
     	return $review;
     }
-
 
     public function update(Review $review){
         $request = request()->all();
@@ -46,26 +45,19 @@ class ReviewsController extends Controller
     }
 
     public function userReviews(User $user){
-        $reviews = $user->reviews()->get();
+        $reviews = $user->reviews()->with('photos')->get();
         foreach($reviews as $index => $review){
-            $reviews[$index]->thumb = $review->getThumb();
-            $reviews[$index]->picture = $review->getImage();
             $reviews[$index]->place = $review->page->title;
         }
         return $reviews;
     }
 
     public function pageReviews(Page $page){
-    	$reviews = $page->reviews()->get();
-    	foreach($reviews as $index => $review){
-            $reviews[$index]->thumb = $review->getThumb();
-            $reviews[$index]->picture = $review->getImage();
-        }
+    	$reviews = $page->reviews()->with('photos')->get();
         return $reviews;
     }
 
 
-    
 
     public function store(User $user){
         $request = request()->all();
@@ -92,11 +84,16 @@ class ReviewsController extends Controller
         
         $request = request()->all();
 
+        // create the photo record
+        $photo = new Photo;
+        $photo->review_id = $review->id;
+        $photo->save();
+
         // upload photo and generate thumbs
         if(isset($request['file'])){
-            $request['file']->move('files/reviews/' . $review->id, 'image.jpg');
+            $request['file']->move('photos', $photo->id . '.jpg');
             // generate thumbs
-            Image::make('files/reviews/' . $review->id . '/image.jpg')->fit(1000,1000)->save('files/reviews/' . $review->id . '/image.jpg')->fit(160,160)->save('files/reviews/' . $review->id . '/thumb.jpg');
+            Image::make('photos/' . $photo->id . '.jpg')->fit(1000, 1000)->save('photos/' . $photo->id . '.jpg')->fit(160,160)->save('photos/' . $photo->id . '_thumb.jpg');
         }
 
         /*

@@ -11,10 +11,8 @@ class PagesController extends Controller
 {
 
     public function index(){
-    	$pages = Page::all();
+    	$pages = Page::with('photos')->get();
         foreach($pages as $index => $page){
-            $pages[$index]->thumb = $page->getThumb();
-            $pages[$index]->picture = $page->getImage();
             $pages[$index]->num_reviews = $page->reviews()->count();
         }
     	return $pages;
@@ -51,10 +49,8 @@ class PagesController extends Controller
 
     public function search($query){
         error_log('searching');
-        $pages = Page::where('title', 'LIKE', '%' . $query . '%')->take(10)->get();
+        $pages = Page::with('photos')->where('title', 'LIKE', '%' . $query . '%')->take(10)->get();
         foreach($pages as $index => $page){
-            $pages[$index]->thumb = $page->getThumb();
-            $pages[$index]->picture = $page->getImage();
             $pages[$index]->num_reviews = $page->reviews()->count();
         }
         return $pages;
@@ -99,18 +95,15 @@ class PagesController extends Controller
             }
         }
 
-        
-
         return $places_nearby_without_pages;
     }
 
     public function show(Page $page){
-        $page->thumb = $page->getThumb();
-        $page->picture = $page->getImage();
+        $page->photos = $page->photos()->get();
+        $page->user = $page->user()->get();
         $page->num_reviews = $page->reviews()->count();
         return $page;
     }
-
 
     public function update(Page $page){
         $request = request()->all();
@@ -126,11 +119,8 @@ class PagesController extends Controller
 
 
     public function userPages(User $user){
-        
-		$pages = $user->pages()->get();
+		$pages = $user->pages()->with('photos')->get();
         foreach($pages as $index => $page){
-            $pages[$index]->thumb = $page->getThumb();
-            $pages[$index]->picture = $page->getImage();
             $pages[$index]->num_reviews = $page->reviews()->count();
         }
         return $pages;

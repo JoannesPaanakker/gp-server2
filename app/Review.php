@@ -15,6 +15,10 @@ class Review extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function photos(){
+        return $this->hasMany(Photo::class);
+    }
+
     public function getThumb(){
     	$file = '/files/reviews/' . $this->id . '/thumb.jpg';
     	if(file_exists(public_path() . $file)){
