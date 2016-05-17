@@ -20,21 +20,23 @@ class Page extends Model
     }
 
     public function getThumb(){
-    	$file = '/files/pages/' . $this->id . '/thumb.jpg';
-    	if(file_exists(public_path() . $file)){
-    		return env('APP_URL') . $file;
-    	}else{
-    		return env('APP_URL') . '/files/pages/default.jpg';
-    	}
+        if(count($this->photos) > 0){
+            return env('APP_URL') . '/photos/' . $this->photos[0]->id . '_thumb.jpg';
+        }else{
+            return env('APP_URL') . '/photos/default_page.jpg';
+        }
     }
 
-    public function getImage(){
-    	$file = '/files/pages/' . $this->id . '/image.jpg';
-    	if(file_exists(public_path() . $file)){
-    		return env('APP_URL') . $file;
-    	}else{
-    		return env('APP_URL') . '/files/pages/default.jpg';
-    	}
+    public function getImages(){
+        if(count($this->photos) > 0){
+            $images = [];
+            foreach($this->photos as $photo){
+                $images[] = env('APP_URL') . '/photos/' . $photo->id . '.jpg';
+            }
+            return $images;
+        }else{
+            return [env('APP_URL') . '/photos/default_page.jpg'];
+        }
     }
     
 }

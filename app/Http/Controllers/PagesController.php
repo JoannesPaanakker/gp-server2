@@ -51,6 +51,7 @@ class PagesController extends Controller
         error_log('searching');
         $pages = Page::with('photos')->where('title', 'LIKE', '%' . $query . '%')->take(10)->get();
         foreach($pages as $index => $page){
+            $pages[$index]->thumb = $page->getThumb();
             $pages[$index]->num_reviews = $page->reviews()->count();
         }
         return $pages;
@@ -100,6 +101,8 @@ class PagesController extends Controller
 
     public function show(Page $page){
         $page->photos = $page->photos()->get();
+        $page->pictures = $page->getImages();
+        $page->thumb = $page->getThumb();
         $page->user = $page->user()->get();
         $page->num_reviews = $page->reviews()->count();
         return $page;
@@ -121,6 +124,7 @@ class PagesController extends Controller
     public function userPages(User $user){
 		$pages = $user->pages()->with('photos')->get();
         foreach($pages as $index => $page){
+            $page[$index]->thumb = $page->getThumb();
             $pages[$index]->num_reviews = $page->reviews()->count();
         }
         return $pages;
