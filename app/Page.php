@@ -31,11 +31,11 @@ class Page extends Model
         if(count($this->photos) > 0){
             $images = [];
             foreach($this->photos as $photo){
-                $images[] = env('APP_URL') . '/photos/' . $photo->id . '.jpg';
+                $images[] = ['url' => env('APP_URL') . '/photos/' . $photo->id . '.jpg', 'id' => $photo->id];
             }
             return $images;
         }else{
-            return [env('APP_URL') . '/photos/default_page.jpg'];
+            return ['url' => env('APP_URL') . '/photos/default_page.jpg', 'id' => 0];
         }
     }
     
