@@ -79,8 +79,6 @@ class ReviewsController extends Controller
     }
 
 
-
-
     public function addImage(Review $review){
         
         $request = request()->all();

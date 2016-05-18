@@ -19,6 +19,46 @@ class PagesController extends Controller
     	return $pages;
     }
 
+    // it gets all places nearby and marks the ones with pages created
+    public function getPagesAndPlacesNearby(){
+        $api_key = env('GOOGLE_API');
+        $type = 'restaurant';
+        $radius = '200'; //metres
+        $rankby = '';
+        $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . $api_key . '&location=' . $coordinates . '&radius=' . $radius . '&type=' . $type . '&rankby=' . $rankby;
+        
+        $places_nearby = json_decode(file_get_contents($google_places_url));
+        
+        $places_list = [];
+        $nearby_ids = [];
+        foreach($places_nearby->results as $place){
+            $nearby_ids[] = "'" . $place->place_id . "'";
+            $places_list[] = [
+                'title' => $place->name,
+                'address' => $place->formatted_address,
+                'about' => '',
+                'rating' => '0',
+                'lat' => $place->geometry->location->lat,
+                'lon' => $place->geometry->location->lng,
+                'withpage' => 'no'
+            ];
+        }
+        if(count($nearby_ids) <= 0){
+            return [];
+        }
+
+        $pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) .')')->get();
+        foreach($pages as $index => $page){
+            $pages[$index]->thumb = $page->getThumb();
+            $pages[$index]->num_reviews = $page->reviews()->count();
+            $pages[$index]->'withpage' = 'yes';
+            $places_list[] = $pages[$index];
+        }
+
+        return $places_list;
+    }
+
+
     // gets all the pages around the user
     public function getPagesNearBy($coordinates){
         
