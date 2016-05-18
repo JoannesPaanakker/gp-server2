@@ -51,7 +51,7 @@ class PagesController extends Controller
         foreach($pages as $index => $page){
             $pages[$index]->thumb = $page->getThumb();
             $pages[$index]->num_reviews = $page->reviews()->count();
-            $pages[$index]->'withpage' = 'yes';
+            $pages[$index]->withpage = 'yes';
             $places_list[] = $pages[$index];
         }
 
