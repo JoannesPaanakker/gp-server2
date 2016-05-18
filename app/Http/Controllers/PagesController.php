@@ -39,10 +39,11 @@ class PagesController extends Controller
                 'about' => '',
                 'rating' => '0',
                 'lat' => $place->geometry->location->lat,
-                'lon' => $place->geometry->location->lng,
+                'lng' => $place->geometry->location->lng,
                 'withpage' => 'no'
             ];
         }
+
         if(count($nearby_ids) <= 0){
             return [];
         }
