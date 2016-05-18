@@ -28,15 +28,15 @@ class Page extends Model
     }
 
     public function getImages(){
+        $images = [];
         if(count($this->photos) > 0){
-            $images = [];
             foreach($this->photos as $photo){
                 $images[] = ['url' => env('APP_URL') . '/photos/' . $photo->id . '.jpg', 'id' => $photo->id];
             }
-            return $images;
         }else{
-            return ['url' => env('APP_URL') . '/photos/default_page.jpg', 'id' => 0];
+            $images[] = ['url' => env('APP_URL') . '/photos/default_page.jpg', 'id' => 0];
         }
+        return $images;
     }
     
 }
