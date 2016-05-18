@@ -33,9 +33,10 @@ class PagesController extends Controller
         $nearby_ids = [];
         foreach($places_nearby->results as $place){
             $nearby_ids[] = "'" . $place->place_id . "'";
+            print_r($place);
             $places_list[] = [
                 'title' => $place->name,
-                'address' => $place->formatted_address,
+                'address' => '',
                 'about' => '',
                 'rating' => '0',
                 'lat' => $place->geometry->location->lat,
