@@ -20,7 +20,7 @@ class PagesController extends Controller
     }
 
     // it gets all places nearby and marks the ones with pages created
-    public function getPagesAndPlacesNearby(){
+    public function getPagesAndPlacesNearby($coordinates){
         $api_key = env('GOOGLE_API');
         $type = 'restaurant';
         $radius = '200'; //metres
