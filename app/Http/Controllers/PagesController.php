@@ -124,7 +124,7 @@ class PagesController extends Controller
     public function userPages(User $user){
 		$pages = $user->pages()->with('photos')->get();
         foreach($pages as $index => $page){
-            $page[$index]->thumb = $page->getThumb();
+            $pages[$index]->thumb = $page->getThumb();
             $pages[$index]->num_reviews = $page->reviews()->count();
         }
         return $pages;
