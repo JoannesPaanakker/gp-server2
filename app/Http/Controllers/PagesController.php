@@ -6,6 +6,7 @@ use App\User;
 use App\Page;
 use App\Review;
 use Image;
+use App\Photo;
 
 class PagesController extends Controller
 {

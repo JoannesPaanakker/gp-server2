@@ -8,7 +8,7 @@ use App\Review;
 use App\User;
 use App\Page;
 use Image;
-use Photo;
+use App\Photo;
 
 class ReviewsController extends Controller
 {
