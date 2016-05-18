@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Photos;
+use App\Photo;
 
 class PhotosController extends Controller
 {
