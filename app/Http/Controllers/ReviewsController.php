@@ -26,7 +26,6 @@ class ReviewsController extends Controller
         $review->photos = $review->photos()->get();
         $review->pictures = $review->getImages();
         $review->thumb = $review->getThumb();
-        
         $review->user = $review->user()->get();
     	return $review;
     }

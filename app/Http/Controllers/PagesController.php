@@ -40,7 +40,6 @@ class PagesController extends Controller
         $pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) .')')->get();
         foreach($pages as $index => $page){
             $pages[$index]->thumb = $page->getThumb();
-            $pages[$index]->picture = $page->getImage();
             $pages[$index]->num_reviews = $page->reviews()->count();
         }
 
