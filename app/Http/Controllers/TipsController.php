@@ -11,7 +11,8 @@ use App\User;
 class TipsController extends Controller
 {
     public function index(){
-    	$tips = Tip::orderBy('id', 'DESC')->get();
+    	$tips = Tip::with('user')->orderBy('id', 'DESC')->get();
+
     	return $tips;
     }
 
@@ -21,7 +22,6 @@ class TipsController extends Controller
     }
 
     public function hearts(Tip $tip){
-
         $tip->hearts = $tip->hearts + 1;
         $tip->save();
         return response()->json(['status' => 'success']);
