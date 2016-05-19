@@ -216,6 +216,8 @@ class PagesController extends Controller
 
     public function addImage(Page $page){
 
+        $request = request()->all();
+
         // create the photo record
         $photo = new Photo;
         $photo->page_id = $page->id;
