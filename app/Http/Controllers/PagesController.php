@@ -36,6 +36,7 @@ class PagesController extends Controller
             $places_list[] = [
                 'title' => $place->name,
                 'address' => $place->vicinity,
+                'place_id' => $place->place_id,
                 'about' => '',
                 'rating' => '0',
                 'lat' => $place->geometry->location->lat,
