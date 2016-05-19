@@ -12,7 +12,6 @@ class TipsController extends Controller
 {
     public function index(){
     	$tips = Tip::with('user')->orderBy('id', 'DESC')->get();
-
     	return $tips;
     }
 

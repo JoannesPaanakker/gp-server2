@@ -48,7 +48,7 @@ class ReviewsController extends Controller
         $reviews = $user->reviews()->with('photos')->get();
         foreach($reviews as $index => $review){
             $reviews[$index]->thumb = $review->getThumb();
-            $reviews[$index]->place = $review->page->title;
+            $reviews[$index]->place = $review->page;
         }
         return $reviews;
     }
