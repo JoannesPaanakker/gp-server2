@@ -45,10 +45,11 @@ class ReviewsController extends Controller
     }
 
     public function userReviews(User $user){
-        $reviews = $user->reviews()->get();
+        $reviews = $user->reviews()->with('photos')->get();
         foreach($reviews as $index => $review){
             $reviews[$index]->thumb = $review->getThumb();
-            $reviews[$index]->place = $review->page->title;
+            $reviews[$index]->place = '';
+            if(count($review->page))$reviews[$index]->place = $review->page->title;
         }
         return $reviews;
     }
