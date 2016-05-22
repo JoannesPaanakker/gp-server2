@@ -40,4 +40,8 @@ class User extends Authenticatable
         return $this->hasMany(Tip::class);
     }
 
+    public function following(){
+        return $this->belongsToMany(Page::class, 'follows');
+    }
+
 }

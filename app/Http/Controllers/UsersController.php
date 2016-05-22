@@ -41,5 +41,9 @@ class UsersController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    public function followPage(User $user, Page $page){
+        $user->following()->save($page);
+        return response()->json(['status' => 'success']);
+    }
 
 }

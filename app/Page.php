@@ -44,5 +44,9 @@ class Page extends Model
         }
         return $images;
     }
+
+    public function followed(){
+        return $this->belongsToMany(User::class, 'follows');
+    }
     
 }
