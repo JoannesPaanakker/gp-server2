@@ -41,7 +41,7 @@ class User extends Authenticatable
     }
 
     public function following(){
-        return $this->belongsToMany(Page::class, 'follows');
+        return $this->belongsToMany(Page::class, 'follows')->withTimestamps();
     }
 
 }

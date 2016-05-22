@@ -46,7 +46,7 @@ class Page extends Model
     }
 
     public function followed(){
-        return $this->belongsToMany(User::class, 'follows');
+        return $this->belongsToMany(User::class, 'follows')->withTimestamps();
     }
     
 }
