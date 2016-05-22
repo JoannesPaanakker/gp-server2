@@ -46,4 +46,9 @@ class UsersController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    public function unFollowPage(User $user, Page $page){
+        $user->following()->detach($page);
+        return response()->json(['status' => 'success']);
+    }
+
 }
