@@ -90,10 +90,10 @@ class PagesController extends Controller
     }
 
     public function search($query){
-        error_log('searching');
         $pages = Page::with('photos')->where('title', 'LIKE', '%' . $query . '%')->take(10)->get();
         foreach($pages as $index => $page){
             $pages[$index]->thumb = $page->getThumb();
+            $pages[$index]->withpage = 'yes';
             $pages[$index]->num_reviews = $page->reviews()->count();
         }
         return $pages;
