@@ -27,13 +27,13 @@ class PagesController extends Controller
         $rankby = '';
         $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . $api_key . '&location=' . $coordinates . '&radius=' . $radius . '&type=' . $type . '&rankby=' . $rankby;
         
-        $places_nearby = json_decode(file_get_contents($google_places_url));
+        $google_api = json_decode(file_get_contents($google_places_url));
         
-        $places_list = [];
+        $nearby_places = [];
         $nearby_ids = [];
-        foreach($places_nearby->results as $place){
+        foreach($google_api->results as $place){
             $nearby_ids[] = "'" . $place->place_id . "'";
-            $places_list[] = [
+            $nearby_places[$place->place_id] = [
                 'title' => $place->name,
                 'address' => $place->vicinity,
                 'place_id' => $place->place_id,
@@ -49,15 +49,29 @@ class PagesController extends Controller
             return [];
         }
 
+
+        
+        $pages_list = [];
         $pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) .')')->get();
         foreach($pages as $index => $page){
             $pages[$index]->thumb = $page->getThumb();
             $pages[$index]->num_reviews = $page->reviews()->count();
             $pages[$index]->withpage = 'yes';
-            $places_list[] = $pages[$index];
+            $pages_list[$page->place_id] = $pages[$index];
         }
 
-        return $places_list;
+        $pages_and_places_mixed = [];
+        foreach($nearby_places as $place){
+        	// if this place has a page, let's use the page instead
+        	if(array_key_exists($place->place_id, $pages_list)){
+        		$pages_and_places_mixed[] = $pages_list[$place->place_id];
+        	}else{
+        		// otherwise, use the place from the api
+        		$pages_and_places_mixed[] = $nearby_places[$place->place_id];
+        	}
+        }
+
+        return $pages_and_places_mixed;
     }
 
 
