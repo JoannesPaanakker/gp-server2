@@ -61,7 +61,7 @@ class PagesController extends Controller
         // if this place is not already as a page, lets add it
         foreach($nearby_places as $place_id => $place){
         	if(!array_key_exists($place_id, $pages_list)){
-        		$pages_list[] = $pages_list[$place_id];
+        		$pages_list[] = $nearby_places[$place_id];
         	}
         }
 
