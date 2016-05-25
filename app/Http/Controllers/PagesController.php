@@ -49,23 +49,25 @@ class PagesController extends Controller
             return [];
         }
 	        
-        $pages_list = [];
+        $pages_and_places = [];
+        $places_ids_with_pages = [];
         $pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) .')')->get();
         foreach($pages as $index => $page){
             $pages[$index]->thumb = $page->getThumb();
             $pages[$index]->num_reviews = $page->reviews()->count();
             $pages[$index]->withpage = 'yes';
-            $pages_list[$page->google_place_id] = $pages[$index];
+            $places_ids_with_pages[] = $page->google_place_id;
+            $pages_and_places[] = $pages[$index];
         }
 
         // if this place is not already as a page, lets add it
         foreach($nearby_places as $place_id => $place){
-        	if(!array_key_exists($place_id, $pages_list)){
-        		$pages_list[] = $nearby_places[$place_id];
+        	if(!in_array($place_id, $places_ids_with_pages)){
+        		$pages_and_places[] = $nearby_places[$place_id];
         	}
         }
 
-        return $pages_list;
+        return $pages_and_places;
     }
 
 
