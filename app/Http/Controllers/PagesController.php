@@ -55,17 +55,17 @@ class PagesController extends Controller
             $pages[$index]->thumb = $page->getThumb();
             $pages[$index]->num_reviews = $page->reviews()->count();
             $pages[$index]->withpage = 'yes';
-            $pages_list[$page->place_id] = $pages[$index];
+            $pages_list[$page->google_place_id] = $pages[$index];
         }
-        
+
         $pages_and_places_mixed = [];
-        foreach($nearby_places as $place){
+        foreach($nearby_places as $place_id => $place){
         	// if this place has a page, let's use the page instead
-        	if(array_key_exists($place['place_id'], $pages_list)){
-        		$pages_and_places_mixed[] = $pages_list[$place['place_id']];
+        	if(array_key_exists($place_id, $pages_list)){
+        		$pages_and_places_mixed[] = $pages_list[$place_id];
         	}else{
         		// otherwise, use the place from the api
-        		$pages_and_places_mixed[] = $nearby_places[$place['place_id']];
+        		$pages_and_places_mixed[] = $nearby_places[$place_id];
         	}
         }
 
