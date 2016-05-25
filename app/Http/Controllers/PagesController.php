@@ -48,9 +48,7 @@ class PagesController extends Controller
         if(count($nearby_ids) <= 0){
             return [];
         }
-
-
-        
+	        
         $pages_list = [];
         $pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) .')')->get();
         foreach($pages as $index => $page){
@@ -60,14 +58,16 @@ class PagesController extends Controller
             $pages_list[$page->place_id] = $pages[$index];
         }
 
+        print_r($nearby_places);
+
         $pages_and_places_mixed = [];
         foreach($nearby_places as $place){
         	// if this place has a page, let's use the page instead
-        	if(array_key_exists($place->place_id, $pages_list)){
-        		$pages_and_places_mixed[] = $pages_list[$place->place_id];
+        	if(array_key_exists($place['place_id'], $pages_list)){
+        		$pages_and_places_mixed[] = $pages_list[$place['place_id']];
         	}else{
         		// otherwise, use the place from the api
-        		$pages_and_places_mixed[] = $nearby_places[$place->place_id];
+        		$pages_and_places_mixed[] = $nearby_places[$place['place_id']];
         	}
         }
 
