@@ -58,18 +58,14 @@ class PagesController extends Controller
             $pages_list[$page->google_place_id] = $pages[$index];
         }
 
-        $pages_and_places_mixed = [];
+        // if this place is not already as a page, lets add it
         foreach($nearby_places as $place_id => $place){
-        	// if this place has a page, let's use the page instead
-        	if(array_key_exists($place_id, $pages_list)){
-        		$pages_and_places_mixed[] = $pages_list[$place_id];
-        	}else{
-        		// otherwise, use the place from the api
-        		$pages_and_places_mixed[] = $nearby_places[$place_id];
+        	if(!array_key_exists($place_id, $pages_list)){
+        		$pages_list[] = $pages_list[$place_id];
         	}
         }
 
-        return $pages_and_places_mixed;
+        return $pages_list;
     }
 
 
