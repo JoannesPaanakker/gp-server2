@@ -57,9 +57,7 @@ class PagesController extends Controller
             $pages[$index]->withpage = 'yes';
             $pages_list[$page->place_id] = $pages[$index];
         }
-
-        print_r($nearby_places);
-
+        
         $pages_and_places_mixed = [];
         foreach($nearby_places as $place){
         	// if this place has a page, let's use the page instead
