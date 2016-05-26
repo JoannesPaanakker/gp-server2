@@ -207,7 +207,7 @@ class PagesController extends Controller {
 
 		$page->title = $place->result->name;
 		$page->address = $place->result->formatted_address;
-		$page->categories = $place->result->types;
+		$page->categories = implode(',', $place->result->types);
 		$page->rating = $request['rating'];
 		$page->about = $request['about'];
 		$page->lat = $place->result->geometry->location->lat;
