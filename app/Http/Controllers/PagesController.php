@@ -103,10 +103,10 @@ class PagesController extends Controller {
 		// if query matches the name return it, otherwise, use it as
 		// a category and return nearby places from that category
 
-		if (\GPHelper::isCategory($query)) {
+		if (\GPHelper::isCategory(strtolower($query))) {
 			// $query is a category, search for nearby places with that category
 			$api_key = env('GOOGLE_API');
-			$type = $query;
+			$type = strtolower($query);
 			$radius = '200'; //metres
 			$rankby = '';
 			$google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . $api_key . '&location=' . $position . '&radius=' . $radius . '&type=' . $type . '&rankby=' . $rankby;
