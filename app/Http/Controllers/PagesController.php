@@ -117,19 +117,17 @@ class PagesController extends Controller {
 			foreach ($google_api->results as $place) {
 				$nearby_ids[] = "'" . $place->place_id . "'";
 			}
-
 			$pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) . ')')->get();
-			return $pages;
-
 		} else {
 			$pages = Page::with('photos')->where('title', 'LIKE', '%' . $query . '%')->take(10)->get();
-			foreach ($pages as $index => $page) {
-				$pages[$index]->thumb = $page->getThumb();
-				$pages[$index]->withpage = 'yes';
-				$pages[$index]->num_reviews = $page->reviews()->count();
-			}
-			return $pages;
 		}
+
+		foreach ($pages as $index => $page) {
+			$pages[$index]->thumb = $page->getThumb();
+			$pages[$index]->withpage = 'yes';
+			$pages[$index]->num_reviews = $page->reviews()->count();
+		}
+		return $pages;
 
 	}
 
