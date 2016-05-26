@@ -9,10 +9,10 @@
 | It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the controller to call when that URI is requested.
 |
-*/
+ */
 
 Route::get('/', function () {
-    return 'Green Platform API';
+	return 'Green Platform API';
 });
 
 Route::get('/users/{user}/pages', 'PagesController@userPages');
@@ -25,7 +25,7 @@ Route::post('/users/{user}/unfollow-page/{page}', 'UsersController@unFollowPage'
 
 Route::get('/pages', 'PagesController@index');
 Route::get('/pages/{page}', 'PagesController@show');
-Route::get('/pages/search/{query}', 'PagesController@search');
+Route::get('/pages/search/{query}/{position}', 'PagesController@search');
 Route::post('/pages/{page}/images', 'PagesController@addImage');
 Route::get('/pages/{page}/reviews', 'ReviewsController@pageReviews');
 Route::post('/pages/get-by-id', 'PagesController@getById');
@@ -55,7 +55,6 @@ Route::get('/users/{user}/goals/{goal}/delete', 'GoalsController@delete');
 Route::post('/users/{user}/goals/{goal}', 'GoalsController@update');
 
 Route::post('/save-login', 'UsersController@store');
-
 
 Route::auth();
 

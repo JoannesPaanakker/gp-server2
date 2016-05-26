@@ -96,9 +96,9 @@ class PagesController extends Controller {
 		return $pages;
 	}
 
-	public function search($query) {
-		$request = request()->all();
-		return $request['pos'];
+	public function search($query, $position) {
+
+		return $position;
 
 		// search places by name or category
 		// TODO: make logic more clever, for example
