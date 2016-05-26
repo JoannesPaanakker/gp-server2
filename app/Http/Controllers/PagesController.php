@@ -105,18 +105,33 @@ class PagesController extends Controller {
 		// if query matches the name return it, otherwise, use it as
 		// a category and return nearby places from that category
 
-		//if (\GPHelper::isCategory($query)) {
-		// $query is a category, search for nearby places with that category
+		if (\GPHelper::isCategory($query)) {
+			// $query is a category, search for nearby places with that category
+			$api_key = env('GOOGLE_API');
+			$type = $query;
+			$radius = '200'; //metres
+			$rankby = '';
+			$google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . $api_key . '&location=' . $position . '&radius=' . $radius . '&type=' . $type . '&rankby=' . $rankby;
 
-		//} else {
-		$pages = Page::with('photos')->where('title', 'LIKE', '%' . $query . '%')->take(10)->get();
-		foreach ($pages as $index => $page) {
-			$pages[$index]->thumb = $page->getThumb();
-			$pages[$index]->withpage = 'yes';
-			$pages[$index]->num_reviews = $page->reviews()->count();
+			$google_api = json_decode(file_get_contents($google_places_url));
+
+			$nearby_ids = [];
+			foreach ($google_api->results as $place) {
+				$nearby_ids[] = "'" . $place->place_id . "'";
+			}
+
+			$pages = Page::whereRaw('google_place_id IN (' . implode(',', $nearby_ids) . ')')->get();
+			return $pages;
+
+		} else {
+			$pages = Page::with('photos')->where('title', 'LIKE', '%' . $query . '%')->take(10)->get();
+			foreach ($pages as $index => $page) {
+				$pages[$index]->thumb = $page->getThumb();
+				$pages[$index]->withpage = 'yes';
+				$pages[$index]->num_reviews = $page->reviews()->count();
+			}
+			return $pages;
 		}
-		return $pages;
-		//}
 
 	}
 
