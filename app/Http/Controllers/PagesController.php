@@ -98,8 +98,6 @@ class PagesController extends Controller {
 
 	public function search($query, $position) {
 
-		return $position;
-
 		// search places by name or category
 		// TODO: make logic more clever, for example
 		// if query matches the name return it, otherwise, use it as
