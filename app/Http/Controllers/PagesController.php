@@ -97,6 +97,18 @@ class PagesController extends Controller {
 	}
 
 	public function search($query) {
+		$request = request()->all();
+		return $request['pos'];
+
+		// search places by name or category
+		// TODO: make logic more clever, for example
+		// if query matches the name return it, otherwise, use it as
+		// a category and return nearby places from that category
+
+		//if (\GPHelper::isCategory($query)) {
+		// $query is a category, search for nearby places with that category
+
+		//} else {
 		$pages = Page::with('photos')->where('title', 'LIKE', '%' . $query . '%')->take(10)->get();
 		foreach ($pages as $index => $page) {
 			$pages[$index]->thumb = $page->getThumb();
@@ -104,6 +116,8 @@ class PagesController extends Controller {
 			$pages[$index]->num_reviews = $page->reviews()->count();
 		}
 		return $pages;
+		//}
+
 	}
 
 	// gets all places without pages around the user
