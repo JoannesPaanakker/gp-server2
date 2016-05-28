@@ -47,7 +47,7 @@ class Page extends Model {
 	}
 
 	public function updateRating() {
-		$reviews = $this->reviews();
+		$reviews = $this->reviews;
 		$totalRating = 0;
 		$numReviews = count($reviews);
 		foreach ($reviews as $review) {
@@ -56,6 +56,7 @@ class Page extends Model {
 		}
 		$totalRating = $totalRating / $numReviews;
 		$this->rating = $totalRating;
+		$this->save();
 	}
 
 }
