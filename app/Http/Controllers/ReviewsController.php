@@ -39,6 +39,11 @@ class ReviewsController extends Controller {
 		$review->rating_3 = $request['rating_3'];
 
 		$review->save();
+
+		// update page rating
+		$page = $review->page();
+		$page->updateRating();
+
 		return response()->json(['status' => 'success']);
 	}
 
