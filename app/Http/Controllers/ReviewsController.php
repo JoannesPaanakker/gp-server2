@@ -32,7 +32,12 @@ class ReviewsController extends Controller {
 		$request = request()->all();
 		$review->title = $request['title'];
 		$review->content = $request['content'];
-		$review->rating = $request['rating'];
+
+		$review->rating_0 = $request['rating_0'];
+		$review->rating_1 = $request['rating_1'];
+		$review->rating_2 = $request['rating_2'];
+		$review->rating_3 = $request['rating_3'];
+
 		$review->save();
 		return response()->json(['status' => 'success']);
 	}
@@ -77,10 +82,10 @@ class ReviewsController extends Controller {
 		$review = new Review;
 		$review->title = $request['title'];
 		$review->content = $request['content'];
-		$review->rating_0 = $request['rating'][0];
-		$review->rating_1 = $request['rating'][1];
-		$review->rating_2 = $request['rating'][2];
-		$review->rating_3 = $request['rating'][3];
+		$review->rating_0 = $request['rating_0'];
+		$review->rating_1 = $request['rating_1'];
+		$review->rating_2 = $request['rating_2'];
+		$review->rating_3 = $request['rating_3'];
 
 		$user->reviews()->save($review);
 		$page->reviews()->save($review);
