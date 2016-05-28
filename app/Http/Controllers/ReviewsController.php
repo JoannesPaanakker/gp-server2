@@ -95,6 +95,10 @@ class ReviewsController extends Controller {
 		$user->reviews()->save($review);
 		$page->reviews()->save($review);
 
+		// update page rating
+		$page = $review->page;
+		$page->updateRating();
+
 		return response()->json(['status' => 'success', 'review_id' => $review->id]);
 
 	}
