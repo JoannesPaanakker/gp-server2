@@ -42,6 +42,7 @@ class ReviewsController extends Controller {
 
 		// update page rating
 		$page = $review->page()->get();
+		error_log('page:');
 		error_log($page);
 
 		return response()->json(['status' => 'success']);
