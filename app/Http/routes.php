@@ -1,19 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
- */
-
-Route::get('/', function () {
-	return 'Green Platform API';
-});
+Route::get('/', 'HomeController@index');
 
 Route::get('/users/{user}/pages', 'PagesController@userPages');
 Route::post('/users/{user}/pages', 'PagesController@store');
@@ -55,7 +42,3 @@ Route::get('/users/{user}/goals/{goal}/delete', 'GoalsController@delete');
 Route::post('/users/{user}/goals/{goal}', 'GoalsController@update');
 
 Route::post('/save-login', 'UsersController@store');
-
-Route::auth();
-
-Route::get('/home', 'HomeController@index');

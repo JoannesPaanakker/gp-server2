@@ -1,0 +1,119 @@
+.landing-features{
+	position:absolute;
+	right:0;
+	bottom:0;
+	width:550px;
+	height:417px;
+	background-image: url(../img/green-circle.png);
+	background-size:100%;
+	color:#fff;
+}
+
+.landing-app{
+	position:absolute;
+	left:50px;
+	top:50px;
+}
+
+.device{
+	width:210px;
+	position: absolute;
+	top:0;
+	left:0;
+}
+
+.app-store{
+	width:100px;
+	position: absolute;
+	top:450px;
+	left:0;
+}
+
+.google-play{
+	width:100px;
+	height:34px;
+	position: absolute;
+	top:450px;
+	left:109px;
+}
+
+.landing-content{
+	width:500px;
+	position:absolute;
+	left:320px;
+	top:45px;
+}
+
+.landing-content p{
+	margin-bottom: 20px;
+}
+
+.landing-content img{
+	width: 250px;
+	margin-bottom:30px;
+}
+
+.features-list{
+	position: absolute;
+	right:50px;
+	bottom:30px;
+}
+
+.features-item{
+	position: relative;
+	padding-left:50px;
+	width:300px;
+	margin-bottom: 15px;
+}
+
+.features-item img{
+	position:absolute;
+	left:0;
+	top:0;
+	width:30px;
+}
+
+
+@media only screen and (max-width: 1030px) {
+   
+	body{
+		background:#3fc07d;
+	}
+
+    .landing-app{
+    	display: none;
+    }
+
+  	.landing-content{
+  		left:auto;
+  		top:auto;
+  		position: relative;
+  		padding:40px;
+  		background:#fff;
+    	width:100%;
+  	}
+
+  	.landing-features{
+  		width:100%;
+		background-color:#3fc07d;
+		background-image: none;
+		height:300px;
+		right:auto;
+		bottom:auto;
+  	}
+
+
+	.features-list{
+		max-width:300px;
+		bottom:auto;
+		left:auto;
+		right:auto;
+		margin-top:40px;
+		margin-left:40px;
+		position: relative !important;
+	}
+
+	.features-item{
+		width:90%;
+	}
+}
