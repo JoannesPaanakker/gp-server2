@@ -25,7 +25,7 @@ class PagesController extends Controller
 
         $places_nearby = \GPHelper::googleSearch($position);
 
-        return placesWithPages($places_nearby);
+        return $this->placesWithPages($places_nearby);
 
     }
 
