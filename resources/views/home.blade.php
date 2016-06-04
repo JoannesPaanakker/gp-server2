@@ -25,25 +25,25 @@
 			<div class="features-item">
 				<img src="/img/feature-heart.png" alt="">
 				<p>
-					be inspired or inspire others with tips on how to live a greener live.
+					Be inspired or inspire others with tips on how to live a greener live.
 				</p>
 			</div>
 			<div class="features-item">
 				<img src="/img/feature-leaf.png" alt="">
 				<p>
-					be inspired or inspire others with tips on how to live a greener live.
+					Rate and review companies about their Green policy.
 				</p>
 			</div>
 			<div class="features-item">
 				<img src="/img/feature-map.png" alt="">
 				<p>
-					be inspired or inspire others with tips on how to live a greener live.
+					Check out places around you to see how Green they are.
 				</p>
 			</div>
 			<div class="features-item">
 				<img src="/img/feature-plus.png" alt="">
 				<p>
-					be inspired or inspire others with tips on how to live a greener live.
+					Promote your business with a dedicated page and show how Green you are!
 				</p>
 			</div>
 		</div>
