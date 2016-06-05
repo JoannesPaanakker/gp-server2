@@ -28,7 +28,8 @@ class GPHelper
             }
         }
 
-        return json_decode(file_get_contents($google_places_url));
+        $google_places = json_decode(file_get_contents($google_places_url));
+        error_log(print_r($google_places, true));
     }
 
     // categories list, from google places: https://developers.google.com/places/supported_types?hl=es#table1
