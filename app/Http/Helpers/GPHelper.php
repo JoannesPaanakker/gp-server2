@@ -30,6 +30,7 @@ class GPHelper
 
         $google_places = json_decode(file_get_contents($google_places_url));
         error_log(print_r($google_places, true));
+        return $google_places;
     }
 
     // categories list, from google places: https://developers.google.com/places/supported_types?hl=es#table1
