@@ -40,7 +40,7 @@ class Page extends Model
         $images = [];
         if (count($this->photos) > 0) {
             foreach ($this->photos as $photo) {
-                $images[] = ['url' => env('APP_URL') . '/photos/' . $photo->id . '.jpg', 'id' => $photo->id, 'date' => $photo->created_at];
+                $images[] = ['url' => env('APP_URL') . '/photos/' . $photo->id . '.jpg', 'id' => $photo->id, 'date' => date('d/m/Y', strtotime($photo->created_at))];
             }
         } else {
             $images[] = ['url' => env('APP_URL') . '/photos/default_page.jpg', 'id' => 0];
