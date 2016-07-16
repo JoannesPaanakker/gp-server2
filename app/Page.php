@@ -26,6 +26,11 @@ class Page extends Model
         return $this->hasMany(Photo::class);
     }
 
+    public function updates()
+    {
+        return $this->hasMany(Update::class);
+    }
+
     public function getThumb()
     {
         if (count($this->photos) > 0) {

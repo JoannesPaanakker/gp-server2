@@ -10,6 +10,8 @@ Route::post('/users/{user}/quiz-completed', 'UsersController@quizCompleted');
 Route::post('/users/{user}/follow-page/{page}', 'UsersController@followPage');
 Route::post('/users/{user}/unfollow-page/{page}', 'UsersController@unFollowPage');
 
+Route::post('/feed/{user}', 'UsersController@feed');
+
 Route::get('/pages', 'PagesController@index');
 Route::get('/pages/{page}', 'PagesController@show');
 Route::get('/pages/search/{query}/{position}', 'PagesController@search');
