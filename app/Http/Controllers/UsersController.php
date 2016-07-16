@@ -31,9 +31,10 @@ class UsersController extends Controller
 
     }
 
-    public function feed($user)
+    public function feed(User $user)
     {
-        return $user;
+        $pages_followed = $user->following();
+        return $pages_followed;
     }
 
     public function quizCompleted(User $user)
