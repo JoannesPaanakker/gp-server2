@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use App\Update;
 use App\User;
 
 class UsersController extends Controller
@@ -33,7 +34,9 @@ class UsersController extends Controller
 
     public function feed(User $user)
     {
-        $updates = $user->following()->has('updates')->with('updates')->get();
+        // gets the ids of the pages followed by a user to an array
+        $pages_followed = $user->following()->pluck('pages.id')->toArray();
+        $updates = Update::whereIn('page_id', $pages_followed)->with('page')->orderBy('updated_at', 'desc')->get();
         return $updates;
     }
 
