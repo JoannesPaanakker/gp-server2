@@ -36,7 +36,12 @@ class UsersController extends Controller
     {
         // gets the ids of the pages followed by a user to an array
         $pages_followed = $user->following()->pluck('pages.id')->toArray();
-        $updates = Update::whereIn('page_id', $pages_followed)->with('page')->orderBy('updated_at', 'desc')->get();
+        // get lateast 10 updates for those pages
+        $updates = Update::whereIn('page_id', $pages_followed)->with('page')->orderBy('updated_at', 'desc')->take(10)->get();
+
+        foreach ($updates as $update) {
+            $update->formatted_date = $update->updated_at->diffForHumans();
+        }
         return $updates;
     }
 
