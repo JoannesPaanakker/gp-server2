@@ -34,15 +34,18 @@ class UsersController extends Controller
 
     public function feed(User $user)
     {
+
         // gets the ids of the pages followed by a user to an array
         $pages_followed = $user->following()->pluck('pages.id')->toArray();
         // get lateast 10 updates for those pages
         $updates = Update::whereIn('page_id', $pages_followed)->with('page')->orderBy('updated_at', 'desc')->take(10)->get();
 
         foreach ($updates as $update) {
+            $update->page->thumb = $update->page->getThumb();
             $update->formatted_date = $update->updated_at->diffForHumans();
         }
         return $updates;
+
     }
 
     public function quizCompleted(User $user)
