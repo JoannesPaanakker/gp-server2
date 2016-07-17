@@ -10,4 +10,9 @@ class Update extends Model
     {
         return $this->belongsTo(Page::class);
     }
+
+    public function getImage()
+    {
+        return env('APP_URL') . '/photos_updates/' . $this->id . '.jpg';
+    }
 }
