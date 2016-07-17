@@ -41,6 +41,9 @@ class UsersController extends Controller
         $updates = Update::whereIn('page_id', $pages_followed)->with('page')->orderBy('updated_at', 'desc')->take(10)->get();
 
         foreach ($updates as $update) {
+            if ($update->with_image == '1') {
+                $update->image = $update->getImage();
+            }
             $update->page->thumb = $update->page->getThumb();
             $update->formatted_date = $update->updated_at->diffForHumans();
         }
