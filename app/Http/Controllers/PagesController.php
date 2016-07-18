@@ -184,7 +184,15 @@ class PagesController extends Controller
         $page->thumb = $page->getThumb();
         $page->user = $page->user()->get();
         $page->num_reviews = $page->reviews()->count();
-        $page->updates = $page->updates()->orderBy('updated_at', 'desc')->take(10)->get();
+
+        $updates = $page->updates()->orderBy('updated_at', 'desc')->take(10)->get();
+        foreach ($page->$updates as $update) {
+            if ($update->with_image == '1') {
+                $update->image = $update->getImage();
+            }
+            $update->formatted_date = $update->updated_at->diffForHumans();
+        }
+        $page->updates = $updates;
         return $page;
     }
 
