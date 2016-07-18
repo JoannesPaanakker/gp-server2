@@ -204,6 +204,30 @@ class PagesController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    public function postFeedUpdate(Page $page)
+    {
+        $request = request()->all();
+        $update = new Update;
+        $update->page_id = $page->id;
+        $update->content = $request['content'];
+        $update->save();
+        return response()->json(['status' => 'success', 'update_id' => $update->id]);
+    }
+
+    public function addFeedUpdatePhoto(Page $page, Update $update)
+    {
+        $request = request()->all();
+        $update->with_image = 1;
+        $update->save();
+        // upload photo and generate thumbs
+        if (isset($request['file'])) {
+            $request['file']->move('photos_updates', $update->id . '.jpg');
+            // generate thumbs
+            Image::make('photos_updates/' . $update->id . '.jpg')->fit(1000, 1000)->save('photos_updates/' . $update->id . '.jpg');
+        }
+        return response()->json(['status' => 'success']);
+    }
+
     public function delete(Page $page)
     {
         $page->delete();
@@ -266,19 +290,16 @@ class PagesController extends Controller
     {
 
         $request = request()->all();
-
         // create the photo record
         $photo = new Photo;
         $photo->page_id = $page->id;
         $photo->save();
-
         // upload photo and generate thumbs
         if (isset($request['file'])) {
             $request['file']->move('photos', $photo->id . '.jpg');
             // generate thumbs
             Image::make('photos/' . $photo->id . '.jpg')->fit(1000, 1000)->save('photos/' . $photo->id . '.jpg')->fit(160, 160)->save('photos/' . $photo->id . '_thumb.jpg');
         }
-
         return response()->json(['status' => 'success']);
 
     }

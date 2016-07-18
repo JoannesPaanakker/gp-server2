@@ -24,6 +24,8 @@ Route::get('/places/nearby/{coordinates}', 'PagesController@getPlacesNearBy');
 Route::post('/pages/{page}/update', 'PagesController@update');
 Route::post('/pages/{page}/delete', 'PagesController@delete');
 Route::get('/pages/{page}/feed', 'PagesController@pageFeed');
+Route::post('/pages/{page}/feed', 'PagesController@postFeedUpdate');
+Route::post('/pages/{page}/feed/{update}/photo', 'PagesController@addFeedUpdatePhoto');
 
 Route::get('/reviews', 'ReviewsController@index');
 Route::get('/reviews/{review}', 'ReviewsController@show');
