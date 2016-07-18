@@ -186,7 +186,7 @@ class PagesController extends Controller
         $page->num_reviews = $page->reviews()->count();
 
         $updates = $page->updates()->orderBy('updated_at', 'desc')->take(10)->get();
-        foreach ($page->$updates as $update) {
+        foreach ($updates as $update) {
             if ($update->with_image == '1') {
                 $update->image = $update->getImage();
             }
