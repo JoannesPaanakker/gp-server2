@@ -23,6 +23,7 @@ Route::get('/pages-and-places/nearby/{coordinates}', 'PagesController@getPagesAn
 Route::get('/places/nearby/{coordinates}', 'PagesController@getPlacesNearBy');
 Route::post('/pages/{page}/update', 'PagesController@update');
 Route::post('/pages/{page}/delete', 'PagesController@delete');
+Route::get('/pages/{page}/feed', 'PagesController@pageFeed');
 
 Route::get('/reviews', 'ReviewsController@index');
 Route::get('/reviews/{review}', 'ReviewsController@show');

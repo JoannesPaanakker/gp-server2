@@ -20,6 +20,22 @@ class PagesController extends Controller
         return $pages;
     }
 
+    public function pageFeed(Page $page)
+    {
+        // gets the ids of the pages followed by a user to an array
+        // $pages_followed = $user->following()->pluck('pages.id')->toArray();
+        // get lateast 10 updates for those pages
+        $updates = $page->updates()->orderBy('updated_at', 'desc')->take(10)->get();
+
+        foreach ($updates as $update) {
+            if ($update->with_image == '1') {
+                $update->image = $update->getImage();
+            }
+            $update->formatted_date = $update->updated_at->diffForHumans();
+        }
+        return $updates;
+    }
+
     // it gets all places nearby and marks the ones with pages created
     public function getPagesAndPlacesNearby($position)
     {
@@ -168,6 +184,7 @@ class PagesController extends Controller
         $page->thumb = $page->getThumb();
         $page->user = $page->user()->get();
         $page->num_reviews = $page->reviews()->count();
+        $page->updates = $page->updates()->orderBy('updated_at', 'desc')->take(10)->get();
         return $page;
     }
 
