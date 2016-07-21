@@ -281,7 +281,7 @@ class PagesController extends Controller
         $page->lng = $place->result->geometry->location->lng;
         $page->google_place_id = $place->result->place_id;
         $user->pages()->save($page);
-        $user->following()->sync($page->id);
+        $user->following()->sync([$page->id]);
 
         return response()->json(['status' => 'success', 'page_id' => $page->id]);
 
