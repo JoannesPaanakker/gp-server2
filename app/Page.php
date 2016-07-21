@@ -72,4 +72,9 @@ class Page extends Model
         $this->save();
     }
 
+    public function quizAnswers()
+    {
+        return $this->hasMany(QuizAnswer::class);
+    }
+
 }

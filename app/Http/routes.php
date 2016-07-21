@@ -47,3 +47,7 @@ Route::get('/users/{user}/goals/{goal}/delete', 'GoalsController@delete');
 Route::post('/users/{user}/goals/{goal}', 'GoalsController@update');
 
 Route::post('/save-login', 'UsersController@store');
+
+Route::get('/quiz-questions-page', 'QuizController@page');
+Route::get('/quiz-questions-user', 'QuizController@user');
+Route::get('/quiz-answers/{page}', 'QuizController@answers');
