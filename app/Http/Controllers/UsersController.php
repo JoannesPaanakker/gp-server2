@@ -69,25 +69,25 @@ class UsersController extends Controller
 
     public function followPage(User $user, Page $page)
     {
-        $user->following()->save($page);
+        $user->following_pages()->save($page);
         return response()->json(['status' => 'success']);
     }
 
     public function unFollowPage(User $user, Page $page)
     {
-        $user->following()->detach($page);
+        $user->following_pages()->detach($page);
         return response()->json(['status' => 'success']);
     }
 
     public function followUser(User $following, User $followed)
     {
-        $user->following()->save($followed);
+        $user->following_users()->save($followed);
         return response()->json(['status' => 'success']);
     }
 
     public function unFollowUser(User $following, User $followed)
     {
-        $user->following()->detach($followed);
+        $user->following_users()->detach($followed);
         return response()->json(['status' => 'success']);
     }
 
