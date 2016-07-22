@@ -54,7 +54,8 @@ class UsersController extends Controller
             }
             $update->formatted_date = $update->updated_at->diffForHumans();
         }
-        return $updates;
+
+        return ['feed' => $updates, 'user' => $user];
 
     }
 
