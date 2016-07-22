@@ -24,24 +24,34 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function pages(){
+    public function pages()
+    {
         return $this->hasMany(Page::class);
     }
 
-    public function reviews(){
+    public function reviews()
+    {
         return $this->hasMany(Review::class);
     }
 
-    public function goals(){
+    public function goals()
+    {
         return $this->hasMany(Goal::class);
     }
 
-    public function tips(){
+    public function tips()
+    {
         return $this->hasMany(Tip::class);
     }
 
-    public function following(){
+    public function following_pages()
+    {
         return $this->belongsToMany(Page::class, 'follows')->withTimestamps();
+    }
+
+    public function following_users()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'follow_id')->withTimestamps();
     }
 
 }

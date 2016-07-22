@@ -36,15 +36,22 @@ class UsersController extends Controller
     {
 
         // gets the ids of the pages followed by a user to an array
-        $pages_followed = $user->following()->pluck('pages.id')->toArray();
+        $pages_followed = $user->following_pages()->pluck('page_id')->toArray();
+        $users_followed = $user->following_users()->pluck('follow_id')->toArray();
+
         // get lateast 10 updates for those pages
-        $updates = Update::whereIn('page_id', $pages_followed)->with('page')->orderBy('updated_at', 'desc')->take(10)->get();
+        $updates = Update::whereIn('page_id', $pages_followed)->orWhereIn('user_id', $users_followed)->with('page')->with('user')->orderBy('updated_at', 'desc')->take(10)->get();
 
         foreach ($updates as $update) {
             if ($update->with_image == '1') {
                 $update->image = $update->getImage();
             }
-            $update->page->thumb = $update->page->getThumb();
+            if ($update->page) {
+                $update->page->thumb = $update->page->getThumb();
+            }
+            if ($update->user) {
+                $update->user->thumb = $update->user->picture;
+            }
             $update->formatted_date = $update->updated_at->diffForHumans();
         }
         return $updates;
@@ -69,6 +76,18 @@ class UsersController extends Controller
     public function unFollowPage(User $user, Page $page)
     {
         $user->following()->detach($page);
+        return response()->json(['status' => 'success']);
+    }
+
+    public function followUser(User $following, User $followed)
+    {
+        $user->following()->save($followed);
+        return response()->json(['status' => 'success']);
+    }
+
+    public function unFollowUser(User $following, User $followed)
+    {
+        $user->following()->detach($followed);
         return response()->json(['status' => 'success']);
     }
 

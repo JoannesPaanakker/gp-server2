@@ -9,6 +9,8 @@ Route::post('/users/{user}/reviews', 'ReviewsController@store');
 Route::post('/users/{user}/quiz-completed', 'UsersController@quizCompleted');
 Route::post('/users/{user}/follow-page/{page}', 'UsersController@followPage');
 Route::post('/users/{user}/unfollow-page/{page}', 'UsersController@unFollowPage');
+Route::post('/users/{following}/follow-user/{followed}', 'UsersController@followUser');
+Route::post('/users/{following}/unfollow-user/{followed}', 'UsersController@unFollowUser');
 
 Route::get('/users/{user}/feed', 'UsersController@feed');
 
