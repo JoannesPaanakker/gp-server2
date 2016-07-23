@@ -38,6 +38,14 @@ class TipsController extends Controller
         $tip->content = $request['content'];
         $user->tips()->save($tip);
 
+        // post update
+        $update = new Update;
+        $update->user_id = $user->id;
+        $update->content = 'Has created a new tip';
+        $update->kind = 'tip';
+        $update->entity_id = $tip->id;
+        $update->save();
+
         return response()->json(['status' => 'success']);
     }
 }
