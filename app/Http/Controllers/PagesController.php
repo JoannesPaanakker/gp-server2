@@ -284,6 +284,15 @@ class PagesController extends Controller
         $user->pages()->save($page);
         $user->following_pages()->sync([$page->id]);
 
+        // post update
+        $update = new Update;
+        $update->user_id = $user->id;
+        $update->content = 'Has created the page';
+        $update->kind = 'create-page';
+        $update->entity_id = $page->id;
+        $update->entity_name = $page->title;
+        $update->save();
+
         return response()->json(['status' => 'success', 'page_id' => $page->id]);
 
     }
