@@ -36,7 +36,7 @@ class UsersController extends Controller
     {
 
         // get lateast 10 updates for those pages
-        $updates = Update::whereIn('user_id', $user->id)->with('user')->orderBy('updated_at', 'desc')->take(10)->get();
+        $updates = Update::where('user_id', $user->id)->with('user')->orderBy('updated_at', 'desc')->take(10)->get();
 
         foreach ($updates as $update) {
             if ($update->with_image == '1') {
