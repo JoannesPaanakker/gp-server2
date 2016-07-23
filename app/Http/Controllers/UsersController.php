@@ -71,6 +71,15 @@ class UsersController extends Controller
     public function followPage(User $user, Page $page)
     {
         $user->following_pages()->save($page);
+
+        // post update
+        $update = new Update;
+        $update->user_id = $user->id;
+        $update->content = 'Started following ' . $page->title;
+        $update->kind = 'follow-page';
+        $update->entity_id = $page->id;
+        $update->save();
+
         return response()->json(['status' => 'success']);
     }
 
