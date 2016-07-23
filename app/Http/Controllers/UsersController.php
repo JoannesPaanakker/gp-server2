@@ -31,6 +31,32 @@ class UsersController extends Controller
         return response()->json(['status' => 'success', 'quiz_completed' => $user->quiz_completed, 'user_id' => $user->id]);
     }
 
+    // get a feed with all the recent activity for this user
+    public function activity(User $user)
+    {
+
+        // get lateast 10 updates for those pages
+        $updates = Update::whereIn('user_id', $user->id)->with('user')->orderBy('updated_at', 'desc')->take(10)->get();
+
+        foreach ($updates as $update) {
+            if ($update->with_image == '1') {
+                $update->image = $update->getImage();
+            }
+            if ($update->page) {
+                $update->page->thumb = $update->page->getThumb();
+            }
+            if ($update->user) {
+                $update->user->thumb = $update->user->picture;
+            }
+            $update->formatted_date = $update->updated_at->diffForHumans();
+        }
+        $user->followed = $user->followed_by()->get();
+
+        return ['feed' => $updates, 'user' => $user];
+
+    }
+
+    // get the feed with all the activiy from the following users
     public function feed(User $user)
     {
 
