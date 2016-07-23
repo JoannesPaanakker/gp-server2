@@ -82,13 +82,13 @@ class UsersController extends Controller
 
     public function followUser(User $following, User $followed)
     {
-        $user->following_users()->save($followed);
+        $following->following_users()->save($followed);
         return response()->json(['status' => 'success']);
     }
 
     public function unFollowUser(User $following, User $followed)
     {
-        $user->following_users()->detach($followed);
+        $following->following_users()->detach($followed);
         return response()->json(['status' => 'success']);
     }
 
