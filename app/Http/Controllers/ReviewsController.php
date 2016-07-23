@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Page;
 use App\Photo;
 use App\Review;
+use App\Update;
 use App\User;
 use Illuminate\Http\Request;
 use Image;
