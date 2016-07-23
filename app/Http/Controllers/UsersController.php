@@ -29,7 +29,6 @@ class UsersController extends Controller
         $user->save();
 
         return response()->json(['status' => 'success', 'quiz_completed' => $user->quiz_completed, 'user_id' => $user->id]);
-
     }
 
     public function feed(User $user)
@@ -54,6 +53,7 @@ class UsersController extends Controller
             }
             $update->formatted_date = $update->updated_at->diffForHumans();
         }
+        $user->followed = $user->followed_by()->get();
 
         return ['feed' => $updates, 'user' => $user];
 
