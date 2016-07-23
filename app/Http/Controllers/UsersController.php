@@ -75,7 +75,7 @@ class UsersController extends Controller
         // post update
         $update = new Update;
         $update->user_id = $user->id;
-        $update->content = 'Started following ' . $page->title;
+        $update->content = 'Is now following ' . $page->title;
         $update->kind = 'follow-page';
         $update->entity_id = $page->id;
         $update->entity_name = $page->title;

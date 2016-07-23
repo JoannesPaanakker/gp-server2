@@ -210,6 +210,7 @@ class PagesController extends Controller
         $update = new Update;
         $update->page_id = $page->id;
         $update->content = $request['content'];
+        $update->kind = 'page-update';
         $update->save();
         return response()->json(['status' => 'success', 'update_id' => $update->id]);
     }

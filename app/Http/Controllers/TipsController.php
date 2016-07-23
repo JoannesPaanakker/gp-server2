@@ -43,7 +43,7 @@ class TipsController extends Controller
         $update = new Update;
         $update->user_id = $user->id;
         $update->content = 'Has created a new tip';
-        $update->kind = 'tip';
+        $update->kind = 'create-tip';
         $update->entity_id = $tip->id;
         $update->entity_name = $tip->title;
         $update->save();
