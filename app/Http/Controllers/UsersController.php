@@ -78,6 +78,7 @@ class UsersController extends Controller
         $update->content = 'Started following ' . $page->title;
         $update->kind = 'follow-page';
         $update->entity_id = $page->id;
+        $update->entity_name = $page->title;
         $update->save();
 
         return response()->json(['status' => 'success']);

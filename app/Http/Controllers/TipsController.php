@@ -45,6 +45,7 @@ class TipsController extends Controller
         $update->content = 'Has created a new tip';
         $update->kind = 'tip';
         $update->entity_id = $tip->id;
+        $update->entity_name = $tip->title;
         $update->save();
 
         return response()->json(['status' => 'success']);
