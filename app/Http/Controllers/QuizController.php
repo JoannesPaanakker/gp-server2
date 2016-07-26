@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Page;
 use App\Quiz;
+use App\User;
 
 class QuizController extends Controller
 {
@@ -20,6 +21,17 @@ class QuizController extends Controller
     {
         $quiz = Quiz::where('id', 1)->with('categories.questions.answers')->get();
         return $quiz;
+    }
+
+    // complete quiz
+    public function completeQuizUser(User $user)
+    {
+        $request = request()->all();
+        dd($request['quiz_answers']);
+        $user->quiz_completed = 1;
+        $user->quiz_score = $request['quiz_score'];
+        $user->save();
+        return response()->json(['status' => 'success']);
     }
 
     public function quizResultPage()

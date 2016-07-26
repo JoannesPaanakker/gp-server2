@@ -13,6 +13,7 @@ Route::post('/users/{following}/unfollow-user/{followed}', 'UsersController@unFo
 
 // user quiz
 Route::get('/users/{user}/quiz', 'QuizController@getQuizUser');
+Route::post('/users/{user}/quiz-completed', 'QuizController@completeQuizUser');
 
 Route::get('/users/{user}/feed', 'UsersController@feed');
 Route::get('/users/{user}/activity', 'UsersController@activity');
