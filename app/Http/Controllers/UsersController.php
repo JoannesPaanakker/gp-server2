@@ -81,6 +81,9 @@ class UsersController extends Controller
         }
         $user->followed = $user->followed_by()->get();
 
+        // get number of reviews
+        $user->num_reviews = $user->reviews()->count();
+
         return ['feed' => $updates, 'user' => $user];
 
     }
