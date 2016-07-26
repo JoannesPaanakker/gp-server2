@@ -11,7 +11,7 @@ class QuizPossibleAnswer extends Model
 
     public function question()
     {
-        return $this->belongsTo('App\QuizQuestion');
+        return $this->belongsTo('App\QuizQuestion', 'question_id');
     }
 
 }

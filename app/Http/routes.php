@@ -6,11 +6,13 @@ Route::get('/users/{user}/pages', 'PagesController@userPages');
 Route::post('/users/{user}/pages', 'PagesController@store');
 Route::get('/users/{user}/reviews', 'ReviewsController@userReviews');
 Route::post('/users/{user}/reviews', 'ReviewsController@store');
-Route::post('/users/{user}/quiz-completed', 'UsersController@quizCompleted');
 Route::post('/users/{user}/follow-page/{page}', 'UsersController@followPage');
 Route::post('/users/{user}/unfollow-page/{page}', 'UsersController@unFollowPage');
 Route::post('/users/{following}/follow-user/{followed}', 'UsersController@followUser');
 Route::post('/users/{following}/unfollow-user/{followed}', 'UsersController@unFollowUser');
+
+// user quiz
+Route::get('/users/{user}/quiz', 'QuizController@getQuizUser');
 
 Route::get('/users/{user}/feed', 'UsersController@feed');
 Route::get('/users/{user}/activity', 'UsersController@activity');
@@ -29,6 +31,8 @@ Route::post('/pages/{page}/delete', 'PagesController@delete');
 Route::get('/pages/{page}/feed', 'PagesController@pageFeed');
 Route::post('/pages/{page}/feed', 'PagesController@postFeedUpdate');
 Route::post('/pages/{page}/feed/{update}/photo', 'PagesController@addFeedUpdatePhoto');
+
+Route::get('/pages/{page}/quiz', 'QuizController@getQuizPage');
 
 Route::get('/reviews', 'ReviewsController@index');
 Route::get('/reviews/{review}', 'ReviewsController@show');
@@ -50,7 +54,3 @@ Route::get('/users/{user}/goals/{goal}/delete', 'GoalsController@delete');
 Route::post('/users/{user}/goals/{goal}', 'GoalsController@update');
 
 Route::post('/save-login', 'UsersController@store');
-
-Route::get('/quiz-questions-page', 'QuizController@page');
-Route::get('/quiz-questions-user', 'QuizController@user');
-Route::get('/quiz-answers/{page}', 'QuizController@answers');
