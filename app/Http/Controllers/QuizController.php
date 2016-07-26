@@ -41,8 +41,10 @@ class QuizController extends Controller
                 $answer_text = '';
                 $answer_score = 0;
                 foreach ($question->answers as $selected_answer) {
-                    $answer_text = $selected_answer->answer;
-                    $answer_score = $selected_answer->score;
+                    if ($selected_answer->id == $request['quiz_answers'][$question->id]) {
+                        $answer_text = $selected_answer->answer;
+                        $answer_score = $selected_answer->score;
+                    }
                 }
                 $answer = new QuizAnswer;
                 $answer->user_id = $user->id;
