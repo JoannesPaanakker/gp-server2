@@ -138,12 +138,12 @@ class PagesController extends Controller
     {
 
         $api_key = env('GOOGLE_API');
-        $type = 'restaurant';
-        $radius = '200'; //metres
+        $type = \GPHelper::types;
+        $radius = '400'; //metres
         $rankby = '';
 
         // get places nearby from google
-        $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . $api_key . '&location=' . $coordinates . '&radius=' . $radius . '&type=' . $type . '&rankby=' . $rankby;
+        $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . $api_key . '&location=' . $coordinates . '&radius=' . $radius . '&types=' . $type . '&rankby=' . $rankby;
 
         $places_nearby = json_decode(file_get_contents($google_places_url));
 

@@ -20,7 +20,7 @@ class GPHelper
             $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . env('GOOGLE_API') . '&location=' . $position . '&radius=' . $radius . '&type=' . $type . '&rankby=' . $rankby;
         } else {
             if ($query != '') {
-                $google_places_url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?key=' . env('GOOGLE_API') . '&location=' . $position . '&query=' . $query . '&radius=' . $radius;
+                $google_places_url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?key=' . env('GOOGLE_API') . '&types=' . $this->types . '&location=' . $position . '&query=' . $query . '&radius=' . $radius;
             } else {
                 // get all restaurants nearby
                 $type = 'restaurant';
@@ -32,6 +32,9 @@ class GPHelper
         error_log(print_r($google_places, true));
         return $google_places;
     }
+
+    // types for the search of nearby places
+    static $types = 'bar|beauty_salon|cafe|florist|food|furniture_store|gas_station|grocery_or_supermarket|gym|hair_care|health|home_goods_store|hospital|laundry|library|liquor_store|meal_delivery|meal_takeaway|movie_theater|night_club|pet_store|pharmacy|physiotherapist|restaurant|shopping_mall|spa|store|train_station|veterinary_care|zoo';
 
     // categories list, from google places: https://developers.google.com/places/supported_types?hl=es#table1
     static $categories = [
