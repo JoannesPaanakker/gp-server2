@@ -48,8 +48,6 @@ class QuizController extends Controller
                 $answer->save();
             }
         }
-        dd($request['quiz_answers']);
-
         return response()->json(['status' => 'success']);
     }
 
