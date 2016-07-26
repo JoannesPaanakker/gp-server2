@@ -20,11 +20,11 @@ class GPHelper
             $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . env('GOOGLE_API') . '&location=' . $position . '&radius=' . $radius . '&type=' . $type . '&rankby=' . $rankby;
         } else {
             if ($query != '') {
-                $google_places_url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?key=' . env('GOOGLE_API') . '&types=' . $this->types . '&location=' . $position . '&query=' . $query . '&radius=' . $radius;
+                $google_places_url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?key=' . env('GOOGLE_API') . '&location=' . $position . '&query=' . $query . '&radius=' . $radius;
             } else {
                 // get all restaurants nearby
-                $type = 'restaurant';
-                $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . env('GOOGLE_API') . '&location=' . $position . '&radius=' . $radius . '&type=' . $type . '&rankby=' . $rankby;
+                $type = \GPHelper::$types;
+                $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . env('GOOGLE_API') . '&location=' . $position . '&radius=' . $radius . '&types=' . $type . '&rankby=' . $rankby;
             }
         }
 

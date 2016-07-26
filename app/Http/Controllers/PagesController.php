@@ -138,7 +138,7 @@ class PagesController extends Controller
     {
 
         $api_key = env('GOOGLE_API');
-        $type = \GPHelper::types;
+        $type = \GPHelper::$types;
         $radius = '400'; //metres
         $rankby = '';
 
