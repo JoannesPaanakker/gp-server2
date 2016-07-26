@@ -106,7 +106,7 @@ class QuizController extends Controller
     public function getQuizAnswersPage(Page $page)
     {
         $answers = QuizAnswer::where('page_id', $page->id)->get();
-        $quiz = Quiz::where('id', 1)->get();
+        $quiz = Quiz::where('id', 2)->get();
         $score = 0;
         foreach ($answers as $answer) {
             $score += $answer->score;
