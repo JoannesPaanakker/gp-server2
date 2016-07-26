@@ -44,7 +44,7 @@ class QuizController extends Controller
                 $answer = new QuizAnswer;
                 $answer->user_id = $user->id;
                 $answer->question_text = $question->question;
-                $answer->answer = $question->answers;
+                $answer->answer = $answer_text;
                 $answer->save();
             }
         }
