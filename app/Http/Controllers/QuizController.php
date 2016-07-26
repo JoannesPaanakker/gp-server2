@@ -34,6 +34,7 @@ class QuizController extends Controller
 
         // save quiz answers
         QuizAnswer::where('user_id', $user->id)->delete(); //delete all previous answers for the user
+        dd('ok');
         $questions = QuizQuestion::with('answers')->get();
         foreach ($questions as $question) {
             if (array_key_exists($question->id, $request['quiz_answers'])) {
