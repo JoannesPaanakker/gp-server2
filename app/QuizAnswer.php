@@ -14,4 +14,9 @@ class QuizAnswer extends Model
         return $this->belongsTo('App\Page');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }
