@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Page;
 use App\Quiz;
 use App\QuizAnswer;
 use App\QuizQuestion;
@@ -55,22 +54,10 @@ class QuizController extends Controller
         return response()->json(['status' => 'success']);
     }
 
-    public function quizResultPage()
-    {
-        $questions = QuizQuestion::where('for_pages', 1)->with('answers')->get();
-        return $questions;
-    }
-
-    public function quizResultUser()
-    {
-        $questions = QuizQuestion::where('for_users', 1)->with('answers')->get();
-        return $questions;
-    }
-
     // get answers (quiz result) for a page
-    public function answers(Page $page)
+    public function getQuizAnswersUser(User $user)
     {
-        $answers = $page->quizAnswers()->get();
+        $answers = QuizAnswer::where('user_id', $user->id)->get();
         return $answers;
     }
 
