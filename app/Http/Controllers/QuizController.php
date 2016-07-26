@@ -56,7 +56,7 @@ class QuizController extends Controller
         return response()->json(['status' => 'success']);
     }
 
-    // get answers (quiz result) for a page
+    // get answers (quiz result) for a user
     public function getQuizAnswersUser(User $user)
     {
         $answers = QuizAnswer::where('user_id', $user->id)->get();
@@ -67,6 +67,19 @@ class QuizController extends Controller
         }
         $percent = ceil($score * 100 / $quiz[0]->max_score);
         return ['answers' => $answers, 'score' => $score, 'percent' => $percent];
+    }
+
+    // get answers (quiz result) for a page
+    public function getQuizAnswersPage(Page $page)
+    {
+        $answers = QuizAnswer::where('page_id', $page->id)->get();
+        $quiz = Quiz::where('id', 1)->get();
+        $score = 0;
+        foreach ($answers as $answer) {
+            $score += $answer->score;
+        }
+        $percent = ceil($score * 100 / $quiz[0]->max_score);
+        return ['answers' => $answers, 'user_id' => $page->user_id, 'score' => $score, 'percent' => $percent];
     }
 
 }
