@@ -35,6 +35,7 @@ Route::post('/pages/{page}/feed', 'PagesController@postFeedUpdate');
 Route::post('/pages/{page}/feed/{update}/photo', 'PagesController@addFeedUpdatePhoto');
 
 Route::get('/pages/{page}/quiz-answers', 'QuizController@getQuizAnswersPage');
+Route::get('/pages/{page}/quiz', 'QuizController@getQuizPage');
 
 Route::get('/reviews', 'ReviewsController@index');
 Route::get('/reviews/{review}', 'ReviewsController@show');
