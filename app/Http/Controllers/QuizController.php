@@ -58,7 +58,13 @@ class QuizController extends Controller
     public function getQuizAnswersUser(User $user)
     {
         $answers = QuizAnswer::where('user_id', $user->id)->get();
-        return $answers;
+        $quiz = Quiz::where('id', 1)->get();
+        $score = 0;
+        forach($answers as $answer){
+            $score += $answer->score;
+        }
+        $percent = $score * 100 / $quiz->max_score;
+        return ['answers' => $answers, 'score' => $score, 'percent' => $percent];
     }
 
 }
