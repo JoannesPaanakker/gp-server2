@@ -60,7 +60,7 @@ class QuizController extends Controller
         $answers = QuizAnswer::where('user_id', $user->id)->get();
         $quiz = Quiz::where('id', 1)->get();
         $score = 0;
-        forach($answers as $answer){
+        foreach ($answers as $answer) {
             $score += $answer->score;
         }
         $percent = $score * 100 / $quiz->max_score;
