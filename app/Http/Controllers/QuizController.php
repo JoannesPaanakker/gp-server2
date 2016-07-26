@@ -63,7 +63,7 @@ class QuizController extends Controller
         foreach ($answers as $answer) {
             $score += $answer->score;
         }
-        $percent = $score * 100 / $quiz[0]->max_score;
+        $percent = ceil($score * 100 / $quiz[0]->max_score);
         return ['answers' => $answers, 'score' => $score, 'percent' => $percent];
     }
 
