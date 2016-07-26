@@ -57,6 +57,38 @@ class QuizController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    // complete quiz
+    public function completeQuizPage(Page $page)
+    {
+        $request = request()->all();
+        $page->quiz_completed = 1;
+        $page->quiz_score = $request['quiz_score'];
+        $page->save();
+
+        // save quiz answers
+        QuizAnswer::where('page_id', $page->id)->delete(); //delete all previous answers for the user
+        $questions = QuizQuestion::with('answers')->get();
+        foreach ($questions as $question) {
+            if (array_key_exists($question->id, $request['quiz_answers'])) {
+                $answer_text = '';
+                $answer_score = 0;
+                foreach ($question->answers as $selected_answer) {
+                    if ($selected_answer->id == $request['quiz_answers'][$question->id]) {
+                        $answer_text = $selected_answer->answer;
+                        $answer_score = $selected_answer->score;
+                    }
+                }
+                $answer = new QuizAnswer;
+                $answer->page_id = $page->id;
+                $answer->question_text = $question->question;
+                $answer->answer = $answer_text;
+                $answer->score = $answer_score;
+                $answer->save();
+            }
+        }
+        return response()->json(['status' => 'success']);
+    }
+
     // get answers (quiz result) for a user
     public function getQuizAnswersUser(User $user)
     {
