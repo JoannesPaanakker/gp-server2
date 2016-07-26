@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Page;
 use App\Quiz;
 use App\QuizAnswer;
+use App\QuizQuestion;
 use App\User;
 
 class QuizController extends Controller
