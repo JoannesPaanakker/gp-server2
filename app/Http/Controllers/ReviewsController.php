@@ -18,6 +18,7 @@ class ReviewsController extends Controller
         $reviews = Review::with('photos')->with('page')->get();
         foreach ($reviews as $index => $review) {
             $reviews[$index]->place = $review->page->title;
+            $reviews[$index]->page->thumb = $reviews[$index]->page->getThumb();
         }
         return $reviews;
     }
