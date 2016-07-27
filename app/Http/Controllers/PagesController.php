@@ -240,6 +240,7 @@ class PagesController extends Controller
     {
         $request = request()->all();
         $page->user_id = $request['user_id'];
+        $page->save();
         return response()->json(['status' => 'success']);
     }
 
