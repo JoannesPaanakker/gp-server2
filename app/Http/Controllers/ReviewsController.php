@@ -120,6 +120,8 @@ class ReviewsController extends Controller
         $update->entity_name = $page->title;
         $update->save();
 
+        $user->following_pages()->sync([$page->id]);
+
         return response()->json(['status' => 'success', 'review_id' => $review->id]);
 
     }
