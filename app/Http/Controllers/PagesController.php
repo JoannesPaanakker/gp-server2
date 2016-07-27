@@ -236,6 +236,13 @@ class PagesController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    public function claim(Page $page)
+    {
+        $request = request()->all();
+        $page->user_id = $request['user_id'];
+        return response()->json(['status' => 'success']);
+    }
+
     public function userPages(User $user)
     {
         $pages = $user->pages()->with('photos')->get();

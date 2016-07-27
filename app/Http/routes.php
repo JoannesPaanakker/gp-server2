@@ -33,6 +33,7 @@ Route::post('/pages/{page}/delete', 'PagesController@delete');
 Route::get('/pages/{page}/feed', 'PagesController@pageFeed');
 Route::post('/pages/{page}/feed', 'PagesController@postFeedUpdate');
 Route::post('/pages/{page}/feed/{update}/photo', 'PagesController@addFeedUpdatePhoto');
+Route::post('/pages/{page}/claim', 'PagesController@claim');
 
 Route::get('/pages/{page}/quiz-answers', 'QuizController@getQuizAnswersPage');
 Route::get('/pages/{page}/quiz', 'QuizController@getQuizPage');
