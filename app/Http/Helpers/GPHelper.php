@@ -34,7 +34,7 @@ class GPHelper
     }
 
     // types for the search of nearby places
-    static $types = 'bar|beauty_salon|cafe|food|furniture_store|gas_station|grocery_or_supermarket|gym|home_goods_store|laundry|library|liquor_store|meal_delivery|meal_takeaway|movie_theater|night_club|restaurant|shopping_mall|store';
+    static $types = 'bar|cafe|food|gas_station|grocery_or_supermarket|liquor_store|meal_delivery|meal_takeaway|movie_theater|night_club|restaurant|shopping_mall|store';
 
     // categories list, from google places: https://developers.google.com/places/supported_types?hl=es#table1
     static $categories = [
