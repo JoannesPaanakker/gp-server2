@@ -67,6 +67,7 @@ class ReviewsController extends Controller
             $reviews[$index]->thumb = $review->getThumb();
             $reviews[$index]->place = '';
             if (count($review->page)) {
+                $reviews[$index]->page->thumb = $review->page->getThumb();
                 $reviews[$index]->place = $review->page->title;
             }
 
