@@ -2,6 +2,9 @@
 
 Route::get('/', 'HomeController@index');
 
+// admin
+Route::get('/admin', 'AdminController@index');
+
 Route::get('/users/{user}/pages', 'PagesController@userPages');
 Route::post('/users/{user}/pages', 'PagesController@store');
 Route::get('/users/{user}/reviews', 'ReviewsController@userReviews');

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "311abed01d787f5924d5be20996f3732",
-    "content-hash": "b634153de49aee73b8be4c702738be36",
+    "hash": "5869d1b67668dc81906593e43e0db5be",
+    "content-hash": "f05393e5c00a55e1ff84f8fa728e97ff",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -218,6 +218,49 @@
                 "uri"
             ],
             "time": "2016-04-13 19:56:01"
+        },
+        {
+            "name": "intervention/httpauth",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/httpauth.git",
+                "reference": "320aff7dee3b6f99b46f00f69b15491296673ea6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/httpauth/zipball/320aff7dee3b6f99b46f00f69b15491296673ea6",
+                "reference": "320aff7dee3b6f99b46f00f69b15491296673ea6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Intervention\\Httpauth\\": "src/Intervention/Httpauth"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@olivervogel.com",
+                    "homepage": "http://olivervogel.com/"
+                }
+            ],
+            "description": "HTTP authentication (Basic & Digest) including ServiceProviders for easy Laravel integration",
+            "homepage": "https://github.com/Intervention/httpauth",
+            "keywords": [
+                "Authentication",
+                "http",
+                "laravel"
+            ],
+            "time": "2015-07-07 16:59:33"
         },
         {
             "name": "intervention/image",
