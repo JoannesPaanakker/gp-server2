@@ -86,6 +86,15 @@ class QuizController extends Controller
                 $answer->save();
             }
         }
+
+        // post an update
+        $update = new Update;
+        $update->page_id = $page->id;
+        $update->user_id = $page->user_id;
+        $update->content = 'Just completed the GP Standard quiz';
+        $update->kind = 'page-update';
+        $update->save();
+
         return response()->json(['status' => 'success']);
     }
 
