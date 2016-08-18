@@ -126,6 +126,8 @@ class PagesController extends Controller
         // if this place is not already as a page, lets add it
         foreach ($nearby_places as $place_id => $place) {
             if (!in_array($place_id, $places_ids_with_pages)) {
+                $nearby_places[$place_id]->num_reviews = 0;
+                $nearby_places[$place_id]->thumb = env('APP_URL') . '/photos/default_page.jpg';
                 $pages_and_places[] = $nearby_places[$place_id];
             }
         }
