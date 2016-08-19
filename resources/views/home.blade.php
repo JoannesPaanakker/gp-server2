@@ -18,6 +18,9 @@
 		and communicate to the world how Green
 		their business is.
 		</p>
+		<p>
+			<a href="http://facebook.com" class="" target="_blank"><img src="/img/facebook.png" style="width:40px; margin-left:1px" alt=""></a>
+		</p>
 	</div>
 
 	<div class="landing-features">
