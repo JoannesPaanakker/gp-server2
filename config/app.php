@@ -158,6 +158,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Intervention\Httpauth\HttpauthServiceProvider::class,
+        Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider::class,
     ],
 
     /*
@@ -206,7 +207,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
 
         'Httpauth' => Intervention\Httpauth\Facades\Httpauth::class,
-
+        'PushNotification' => Davibennun\LaravelPushNotification\Facades\PushNotification::class,
     ],
 
 ];

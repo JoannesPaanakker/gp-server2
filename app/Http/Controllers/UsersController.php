@@ -9,6 +9,20 @@ use App\User;
 class UsersController extends Controller
 {
 
+    public function search(User $user, $query)
+    {
+        $following = $user->following_users;
+        $found_users = User::where('first_name', 'like', '%' . $query . '%')->orWhere('last_name', 'like', '%' . $query . '%')->get();
+        foreach ($found_users as $found_user) {
+            if ($following->contains($found_user)) {
+                $found_user['is_followed_by_user'] = true;
+            } else {
+                $found_user['is_followed_by_user'] = false;
+            }
+        }
+        return $found_users->toArray();
+    }
+
     public function store()
     {
         $request = request()->all();
@@ -29,6 +43,29 @@ class UsersController extends Controller
         $user->save();
 
         return response()->json(['status' => 'success', 'quiz_completed' => $user->quiz_completed, 'user_id' => $user->id]);
+    }
+
+    public function following(User $user)
+    {
+        $users = $user->following_users;
+        foreach ($users as $user) {
+            $user['is_followed_by_user'] = true;
+        }
+        return $users->toArray();
+    }
+
+    public function followers(User $user)
+    {
+        $followers = $user->followed_by;
+        $following = $user->following_users;
+        foreach ($followers as $follower) {
+            if ($following->contains($follower)) {
+                $follower['is_followed_by_user'] = true;
+            } else {
+                $follower['is_followed_by_user'] = false;
+            }
+        }
+        return $followers->toArray();
     }
 
     // get a feed with all the recent activity for this user
@@ -115,7 +152,12 @@ class UsersController extends Controller
 
     public function followUser(User $following, User $followed)
     {
-        $following->following_users()->save($followed);
+        // check if the user is not already following
+        $followers = $followed->following_users;
+        if (!$followers->contains($following)) {
+            $following->following_users()->save($followed);
+        }
+
         return response()->json(['status' => 'success']);
     }
 

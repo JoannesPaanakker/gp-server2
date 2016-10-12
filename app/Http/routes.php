@@ -14,6 +14,10 @@ Route::post('/users/{user}/unfollow-page/{page}', 'UsersController@unFollowPage'
 Route::post('/users/{following}/follow-user/{followed}', 'UsersController@followUser');
 Route::post('/users/{following}/unfollow-user/{followed}', 'UsersController@unFollowUser');
 
+Route::get('/users/{user}/following', 'UsersController@following');
+Route::get('/users/{user}/followers', 'UsersController@followers');
+Route::get('/users/{user}/search/{query}', 'UsersController@search');
+
 // user quiz
 Route::get('/users/{user}/quiz', 'QuizController@getQuizUser');
 Route::post('/users/{user}/quiz-completed', 'QuizController@completeQuizUser');
@@ -62,3 +66,15 @@ Route::get('/users/{user}/goals/{goal}/delete', 'GoalsController@delete');
 Route::post('/users/{user}/goals/{goal}', 'GoalsController@update');
 
 Route::post('/save-login', 'UsersController@store');
+
+Route::get('/push-notification', function () {
+    $deviceToken = request()->devicetoken;
+    if (!$deviceToken) {
+        abort(404);
+    }
+
+    PushNotification::app('iOS')
+        ->to($deviceToken)
+        ->send("Hello World, I'm a push message");
+    return 'sent';
+});
