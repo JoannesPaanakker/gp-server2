@@ -32,7 +32,7 @@ class UsersController extends Controller
             $friend_ids[] = $friend['id'];
         }
         $users = User::whereIn('provider_id', $friend_ids)->get();
-        return $found_users->toArray();
+        return $users->toArray();
     }
 
     public function store()
