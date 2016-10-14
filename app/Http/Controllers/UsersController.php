@@ -164,9 +164,11 @@ class UsersController extends Controller
 
     public function followUser(User $following, User $followed)
     {
+        //following=33
+        //followed=35
         // check if the user is not already following
         $followers = $followed->following_users;
-        error_log(print_r($followers, 1));
+        error_log(print_r($followers->toArray(), 1));
         if (!$followers->contains($following)) {
             $following->following_users()->save($followed);
         }
