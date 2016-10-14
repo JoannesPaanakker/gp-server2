@@ -25,7 +25,14 @@ class UsersController extends Controller
 
     public function facebookFriends(User $user)
     {
-        error_log(print_r(request()->friends, 1));
+
+        $friends = request()->friends;
+        $friend_ids = [];
+        foreach ($friends as $friend) {
+            $friend_ids[] = $friend['id'];
+        }
+        $users = User::whereIn('provider_id', $friend_ids)->get();
+        return $found_users->toArray();
     }
 
     public function store()
