@@ -23,6 +23,11 @@ class UsersController extends Controller
         return $found_users->toArray();
     }
 
+    public function facebookFriends(User $user)
+    {
+        error_log(print_r(request()->friends, 1));
+    }
+
     public function store()
     {
         $request = request()->all();

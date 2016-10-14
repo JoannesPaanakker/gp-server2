@@ -13,6 +13,7 @@ Route::post('/users/{user}/follow-page/{page}', 'UsersController@followPage');
 Route::post('/users/{user}/unfollow-page/{page}', 'UsersController@unFollowPage');
 Route::post('/users/{following}/follow-user/{followed}', 'UsersController@followUser');
 Route::post('/users/{following}/unfollow-user/{followed}', 'UsersController@unFollowUser');
+Route::post('/users/{user}/facebook-friends', 'UsersController@facebookFriends');
 
 Route::get('/users/{user}/following', 'UsersController@following');
 Route::get('/users/{user}/followers', 'UsersController@followers');
