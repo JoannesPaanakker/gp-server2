@@ -47,6 +47,7 @@ class UsersController extends Controller
         $user->first_name = $request['firstName'];
         $user->last_name = $request['lastName'];
         $user->picture = $request['picture'];
+        $user->device_id = $request['deviceID'];
         $user->provider = $request['provider'];
         $user->provider_id = $request['provider_id'];
 
