@@ -168,7 +168,7 @@ class UsersController extends Controller
     public function followUser(User $following, User $followed)
     {
 
-        \PushNotification::app('iOS')
+        PushNotification::app('iOS')
             ->to($followed->device_token)
             ->send($following->first_name . ' ' . $following->last_name . ' is following you');
 
