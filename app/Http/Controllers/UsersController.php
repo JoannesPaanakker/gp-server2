@@ -47,7 +47,9 @@ class UsersController extends Controller
         $user->first_name = $request['firstName'];
         $user->last_name = $request['lastName'];
         $user->picture = $request['picture'];
-        $user->device_token = $request['deviceToken'];
+        if ($request['deviceToken'] != 'null') {
+            $user->device_token = $request['deviceToken'];
+        }
         $user->provider = $request['provider'];
         $user->provider_id = $request['provider_id'];
 
