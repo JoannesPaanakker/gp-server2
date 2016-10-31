@@ -24,6 +24,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    // sends a push notification to the user
+    public function push($message)
+    {
+
+        $system = 'Android';
+        if (strlen($this->device_token) == 64) {
+            $system = 'iOS';
+        }
+
+        \PushNotification::app($system)
+            ->to($this->device_token)
+            ->send($message);
+    }
+
     public function pages()
     {
         return $this->hasMany(Page::class);
