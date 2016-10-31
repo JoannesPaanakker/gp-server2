@@ -168,7 +168,7 @@ class UsersController extends Controller
     public function followUser(User $following, User $followed)
     {
 
-        $followed->push($following->first_name . ' ' . $following->last_name . ' is following you');
+        $followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
 
         // try to unfollow and follow again, to be sure only one record exists in the db
         $following->following_users()->detach($followed);

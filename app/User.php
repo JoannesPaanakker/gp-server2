@@ -25,7 +25,7 @@ class User extends Authenticatable
     ];
 
     // sends a push notification to the user
-    public function push($message)
+    public function sendPushNotification($message)
     {
 
         $system = 'Android';
