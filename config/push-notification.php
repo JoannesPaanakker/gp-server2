@@ -4,7 +4,7 @@ return array(
 
     'iOS' => array(
         'environment' => 'development',
-        'certificate' => app_path() . '/ApnsDev.pem',
+        'certificate' => app_path() . '/push.pem',
         'passPhrase' => 'natan2',
         'service' => 'apns',
     ),
