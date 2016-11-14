@@ -37,11 +37,9 @@ class UsersController extends Controller
 
     public function login()
     {
-        $request = request()->all();
-        dd($request);
         $user = User::where('email', '=', request()->email)->first();
         if ($user) {
-            if (\Hash::check($user->password, request()->password)) {
+            if (\Hash::check(request()->password, $user->password)) {
                 return response()->json(['status' => 'success', 'quiz_completed' => $user->quiz_completed, 'user_id' => $user->id]);
             }
         }
