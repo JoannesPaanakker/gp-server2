@@ -35,12 +35,38 @@ class UsersController extends Controller
         return $users->toArray();
     }
 
+    public function makePassword($length = 10)
+    {
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $count = mb_strlen($chars);
+        for ($i = 0, $result = ''; $i < $length; $i++) {
+            $index = rand(0, $count - 1);
+            $result .= mb_substr($chars, $index, 1);
+        }
+        return $result;
+    }
+
+    public function forgot()
+    {
+        $user = User::where('email', '=', request()->email)->first();
+        if ($user) {
+            $new_password = makePassword();
+            $user->password = Hash::make($new_password);
+            $user->save();
+            // send email with the new password to the user
+            return response()->json(['status' => 'success']);
+        } else {
+            return response()->json(['status' => 'wrong email']);
+        }
+
+    }
+
     public function login()
     {
         $user = User::where('email', '=', request()->email)->first();
         if ($user) {
             if (\Hash::check(request()->password, $user->password)) {
-                return response()->json(['status' => 'success', 'quiz_completed' => $user->quiz_completed, 'user_id' => $user->id]);
+                return response()->json(['status' => 'success', 'quiz_completed' => $user->quiz_completed, 'user_id' => $user->id, 'first_name' => $user->first_name, 'last_name' => $user->last_name, 'email' => $user->email]);
             }
         }
         return response()->json(['status' => 'wrong email or password']);
