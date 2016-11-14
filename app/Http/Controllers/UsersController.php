@@ -54,11 +54,10 @@ class UsersController extends Controller
             $user->password = \Hash::make($new_password);
             $user->save();
             // send email with the new password to the user
-            return response()->json(['status' => 'success']);
+            return response()->json(['status' => 'success', 'password' => $new_password]);
         } else {
             return response()->json(['status' => 'wrong email']);
         }
-
     }
 
     public function login()
