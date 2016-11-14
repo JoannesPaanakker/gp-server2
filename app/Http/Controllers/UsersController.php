@@ -50,7 +50,7 @@ class UsersController extends Controller
     {
         $user = User::where('email', '=', request()->email)->first();
         if ($user) {
-            $new_password = makePassword();
+            $new_password = $this->makePassword();
             $user->password = Hash::make($new_password);
             $user->save();
             // send email with the new password to the user
