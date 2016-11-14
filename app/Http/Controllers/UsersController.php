@@ -35,6 +35,19 @@ class UsersController extends Controller
         return $users->toArray();
     }
 
+    public function login()
+    {
+        $request = request()->all();
+        dd($request);
+        $user = User::where('email', '=', request()->email)->first();
+        if ($user) {
+            if (\Hash::check($user->password, request()->password)) {
+                return response()->json(['status' => 'success', 'quiz_completed' => $user->quiz_completed, 'user_id' => $user->id]);
+            }
+        }
+        return response()->json(['status' => 'wrong email or password']);
+    }
+
     public function store()
     {
         $request = request()->all();
