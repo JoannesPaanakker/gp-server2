@@ -23,6 +23,24 @@ class UsersController extends Controller
         return $found_users->toArray();
     }
 
+    public function register()
+    {
+        $user = User::where('email', '=', request()->email)->first();
+        if ($user) {
+            return response()->json(['status' => 'fail', 'reason' => 'email already registered']);
+        }
+
+        $user = new User;
+        $user->first_name = request()->firstname;
+        $user->last_name = request()->lastname;
+        $user->email = request()->email;
+        $user->provider = 'email';
+        $user->password = \Hash::make(request()->password);
+        $user->save();
+
+        return response()->json(['status' => 'success']);
+    }
+
     public function facebookFriends(User $user)
     {
 
