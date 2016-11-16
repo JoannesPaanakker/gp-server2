@@ -66,9 +66,16 @@ class User extends Authenticatable
 
         if (count($device_tokens_ios) > 0) {
             $devices_ios = \PushNotification::DeviceCollection($device_tokens_ios);
-            \PushNotification::app('iOS')
+            $push = \PushNotification::app('iOS')
                 ->to($devices_ios)
                 ->send($message);
+
+            ob_start();
+            var_dump($push->getFeedback());
+            $contents = ob_get_contents();
+            ob_end_clean();
+            error_log($contents);
+
         }
 
     }
