@@ -122,6 +122,10 @@ class ReviewsController extends Controller
 
         $user->following_pages()->sync([$page->id]);
 
+        // send a push notification to followers
+        $message = $user->first_name . ' ' . $user->last_name . ' has reviewed ' . $page->title;
+        User::sendPushNotificationToMultipleUsers($user->followed_by, $message);
+
         return response()->json(['status' => 'success', 'review_id' => $review->id]);
 
     }

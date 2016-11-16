@@ -28,6 +28,10 @@ class User extends Authenticatable
     public function sendPushNotification($message)
     {
 
+        if (!$this->device_token) {
+            return;
+        }
+
         $system = 'Android';
         if (strlen($this->device_token) == 64) {
             $system = 'iOS';
@@ -36,6 +40,37 @@ class User extends Authenticatable
         \PushNotification::app($system)
             ->to($this->device_token)
             ->send($message);
+    }
+
+    public static function sendPushNotificationToMultipleUsers($users, $message)
+    {
+        $device_tokens_ios = [];
+        $device_tokens_android = [];
+
+        foreach ($users as $user) {
+            if ($user->device_token) {
+                if (strlen($user->device_token) == 64) {
+                    $device_tokens_ios[] = \PushNotification::Device($user->device_token);
+                } else {
+                    $device_tokens_android[] = \PushNotification::Device($user->device_token);
+                }
+            }
+        }
+
+        if (count($device_tokens_android) > 0) {
+            $devices_android = \PushNotification::DeviceCollection($device_tokens_android);
+            \PushNotification::app('Android')
+                ->to($devices_android)
+                ->send($message);
+        }
+
+        if (count($device_tokens_ios) > 0) {
+            $devices_ios = \PushNotification::DeviceCollection($device_tokens_ios);
+            \PushNotification::app('iOS')
+                ->to($devices_ios)
+                ->send($message);
+        }
+
     }
 
     public function pages()

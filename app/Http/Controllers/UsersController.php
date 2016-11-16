@@ -141,7 +141,7 @@ class UsersController extends Controller
     public function activity(User $user)
     {
 
-        // get lateast 10 updates for those pages
+        // get latest 10 updates for those pages
         $updates = Update::where('user_id', $user->id)->with('user')->orderBy('updated_at', 'desc')->take(10)->get();
 
         foreach ($updates as $update) {
