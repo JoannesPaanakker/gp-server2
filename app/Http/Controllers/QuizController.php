@@ -55,6 +55,16 @@ class QuizController extends Controller
                 $answer->save();
             }
         }
+
+        // post update
+        $update = new Update;
+        $update->user_id = $user->id;
+        $update->content = 'Just completed the GP Standard quiz';
+        $update->kind = 'quiz-completed';
+        $update->entity_id = $user->id;
+        $update->entity_name = '';
+        $update->save();
+
         return response()->json(['status' => 'success']);
     }
 
@@ -92,8 +102,10 @@ class QuizController extends Controller
         $update = new Update;
         $update->page_id = $page->id;
         $update->user_id = $page->user_id;
-        $update->content = 'Just completed the GP Standard quiz';
-        $update->kind = 'page-update';
+        $update->content = '';
+        $update->kind = 'quiz-completed-page';
+        $update->entity_id = $page->id;
+        $update->entity_name = $page->title;
         $update->save();
 
         return response()->json(['status' => 'success']);
