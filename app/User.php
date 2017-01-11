@@ -115,4 +115,13 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follows', 'follow_id', 'user_id')->withTimestamps();
     }
 
+    public function sendEmail($subject, $body)
+    {
+        \Mail::raw($body, function ($m) use ($user, $subject) {
+            $m->from('noreply@greenplatform.org', 'GreenPlatform');
+            $m->to($user->email);
+            $m->subject($subject);
+        });
+    }
+
 }

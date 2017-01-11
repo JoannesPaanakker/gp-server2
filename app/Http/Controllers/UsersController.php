@@ -224,9 +224,12 @@ class UsersController extends Controller
 
         $followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
 
+        $followed->sendEmail('You have a new follower!', $following->first_name . ' ' . $following->last_name . ' is now following you!');
+
         // try to unfollow and follow again, to be sure only one record exists in the db
         $following->following_users()->detach($followed);
         $following->following_users()->save($followed);
+
         return response()->json(['status' => 'success']);
     }
 
