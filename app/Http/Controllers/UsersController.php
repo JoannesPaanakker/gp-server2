@@ -210,7 +210,7 @@ class UsersController extends Controller
         $update->entity_name = $page->title;
         $update->save();
         if($page->user){
-            $page->user->sendEmail('You have a new follower! ', $user->first_name . ' ' . $user->last_name . ' is now following your page ' . $page->title . '!');
+            $page->user->sendEmail('You have a new follower! ', '<b>' . $user->first_name . ' ' . $user->last_name . '</b> is now following your page ' . $page->title . '!');
         }
 
         return response()->json(['status' => 'success']);
@@ -227,7 +227,7 @@ class UsersController extends Controller
 
         $followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
 
-        $followed->sendEmail('You have a new follower! ', $following->first_name . ' ' . $following->last_name . ' is now following you!');
+        $followed->sendEmail('You have a new follower! ', '<b>' . $following->first_name . ' ' . $following->last_name . '</b> is now following you!');
 
         // try to unfollow and follow again, to be sure only one record exists in the db
         $following->following_users()->detach($followed);
