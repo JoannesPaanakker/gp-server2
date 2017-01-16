@@ -118,10 +118,9 @@ class User extends Authenticatable
     public function sendEmail($subject, $body)
     {
         $user = $this;
-        \Mail::raw($body, function ($m) use ($user, $subject) {
+        Mail::send('emails.notification', ['title' => $subject, 'content' => $body], function ($m) use ($user) {
             $m->from('noreply@greenplatform.org', 'GreenPlatform');
-            $m->to($user->email);
-            $m->subject($subject);
+            $m->to($user->email, $user->first_name . ' ' . $user->last_name)->subject($subject);
         });
     }
 
