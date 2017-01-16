@@ -210,7 +210,7 @@ class UsersController extends Controller
         $update->entity_name = $page->title;
         $update->save();
         if($page->user){
-            $page->user->sendEmail('You have a new follower! ', $user->first_name . ' ' . $user->last_name . ' is now following your page!');
+            $page->user->sendEmail('You have a new follower! ', $user->first_name . ' ' . $user->last_name . ' is now following your page ' . $page->title . '!');
         }
 
         return response()->json(['status' => 'success']);
