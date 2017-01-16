@@ -4,8 +4,8 @@
 
 	<div class="landing-app">
 		<img src="/img/device.png" class="device" alt="">
-		<img src="/img/appstore.png" class="app-store" alt="">
-		<img src="/img/googleplay.png" class="google-play" alt="">
+		<a href="https://itunes.apple.com/de/app/greenplatform/id1170382180" target="_blank"><img src="/img/appstore.png" class="app-store" alt=""></a>
+		<a href="https://play.google.com/store/apps/details?id=org.greenplatform.gp"><img src="/img/googleplay.png" class="google-play" alt=""></a>
 	</div>
 
 	<div class="landing-content">
