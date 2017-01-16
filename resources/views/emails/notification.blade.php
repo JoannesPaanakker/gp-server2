@@ -223,9 +223,11 @@
 																			<tr>
 																				<td align="left" class="textContent">
 																					<!-- CONTENT // -->
+																					<br>
 																					<center>
 																					<img src="https://www.greenplatform.org/img/logo-transparent.png" width="200">
 																					</center>
+																					<br>
 																				</td>
 																			</tr>
 																		</table>
