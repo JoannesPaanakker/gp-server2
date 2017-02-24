@@ -15,7 +15,7 @@
 							@for($i = 0; $i < 5; $i++)<img src="/img/leaf-120.png" style="width:28px; display:inline-block; @if($page->rating-1 < $i) opacity:0.5 @endif">@endfor
 							<div class="profile-card-name">{{ $page->title}}</div>
 							<div class="profile-card-location">{{ $page->address }}</div>
-							<button type="button" class="btn btn-rounded">Follow</button>
+							{{-- <button type="button" class="btn btn-rounded">Follow</button> --}}
 
 						</div><!--.profile-card-->
 
