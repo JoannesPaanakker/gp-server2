@@ -199,7 +199,7 @@
 							GP Standard
 						</header>
 
-						@if(count($page->reviews)>0)
+						@if(count($page->quizAnswers)>0)
 
 							@foreach($page->quizAnswers as $answer)
 
@@ -214,7 +214,7 @@
 
 						@else
 							<div class="p-a-md">
-								This page has no reviews yet.
+								This company didn't complete the GP Standard quiz yet.
 							</div>
 						@endif
 
