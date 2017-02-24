@@ -64,7 +64,7 @@ Route::post('/tips', 'TipsController@store');
 Route::post('/tips/{tip}/hearts', 'TipsController@hearts');
 
 // pages
-Route::get('/pages/{page}', 'PagesController@companyPage');
+Route::get('/company/{page}', 'PagesController@companyPage');
 
 Route::get('/users/{user}/goals', 'GoalsController@index');
 Route::post('/users/{user}/goals', 'GoalsController@store');
