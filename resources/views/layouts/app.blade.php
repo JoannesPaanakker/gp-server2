@@ -1,15 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>GreenPlatform</title>
+
+
+	<link href="/favicon.ico" rel="shortcut icon">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+<link rel="stylesheet" href="/css/separate/vendor/slick.min.css">
+<link rel="stylesheet" href="/css/separate/pages/profile.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
-    <body>
+<body>
 
-        @yield('content')
+	<header class="site-header">
+	    <div class="container-fluid">
 
-    </body>
+	        <a href="#" class="site-logo">
+	            <img class="hidden-md-down" src="/img/logo.png" alt="">
+	            <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
+	        </a>
+
+	        <div class="site-header-content">
+	            <div class="site-header-content-in">
+	                <div class="site-header-shown">
+
+						<div class="dropdown">
+                            <button class="btn btn-rounded dropdown-toggle" id="dd-header-add" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Download App
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dd-header-add">
+                                <a class="dropdown-item" href="#">iOS</a>
+                                <a class="dropdown-item" href="#">Android</a>
+                            </div>
+                        </div>
+
+	                </div><!--.site-header-shown-->
+
+	                <div class="mobile-menu-right-overlay"></div>
+
+	                <div class="site-header-collapsed">
+	                    <div class="site-header-collapsed-in">
+
+
+	                    </div><!--.site-header-collapsed-in-->
+	                </div><!--.site-header-collapsed-->
+	            </div><!--site-header-content-in-->
+	        </div><!--.site-header-content-->
+	    </div><!--.container-fluid-->
+	</header><!--.site-header-->
+
+	<div class="page-content">
+
+		@yield('content')
+
+	</div><!--.page-content-->
+
+	<script src="/js/lib/jquery/jquery.min.js"></script>
+	<script src="/js/lib/tether/tether.min.js"></script>
+	<script src="/js/lib/bootstrap/bootstrap.min.js"></script>
+	<script src="/js/plugins.js"></script>
+	<script src="/js/lib/slick-carousel/slick.min.js"></script>
+	<script>
+		$(function () {
+
+			var postsSlider = $(".posts-slider");
+
+			postsSlider.slick({
+				slidesToShow: 4,
+				adaptiveHeight: true,
+				arrows: false,
+				responsive: [
+					{
+						breakpoint: 1700,
+						settings: {
+							slidesToShow: 3
+						}
+					},
+					{
+						breakpoint: 1350,
+						settings: {
+							slidesToShow: 2
+						}
+					},
+					{
+						breakpoint: 992,
+						settings: {
+							slidesToShow: 3
+						}
+					},
+					{
+						breakpoint: 768,
+						settings: {
+							slidesToShow: 2
+						}
+					},
+					{
+						breakpoint: 500,
+						settings: {
+							slidesToShow: 1
+						}
+					}
+				]
+			});
+
+			$('.posts-slider-prev').click(function(){
+				postsSlider.slick('slickPrev');
+			});
+
+			$('.posts-slider-next').click(function(){
+				postsSlider.slick('slickNext');
+			});
+
+
+		});
+	</script>
+<script src="/js/app.js"></script>
+</body>
 </html>

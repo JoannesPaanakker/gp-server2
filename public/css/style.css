@@ -84,7 +84,7 @@
 
 
 @media only screen and (max-width: 1030px){
-    body{
+    body.landing{
         background: #3fc07d;
     }
 

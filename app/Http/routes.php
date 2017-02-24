@@ -63,6 +63,9 @@ Route::get('/tips/{tip}', 'TipsController@show');
 Route::post('/tips', 'TipsController@store');
 Route::post('/tips/{tip}/hearts', 'TipsController@hearts');
 
+// pages
+Route::get('/pages/{page}', 'PagesController@companyPage');
+
 Route::get('/users/{user}/goals', 'GoalsController@index');
 Route::post('/users/{user}/goals', 'GoalsController@store');
 Route::get('/users/{user}/goals/{goal}', 'GoalsController@show');
@@ -72,13 +75,13 @@ Route::post('/users/{user}/goals/{goal}', 'GoalsController@update');
 Route::post('/save-login', 'UsersController@store');
 
 Route::get('/push-notification', function () {
-    $deviceToken = request()->devicetoken;
-    if (!$deviceToken) {
-        abort(404);
-    }
+	$deviceToken = request()->devicetoken;
+	if (!$deviceToken) {
+		abort(404);
+	}
 
-    PushNotification::app('iOS')
-        ->to($deviceToken)
-        ->send("Hello World, I'm a push message");
-    return 'sent';
+	PushNotification::app('iOS')
+		->to($deviceToken)
+		->send("Hello World, I'm a push message");
+	return 'sent';
 });
