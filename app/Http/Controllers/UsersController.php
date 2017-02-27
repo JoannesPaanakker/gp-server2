@@ -22,6 +22,7 @@ class UsersController extends Controller {
 	}
 
 	public function uploadProfileImage(User $user) {
+		error_log('uploading profile image');
 		if (isset($request['file'])) {
 			$request['file']->move('profile-images', $user->id . '-orig.jpg');
 			// generate thumbs
