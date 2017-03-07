@@ -174,6 +174,10 @@ class PagesController extends Controller {
 		return view('company', compact('page'));
 	}
 
+	public function userPage(User $user) {
+		return view('user', compact('user'));
+	}
+
 	public function show(Page $page) {
 		$page->photos = $page->photos()->get();
 		$page->followed = $page->followed()->get();

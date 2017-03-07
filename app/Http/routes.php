@@ -14,6 +14,7 @@ Route::post('/users/{user}/unfollow-page/{page}', 'UsersController@unFollowPage'
 Route::post('/users/{following}/follow-user/{followed}', 'UsersController@followUser');
 Route::post('/users/{following}/unfollow-user/{followed}', 'UsersController@unFollowUser');
 Route::post('/users/{user}/facebook-friends', 'UsersController@facebookFriends');
+Route::get('/user/{user}', 'PagesController@userPage');
 Route::post('/users/login', 'UsersController@login');
 Route::post('/users/forgot', 'UsersController@forgot');
 Route::post('/users/register', 'UsersController@register');
