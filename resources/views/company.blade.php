@@ -26,39 +26,17 @@
 						<div class="profile-statistic tbl">
 							<div class="tbl-row">
 								<div class="tbl-cell">
-									<b>300</b>
+									<b>{{ $page->quiz_score }}</b>
 									GP Standard
 								</div>
 								<div class="tbl-cell">
-									<b>200</b>
+									<b>{{ count($page->followed) }}</b>
 									Followers
 								</div>
 							</div>
 						</div>
 
-						<ul class="profile-links-list">
-							<li class="nowrap">
-								<i class="font-icon font-icon-earth-bordered"></i>
-								<a href="#">company.com</a>
-							</li>
-							<li class="nowrap">
-								<i class="font-icon font-icon-fb-fill"></i>
-								<a href="#">facebook.com/company</a>
-							</li>
-							<li class="nowrap">
-								<i class="font-icon font-icon-in-fill"></i>
-								<a href="#">linked.in/company</a>
-							</li>
-							<li class="nowrap">
-								<i class="font-icon font-icon-tw-fill"></i>
-								<a href="#">twitter.com/company</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<i class="font-icon font-icon-mail"></i>
-								<a href="#">Email this company</a>
-							</li>
-						</ul>
+
 					</section><!--.box-typical-->
 
 
@@ -94,68 +72,25 @@
 								</button>
 							</div>
 						</header>
-						<div class="posts-slider">
+						@if(count($page->photos) == 0)
+							<div style="padding:18px">This company has no photos uploaded</div>
+						@else
+							<div class="posts-slider">
+								@foreach($page->photos as $photo)
+									<div class="slide">
+										<article class="post-announce">
+											<div class="post-announce-pic">
+												<a href="#">
+													<img src="/photos/{{ $photo->id }}.jpg" alt="">
+												</a>
+											</div>
+										</article>
+									</div><!--.slide-->
 
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-1.jpeg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
+								@endforeach
 
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-2.jpg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-3.jpeg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-1.jpeg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-2.jpg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-3.jpeg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-						</div><!--.posts-slider-->
+							</div><!--.posts-slider-->
+						@endif
 					</section><!--.box-typical-->
 
 					<section class="box-typical">

@@ -25,39 +25,17 @@
 						<div class="profile-statistic tbl">
 							<div class="tbl-row">
 								<div class="tbl-cell">
-									<b>300</b>
+									<b>{{ $user->quiz_score }}</b>
 									GP Standard
 								</div>
 								<div class="tbl-cell">
-									<b>200</b>
+									<b>{{ count($user->followed_by) }}</b>
 									Followers
 								</div>
 							</div>
 						</div>
 
-						<ul class="profile-links-list">
-							<li class="nowrap">
-								<i class="font-icon font-icon-earth-bordered"></i>
-								<a href="#">website.com</a>
-							</li>
-							<li class="nowrap">
-								<i class="font-icon font-icon-fb-fill"></i>
-								<a href="#">facebook.com/username</a>
-							</li>
-							<li class="nowrap">
-								<i class="font-icon font-icon-in-fill"></i>
-								<a href="#">linked.in/user</a>
-							</li>
-							<li class="nowrap">
-								<i class="font-icon font-icon-tw-fill"></i>
-								<a href="#">twitter.com/user</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<i class="font-icon font-icon-mail"></i>
-								<a href="#">Email this user</a>
-							</li>
-						</ul>
+
 					</section><!--.box-typical-->
 
 
@@ -66,103 +44,21 @@
 				<div class="col-lg-6 col-lg-push-3 col-md-12">
 
 
-					<section class="box-typical">
-
-						<div class="p-a-md">
-
-
-						</div>
-					</section><!--.box-typical-->
-
-
-					<section class="box-typical">
-						<header class="box-typical-header-sm">
-							Photos
-							<div class="slider-arrs">
-								<button type="button" class="posts-slider-prev">
-									<i class="font-icon font-icon-arrow-left"></i>
-								</button>
-								<button type="button" class="posts-slider-next">
-									<i class="font-icon font-icon-arrow-right"></i>
-								</button>
-							</div>
-						</header>
-						<div class="posts-slider">
-
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-1.jpeg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-2.jpg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-3.jpeg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-1.jpeg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-2.jpg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-
-							<div class="slide">
-								<article class="post-announce">
-									<div class="post-announce-pic">
-										<a href="#">
-											<img src="/img/post-3.jpeg" alt="">
-										</a>
-									</div>
-								</article>
-							</div><!--.slide-->
-						</div><!--.posts-slider-->
 					</section><!--.box-typical-->
 
 					<section class="box-typical">
 						<header class="box-typical-header-sm">
-							Reviews
+							Reviews by {{ $user->first_name}} {{ $user->last_name}}
 						</header>
 
-						@if(count($user->reviews)>0)
+						@if(count($user->reviews) > 0)
 
 							@foreach($user->reviews as $review)
 
 								<div class="p-a-md">
 
 									<div class="citate-speech-bubble">
+										<h6>{{ $review->page->title }}</h6>
 										<b>{{ $review->title }}</b>
 										<p>{{ $review->content }}</p>
 									</div>

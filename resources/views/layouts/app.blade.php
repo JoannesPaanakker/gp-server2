@@ -39,8 +39,8 @@
                                 Download App
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dd-header-add">
-                                <a class="dropdown-item" href="#">iOS</a>
-                                <a class="dropdown-item" href="#">Android</a>
+                                <a class="dropdown-item" href="https://itunes.apple.com/de/app/greenplatform/id1170382180" target="_blank">iOS</a>
+                                <a class="dropdown-item" href="https://play.google.com/store/apps/details?id=org.greenplatform.gp" target="_blank">Android</a>
                             </div>
                         </div>
 
