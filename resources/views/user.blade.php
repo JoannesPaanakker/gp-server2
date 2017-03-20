@@ -19,7 +19,7 @@
 							@for($i = 0; $i < 5; $i++)<img src="/img/leaf-120.png" style="width:28px; display:inline-block; @if($user->rating-1 < $i) opacity:0.5 @endif">@endfor
 							<div class="profile-card-name">{{ $user->first_name}} {{ $user->last_name}}</div>
 							{{-- <button type="button" class="btn btn-rounded">Follow</button> --}}
-
+							<div id="share"></div>
 						</div><!--.profile-card-->
 
 						<div class="profile-statistic tbl">

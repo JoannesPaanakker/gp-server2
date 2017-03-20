@@ -42,44 +42,122 @@
     height: 34px;
 }
 
+
+.share a{
+    background-color:#20b2fc;
+    display:inline-block;
+    height:33px;
+    width:33px;
+    line-height:37px;
+    text-align:center;
+    border-radius:50%;
+    margin:0 3px;
+    opacity:1;
+}
+
+.share a:hover{
+    opacity:0.8;    
+}
+
+.share a i{
+    color:#fff;
+}
+
+.jssocials-share-link{
+    border-radius:50%;
+    padding:0!important;
+    text-align:center;
+    height:33px;
+    width:33px;
+    line-height:33px;
+    text-align:center;
+}
+
+.jssocials-share-logo{
+    font-size:1.1em!important;
+}
+
+.jssocials-share-label{
+    display:none!important;
+}
+
 .landing-content{
-    position: absolute;
-    top: 60px;
-    left: 320px;
-
-    width: 500px;
+    position:absolute;
+    top:0;
+    left:0;
+    padding-top:100px;
+    background-image:url(/img/homepage-background.jpg);
+    background-size:cover;
+    background-position:0 80px;
+    background-repeat:no-repeat;
+    width:100%;
+    height:100%;
 }
 
-.landing-content p{
-    margin-bottom: 20px;
+.landing-content-copy{
+    color:#fff;
+    padding:30px;
+    position:absolute;
 }
 
-.landing-content img{
-    width: 250px;
-    margin-bottom: 50px;
-    margin-left: -10px;
+@media only screen and (min-width: 0px) and (max-width: 600px)  {
+    .landing-content-copy{
+        left:0;
+        top:0px;
+        padding:30px;
+        width:100%;
+    }
 }
 
-.features-list{
-    position: absolute;
-    right: 50px;
-    bottom: 30px;
+@media only screen and (min-width: 601px) and (max-width:1159px){
+    .landing-content{
+        background-position:-300px 80px;
+    }
+   .landing-content-copy{
+        width:500px;
+        position:absolute;
+        left:80px;
+        top:60px;
+    } 
+}
+@media only screen and (min-width: 1160px) and (max-width: 1400px)  {
+    .landing-content{
+        background-position:-200px 80px;
+    }
+    .landing-content-copy{
+        width:600px;
+        position:absolute;
+        left:100px;
+        top:70px;
+    }
 }
 
-.features-item{
-    position: relative;
-
-    width: 300px;
-    margin-bottom: 15px;
-    padding-left: 50px;
+@media only screen and (min-width: 1400px)  {
+    .landing-content{
+        background-position:0 80px;
+    }
+    .landing-content-copy{
+        width:650px;
+        position:absolute;
+        left:100px;
+        top:70px;
+    }
 }
 
-.features-item img{
-    position: absolute;
-    top: 0;
-    left: 0;
+@media only screen and (max-width: 767px)  {
+    .site-logo{
+        margin-top: -4px;
+    }
+}
 
-    width: 30px;
+
+
+.landing-content-copy h2{
+    margin-bottom: 40px;
+}
+
+.landing-content-copy p{
+    font-style:italic;
 }
 
 
@@ -90,17 +168,6 @@
 
     .landing-app{
         display: none;
-    }
-
-    .landing-content{
-        position: relative;
-        top: auto;
-        left: auto;
-
-        width: 100%;
-        padding: 40px;
-
-        background: #fff;
     }
 
     .landing-features{

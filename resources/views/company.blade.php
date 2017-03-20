@@ -21,6 +21,8 @@
 							<div class="profile-card-location">{{ $page->address }}</div>
 							{{-- <button type="button" class="btn btn-rounded">Follow</button> --}}
 
+							<div id="share"></div>
+
 						</div><!--.profile-card-->
 
 						<div class="profile-statistic tbl">
@@ -81,7 +83,7 @@
 										<article class="post-announce">
 											<div class="post-announce-pic">
 												<a href="#">
-													<img src="/photos/{{ $photo->id }}.jpg" alt="">
+													<a class="venobox" href="/photos/{{ $photo->id }}.jpg"><img src="/photos/{{ $photo->id }}_thumb.jpg" alt=""></a>
 												</a>
 											</div>
 										</article>

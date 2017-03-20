@@ -1,4 +1,13 @@
 $(document).ready(function(){
+	$("#share").jsSocials({
+        shares: ["facebook", "twitter", "googleplus", "email"],
+	    showLabel: true,
+	    showCount: true,
+	    shareIn: "popup"
+    });
+    $('.venobox').venobox({
+    	spinner: 'wave'
+    }); 
 /* ==========================================================================
 	Scroll
 	========================================================================== */
