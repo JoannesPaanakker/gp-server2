@@ -100,6 +100,12 @@
     position:absolute;
 }
 
+@media only screen and (max-width: 401px){
+    .landing-content-copy h2{
+        font-size: 1.8em!important;
+    }
+}
+
 @media only screen and (min-width: 0px) and (max-width: 600px)  {
     .landing-content-copy{
         left:0;
@@ -114,7 +120,7 @@
         background-position:-300px 80px;
     }
    .landing-content-copy{
-        width:500px;
+        width:450px;
         position:absolute;
         left:80px;
         top:60px;
@@ -125,7 +131,7 @@
         background-position:-200px 80px;
     }
     .landing-content-copy{
-        width:600px;
+        width:550px;
         position:absolute;
         left:100px;
         top:70px;
