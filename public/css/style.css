@@ -1,3 +1,29 @@
+@font-face{
+    font-family:'Graphik Regular';
+    src:url(../fonts/graphik/graphik-regular.eot);
+    src:
+        url(../fonts/graphik/graphik-regular.eot)format('embedded-opentype'),
+        url(../fonts/graphik/graphik-regular.woff) format('woff'),
+        url(../fonts/graphik/graphik-regular.ttf) format('truetype'),
+        url(../fonts/graphik/graphik-regular.svg#Graphik_Regular) format('svg');
+}
+
+
+
+.profile-card-name{
+    margin:15px 0;
+}
+
+.profile-interests{
+    padding-bottom:0;
+}
+
+.box-typical-header-sm{
+    color:#888;
+    padding: 24px 20px !important;
+}
+
+
 .landing-features{
     position: absolute;
     right: 0;
@@ -69,7 +95,7 @@
     text-align:center;
     height:33px;
     width:33px;
-    line-height:33px;
+    line-height:34px;
     text-align:center;
 }
 
@@ -160,10 +186,11 @@
 
 .landing-content-copy h2{
     margin-bottom: 40px;
+    line-height: 1.3em;
 }
 
 .landing-content-copy p{
-    font-style:italic;
+    line-height: 1.6em;
 }
 
 
