@@ -28,6 +28,7 @@ class QuizController extends Controller {
 		$request = request()->all();
 		$user->quiz_completed = 1;
 		$user->quiz_score = $request['quiz_score'];
+		$user->quiz_comments = $request['quiz_comments'];
 		$user->save();
 
 		// save quiz answers
@@ -115,6 +116,7 @@ class QuizController extends Controller {
 		foreach ($answers as $answer) {
 			$score += $answer->score;
 		}
+		$answers['quiz_comments'] = $user->quiz_comments;
 		$percent = ceil($score * 100 / $quiz[0]->max_score);
 		return ['answers' => $answers, 'score' => $score, 'percent' => $percent];
 	}
