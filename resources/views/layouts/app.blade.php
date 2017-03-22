@@ -71,6 +71,17 @@
 
 	</div><!--.page-content-->
 
+	<div class="page-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<img src="/img/leaf-120.png" style="width:30px"> <b>GreenPlatform</b> · 213 Baker St · KSC 234 · Amsterdam, NL · <b>Phone:</b> 123455323 · <b>Email:</b> <a href="mailto:info@greenplatform.org">info@greenplatform.org</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
 	<script src="/js/lib/jquery/jquery.min.js"></script>
 	<script src="/js/lib/tether/tether.min.js"></script>
 	<script src="/js/lib/bootstrap/bootstrap.min.js"></script>

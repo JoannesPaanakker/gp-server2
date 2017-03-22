@@ -106,16 +106,21 @@
 }
 
 .landing-content{
-    position:absolute;
+    position:relative;
+    height:100vh !important;
+    width:100vw !important;
     top:0;
     left:0;
     padding-top:100px;
+    margin-top:-30px;
+    margin-left:-15px;
+    margin-right:-15px;
     background-image:url(/img/homepage-background.jpg);
     background-size:cover;
-    background-position:0 80px;
+    background-position:0 0;
     background-repeat:no-repeat;
-    width:100%;
-    height:100%;
+    
+    
 }
 
 .landing-content-copy{
@@ -141,7 +146,7 @@
 
 @media only screen and (min-width: 601px) and (max-width:1159px){
     .landing-content{
-        background-position:-300px 80px;
+        background-position:-300px 0px;
     }
    .landing-content-copy{
         width:450px;
@@ -152,7 +157,7 @@
 }
 @media only screen and (min-width: 1160px) and (max-width: 1400px)  {
     .landing-content{
-        background-position:-200px 80px;
+        background-position:-200px 0px;
     }
     .landing-content-copy{
         width:550px;
@@ -164,7 +169,7 @@
 
 @media only screen and (min-width: 1400px)  {
     .landing-content{
-        background-position:0 80px;
+        background-position:0 0px;
     }
     .landing-content-copy{
         width:650px;
@@ -227,4 +232,10 @@
     .features-item{
         width: 90%;
     }
+}
+
+.page-footer{
+    padding:20px;
+    margin-top: -9px;
+    background:#fff;
 }
