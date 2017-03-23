@@ -4,124 +4,133 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
-{
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+class User extends Authenticatable {
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'name', 'email', 'password',
+	];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+	/**
+	 * The attributes that should be hidden for arrays.
+	 *
+	 * @var array
+	 */
+	protected $hidden = [
+		'password', 'remember_token',
+	];
 
-    // sends a push notification to the user
-    public function sendPushNotification($message)
-    {
+	// sends a push notification to the user
+	public function sendPushNotification($message) {
 
-        if (!$this->device_token) {
-            return;
-        }
+		if (!$this->device_token) {
+			return;
+		}
 
-        $system = 'Android';
-        if (strlen($this->device_token) == 64) {
-            $system = 'iOS';
-        }
+		$system = 'Android';
+		if (strlen($this->device_token) == 64) {
+			$system = 'iOS';
+		}
 
-        \PushNotification::app($system)
-            ->to($this->device_token)
-            ->send($message);
-    }
+		if ($system == 'Android') {
+			// send an android push
+			$app = PushNotification::app($system);
+			$new_client = new \Zend\Http\Client(null, array(
+				'adapter' => 'Zend\Http\Client\Adapter\Socket',
+				'sslverifypeer' => false,
+			));
+			$app->adapter->setHttpClient($new_client);
+			$app->to($this->device_token)->send($message);
+		} else {
+			// send an ios push
+			\PushNotification::app($system)
+				->to($this->device_token)
+				->send($message);
+		}
 
-    public static function sendPushNotificationToMultipleUsers($users, $message)
-    {
-        $device_tokens_ios = [];
-        $device_tokens_android = [];
+	}
 
-        foreach ($users as $user) {
-            if ($user->device_token) {
-                if (strlen($user->device_token) == 64) {
-                    $device_tokens_ios[] = \PushNotification::Device($user->device_token, array('badge' => 1));
-                } else {
-                    $device_tokens_android[] = \PushNotification::Device($user->device_token);
-                }
-            }
-        }
+	public static function sendPushNotificationToMultipleUsers($users, $message) {
+		$device_tokens_ios = [];
+		$device_tokens_android = [];
 
-        if (count($device_tokens_android) > 0) {
-            $devices_android = \PushNotification::DeviceCollection($device_tokens_android);
-            \PushNotification::app('Android')
-                ->to($devices_android)
-                ->send($message);
-        }
+		foreach ($users as $user) {
+			if ($user->device_token) {
+				if (strlen($user->device_token) == 64) {
+					$device_tokens_ios[] = \PushNotification::Device($user->device_token, array('badge' => 1));
+				} else {
+					$device_tokens_android[] = \PushNotification::Device($user->device_token);
+				}
+			}
+		}
 
-        if (count($device_tokens_ios) > 0) {
-            $devices_ios = \PushNotification::DeviceCollection($device_tokens_ios);
-            $push = \PushNotification::app('iOS')
-                ->to($devices_ios)
-                ->send($message);
+		if (count($device_tokens_android) > 0) {
+			$devices_android = \PushNotification::DeviceCollection($device_tokens_android);
 
-            ob_start();
-            var_dump($push->getFeedback());
-            $contents = ob_get_contents();
-            ob_end_clean();
-            error_log($contents);
+			$app = PushNotification::app('Android');
 
-        }
+			$new_client = new \Zend\Http\Client(null, array(
+				'adapter' => 'Zend\Http\Client\Adapter\Socket',
+				'sslverifypeer' => false,
+			));
 
-    }
+			$app->adapter->setHttpClient($new_client);
+			$app->to($devices_android)->send($message);
+		}
 
-    public function pages()
-    {
-        return $this->hasMany(Page::class);
-    }
+		if (count($device_tokens_ios) > 0) {
+			$devices_ios = \PushNotification::DeviceCollection($device_tokens_ios);
+			$push = \PushNotification::app('iOS')
+				->to($devices_ios)
+				->send($message);
 
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
+			ob_start();
+			var_dump($push->getFeedback());
+			$contents = ob_get_contents();
+			ob_end_clean();
+			error_log($contents);
 
-    public function goals()
-    {
-        return $this->hasMany(Goal::class);
-    }
+		}
 
-    public function tips()
-    {
-        return $this->hasMany(Tip::class);
-    }
+	}
 
-    public function following_pages()
-    {
-        return $this->belongsToMany(Page::class, 'follows')->withTimestamps();
-    }
+	public function pages() {
+		return $this->hasMany(Page::class);
+	}
 
-    public function following_users()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'follow_id')->withTimestamps();
-    }
+	public function reviews() {
+		return $this->hasMany(Review::class);
+	}
 
-    public function followed_by()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'follow_id', 'user_id')->withTimestamps();
-    }
+	public function goals() {
+		return $this->hasMany(Goal::class);
+	}
 
-    public function sendEmail($subject, $body)
-    {
-        $user = $this;
-        \Mail::send('emails.notification', ['title' => $subject, 'content' => $body], function ($m) use ($user, $subject) {
-            $m->from('noreply@greenplatform.org', 'GreenPlatform');
-            $m->to($user->email, $user->first_name . ' ' . $user->last_name)->subject($subject);
-        });
-    }
+	public function tips() {
+		return $this->hasMany(Tip::class);
+	}
+
+	public function following_pages() {
+		return $this->belongsToMany(Page::class, 'follows')->withTimestamps();
+	}
+
+	public function following_users() {
+		return $this->belongsToMany(User::class, 'follows', 'user_id', 'follow_id')->withTimestamps();
+	}
+
+	public function followed_by() {
+		return $this->belongsToMany(User::class, 'follows', 'follow_id', 'user_id')->withTimestamps();
+	}
+
+	public function sendEmail($subject, $body) {
+		$user = $this;
+		\Mail::send('emails.notification', ['title' => $subject, 'content' => $body], function ($m) use ($user, $subject) {
+			$m->from('noreply@greenplatform.org', 'GreenPlatform');
+			$m->to($user->email, $user->first_name . ' ' . $user->last_name)->subject($subject);
+		});
+	}
 
 }
