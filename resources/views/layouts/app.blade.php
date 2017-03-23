@@ -31,7 +31,7 @@
 	<header class="site-header">
 	    <div class="container-fluid">
 
-	        <a href="#" class="site-logo">
+	        <a href="/" class="site-logo">
 	            <img class="hidden-md-down" src="/img/logo.png" alt="">
 	            <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
 	        </a>
@@ -74,8 +74,11 @@
 	<div class="page-footer">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
-					<img src="/img/leaf-120.png" style="width:30px"> <b>GreenPlatform</b> · 213 Baker St · KSC 234 · Amsterdam, NL · <b>Phone:</b> 123455323 · <b>Email:</b> <a href="mailto:info@greenplatform.org">info@greenplatform.org</a>
+				<div class="col-lg-12 footer-contact">
+					<img src="/img/leaf-120.png" style="width:25px"> <b>GreenPlatform</b><br>
+					<br>213 Baker St • KSC 234 • Amsterdam, NL<br>
+					<b>Phone:</b> 123455323<br>
+					<b>Email:</b> <a href="mailto:info@greenplatform.org">info@greenplatform.org</a>
 				</div>
 			</div>
 		</div>

@@ -157,7 +157,7 @@
 }
 @media only screen and (min-width: 1160px) and (max-width: 1400px)  {
     .landing-content{
-        background-position:-200px 0px;
+        background-position:0px 0px;
     }
     .landing-content-copy{
         width:550px;
@@ -234,8 +234,18 @@
     }
 }
 
+.main-content{
+    margin-bottom:70px;
+}
+
+.footer-contact{
+    text-align:center;
+    line-height: 25px;
+}
+
+
 .page-footer{
-    padding:20px;
+    padding:30px 20px;
     margin-top: -9px;
     background:#fff;
 }
