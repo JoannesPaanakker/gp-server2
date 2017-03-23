@@ -37,7 +37,7 @@ class User extends Authenticatable {
 
 		if ($system == 'Android') {
 			// send an android push
-			$app = PushNotification::app($system);
+			$app = \PushNotification::app($system);
 			$new_client = new \Zend\Http\Client(null, array(
 				'adapter' => 'Zend\Http\Client\Adapter\Socket',
 				'sslverifypeer' => false,
@@ -70,7 +70,7 @@ class User extends Authenticatable {
 		if (count($device_tokens_android) > 0) {
 			$devices_android = \PushNotification::DeviceCollection($device_tokens_android);
 
-			$app = PushNotification::app('Android');
+			$app = \PushNotification::app('Android');
 
 			$new_client = new \Zend\Http\Client(null, array(
 				'adapter' => 'Zend\Http\Client\Adapter\Socket',
