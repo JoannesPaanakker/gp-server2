@@ -71,19 +71,21 @@
 
 	</div><!--.page-content-->
 
-	<div class="page-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 footer-contact">
-					<img src="/img/leaf-120.png" style="width:25px"> <b>GreenPlatform</b><br>
-					<br>213 Baker St • KSC 234 • Amsterdam, NL<br>
-					<b>Phone:</b> 123455323<br>
-					<b>Email:</b> <a href="mailto:info@greenplatform.org">info@greenplatform.org</a>
+	@if(Route::getCurrentRoute()->uri() == '/')
+
+		<div class="page-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 footer-contact">
+						<img src="/img/leaf-120.png" style="width:25px"> <b>GreenPlatform</b><br>
+						<b>Phone:</b>+31(0)20 7725885<br>
+						<b>Email:</b> <a href="mailto:info@greenplatform.org">info@greenplatform.org</a>
+					</div>
 				</div>
 			</div>
 		</div>
 
-	</div>
+	@endif
 
 	<script src="/js/lib/jquery/jquery.min.js"></script>
 	<script src="/js/lib/tether/tether.min.js"></script>

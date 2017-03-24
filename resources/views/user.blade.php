@@ -13,7 +13,7 @@
 								@if($user->picture)
 									<img src="{{ $user->picture }}" alt=""/>
 								@else
-									<img src="/img/faq-3.png" alt=""/>
+									<img src="/img/avatar-sign.png" alt=""/>
 								@endif
 							</div>
 							@for($i = 0; $i < 5; $i++)<img src="/img/leaf-120.png" style="width:28px; display:inline-block; @if($user->rating-1 < $i) opacity:0.5 @endif">@endfor

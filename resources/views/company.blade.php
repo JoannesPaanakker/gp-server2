@@ -10,12 +10,16 @@
 					<section class="box-typical">
 						<div class="profile-card">
 							<div class="profile-card-photo">
+								@if($page->user_id > 1)
+									<div class="taken-checkmark"></div>
+								@endif
 								@if(count($page->photos)>0)
 									<img src="/photos/{{ $page->photos[0]->id }}.jpg" alt=""/>
 								@else
-									<img src="/img/faq-3.png" alt=""/>
+									<img src="/img/default-company.png" alt=""/>
 								@endif
 							</div>
+
 							@for($i = 0; $i < 5; $i++)<img src="/img/leaf-120.png" style="width:28px; display:inline-block; @if($page->rating-1 < $i) opacity:0.5 @endif">@endfor
 							<div class="profile-card-name">{{ $page->title}}</div>
 							<div class="profile-card-location">{{ $page->address }}</div>

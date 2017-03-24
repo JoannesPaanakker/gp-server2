@@ -250,3 +250,19 @@
     margin-top: -9px;
     background:#fff;
 }
+
+.profile-card-photo{
+    position:relative;
+}
+
+.taken-checkmark{
+    position:absolute;
+    right:0;
+    top:0;
+    background-image:url(/img/claimed.png);
+    background-size:100%;
+    background-repeat: no-repeat;
+    width:25px;
+    height:25px;
+    display:inline-block;
+}
