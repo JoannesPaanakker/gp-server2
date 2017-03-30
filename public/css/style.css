@@ -67,25 +67,6 @@
 }
 
 
-.share a{
-    background-color:#20b2fc;
-    display:inline-block;
-    height:33px;
-    width:33px;
-    line-height:37px;
-    text-align:center;
-    border-radius:50%;
-    margin:0 3px;
-    opacity:1;
-}
-
-.share a:hover{
-    opacity:0.8;    
-}
-
-.share a i{
-    color:#fff;
-}
 
 .jssocials-share-link{
     border-radius:50%;
@@ -105,6 +86,17 @@
     display:none!important;
 }
 
+.share-home .jssocials-share-link{
+    background:#ffffff;
+}
+
+.share-home .jssocials-share-link:hover{
+    background:#e4eeda;
+}
+
+.share-home .jssocials-share-link .jssocials-share-logo{
+    color:#647a53;
+}
 .landing-content{
     position:relative;
     height:100vh !important;
