@@ -94,6 +94,10 @@
     background:#e4eeda;
 }
 
+.jssocials-share-count-box{
+    display:none !important;
+}
+
 .share-home .jssocials-share-link .jssocials-share-logo{
     color:#647a53;
 }
