@@ -14,7 +14,8 @@ Route::post('/users/{user}/unfollow-page/{page}', 'UsersController@unFollowPage'
 Route::post('/users/{following}/follow-user/{followed}', 'UsersController@followUser');
 Route::post('/users/{following}/unfollow-user/{followed}', 'UsersController@unFollowUser');
 Route::post('/users/{user}/facebook-friends', 'UsersController@facebookFriends');
-Route::get('/user/{user}', 'PagesController@userPage');
+Route::get('/user/{user_unique_id}/{slug}', 'PagesController@userPage');
+
 Route::post('/users/login', 'UsersController@login');
 Route::post('/users/forgot', 'UsersController@forgot');
 Route::post('/users/register', 'UsersController@register');
@@ -66,7 +67,7 @@ Route::post('/tips', 'TipsController@store');
 Route::post('/tips/{tip}/hearts', 'TipsController@hearts');
 
 // pages
-Route::get('/company/{page}', 'PagesController@companyPage');
+Route::get('/company/{page_unique_id}/{slug}', 'PagesController@companyPage');
 
 Route::get('/users/{user}/goals', 'GoalsController@index');
 Route::post('/users/{user}/goals', 'GoalsController@store');
@@ -75,6 +76,30 @@ Route::get('/users/{user}/goals/{goal}/delete', 'GoalsController@delete');
 Route::post('/users/{user}/goals/{goal}', 'GoalsController@update');
 
 Route::post('/save-login', 'UsersController@store');
+
+Route::get('/slug-users', function () {
+	$users = \App\User::all();
+	$hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
+
+	foreach ($users as $user) {
+		$user->unique_id = $hashids->encode($user->id);
+		$user->slug = str_slug($user->first_name . ' ' . $user->last_name);
+		$user->save();
+	}
+	dd('slug for users generated');
+});
+
+Route::get('/slug-page', function () {
+	$pages = \App\Page::all();
+	$hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
+
+	foreach ($pages as $page) {
+		$page->unique_id = $hashids->encode($page->id);
+		$page->slug = str_slug($page->title);
+		$page->save();
+	}
+	dd('slug for pages generated');
+});
 
 Route::get('/push-notification', function () {
 	$deviceToken = request()->devicetoken;
