@@ -6,7 +6,8 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>GreenPlatform</title>
 
-	<link href="/favicon.ico" rel="shortcut icon">
+	<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon.png">
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
