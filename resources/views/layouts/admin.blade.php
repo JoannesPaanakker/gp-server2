@@ -12,7 +12,6 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
-
     <!-- Bootstrap core CSS     -->
     <link href="/admin-assets/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -48,14 +47,25 @@
                 </a>
             </div>
 
+
+
+
             <ul class="nav">
                 <li>
-                    <a href="/admin/">
-                        <i class="ti-user"></i>
+                    <a href="/admin/"><i class="ti-user"></i>
                         <p>Users</p>
                     </a>
                 </li>
+                <li>
+                    <a href="/admin/companies">
+                        <i class="ti-user"></i>
+                        <p>Companies</p>
+                    </a>
+                </li>
             </ul>
+
+
+
         </div>
     </div>
 

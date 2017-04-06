@@ -4,6 +4,7 @@ Route::get('/', 'HomeController@index');
 
 // admin
 Route::get('/admin', 'AdminController@index');
+Route::get('/admin/companies/{order?}', 'AdminController@companies');
 
 Route::get('/users/{user}/pages', 'PagesController@userPages');
 Route::post('/users/{user}/pages', 'PagesController@store');
