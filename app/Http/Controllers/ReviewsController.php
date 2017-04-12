@@ -49,6 +49,9 @@ class ReviewsController extends Controller {
 		$page = $review->page;
 		$page->updateRating();
 
+		// update page prize thumbs count
+		$page->updateThumbs();
+
 		return response()->json(['status' => 'success']);
 	}
 
@@ -106,6 +109,9 @@ class ReviewsController extends Controller {
 		// update page rating
 		$page = $review->page;
 		$page->updateRating();
+
+		// update page prize thumbs count
+		$page->updateThumbs();
 
 		// post update
 		$update = new Update;

@@ -72,6 +72,29 @@ class Page extends Model
         $this->save();
     }
 
+
+    public function updateThumbs()
+    {
+        $reviews = $this->reviews;
+        $totalThumbsUp = 0;
+        $totalThumbsDown = 0;
+        foreach ($reviews as $review) {
+            if($review->prize_thumb == 'up'){
+                $totalThumbsUp++;
+            }
+            if($review->prize_thumb == 'down'){
+                $totalThumbsDown++;
+            }
+        }
+        $this->num_thumbs_up = $totalThumbsUp;
+        $this->num_thumbs_down = $totalThumbsDown;
+        
+        $this->save();
+    }
+
+
+    // count how many reviews are there with tumbs up or down
+
     public function quizAnswers()
     {
         return $this->hasMany(QuizAnswer::class);
