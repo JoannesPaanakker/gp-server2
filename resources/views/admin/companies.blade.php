@@ -24,7 +24,7 @@
 							<th>Address</th>
 							<th style="text-align:center">Reviews</th>
 							<th style="text-align:center"><i class="fa fa-thumbs-up"></i></th>
-							<th style="text-align:center"><i class="fa fa-thumbs-up"></i></th>
+							<th style="text-align:center"><i class="fa fa-thumbs-down"></i></th>
 		                </thead>
 		                <tbody>
 		                    @foreach($companies as $company)
