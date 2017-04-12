@@ -41,6 +41,8 @@ class ReviewsController extends Controller {
 		$review->rating_2 = $request['rating_2'];
 		$review->rating_3 = $request['rating_3'];
 
+		$review->prize_thumb = $request['prize_thumb'];
+
 		$review->save();
 
 		// update page rating
@@ -95,6 +97,8 @@ class ReviewsController extends Controller {
 		$review->rating_1 = $request['rating_1'];
 		$review->rating_2 = $request['rating_2'];
 		$review->rating_3 = $request['rating_3'];
+
+		$review->prize_thumb = $request['prize_thumb'];
 
 		$user->reviews()->save($review);
 		$page->reviews()->save($review);
