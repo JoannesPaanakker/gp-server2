@@ -129,11 +129,8 @@ class QuizController extends Controller {
 		foreach ($answers as $answer) {
 			$score += $answer->score;
 		}
-		if(count($answers) > 0){
-			$answers['quiz_comments'] = $page->quiz_comments;
-		}
 		$percent = ceil($score * 100 / $quiz[0]->max_score);
-		return ['answers' => $answers, 'user_id' => $page->user_id, 'score' => $score, 'percent' => $percent];
+		return ['answers' => $answers, 'quiz_comments' => $page->quiz_comments, 'user_id' => $page->user_id, 'score' => $score, 'percent' => $percent];
 	}
 
 }
