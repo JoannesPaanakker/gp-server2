@@ -116,9 +116,8 @@ class QuizController extends Controller {
 		foreach ($answers as $answer) {
 			$score += $answer->score;
 		}
-		$answers['quiz_comments'] = $user->quiz_comments;
 		$percent = ceil($score * 100 / $quiz[0]->max_score);
-		return ['answers' => $answers, 'score' => $score, 'percent' => $percent];
+		return ['answers' => $answers, 'quiz_comments' => $user->quiz_comments, 'score' => $score, 'percent' => $percent];
 	}
 
 	// get answers (quiz result) for a page
