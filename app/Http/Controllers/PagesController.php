@@ -170,12 +170,12 @@ class PagesController extends Controller {
 		return $places_nearby_without_pages;
 	}
 
-	public function companyPage($unique_id, $slug) {
+	public function companyPage($slug, $unique_id) {
 		$page = Page::where('unique_id', $unique_id)->where('slug', $slug)->first();
 		return view('company', compact('page'));
 	}
 
-	public function userPage($unique_id, $slug) {
+	public function userPage($slug, $unique_id) {
 		$user = User::where('unique_id', $unique_id)->where('slug', $slug)->first();
 		return view('user', compact('user'));
 	}

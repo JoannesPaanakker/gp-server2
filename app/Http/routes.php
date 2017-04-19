@@ -15,7 +15,7 @@ Route::post('/users/{user}/unfollow-page/{page}', 'UsersController@unFollowPage'
 Route::post('/users/{following}/follow-user/{followed}', 'UsersController@followUser');
 Route::post('/users/{following}/unfollow-user/{followed}', 'UsersController@unFollowUser');
 Route::post('/users/{user}/facebook-friends', 'UsersController@facebookFriends');
-Route::get('/user/{user_unique_id}/{slug}', 'PagesController@userPage');
+Route::get('/user/{slug}/{user_unique_id}', 'PagesController@userPage');
 
 Route::post('/users/login', 'UsersController@login');
 Route::post('/users/forgot', 'UsersController@forgot');
@@ -68,7 +68,7 @@ Route::post('/tips', 'TipsController@store');
 Route::post('/tips/{tip}/hearts', 'TipsController@hearts');
 
 // pages
-Route::get('/company/{page_unique_id}/{slug}', 'PagesController@companyPage');
+Route::get('/company/{slug}/{page_unique_id}', 'PagesController@companyPage');
 
 Route::get('/users/{user}/goals', 'GoalsController@index');
 Route::post('/users/{user}/goals', 'GoalsController@store');
