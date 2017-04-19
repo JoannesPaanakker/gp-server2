@@ -117,6 +117,10 @@ class UsersController extends Controller {
 
 		$returning_user = $user->exists;
 
+		$hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
+		$user->unique_id = $hashids->encode($user->id);
+		$user->slug = str_slug($user->first_name . ' ' . $user->last_name);
+
 		$user->save();
 
 		return response()->json(['status' => 'success', 'quiz_completed' => $user->quiz_completed, 'user_id' => $user->id]);
