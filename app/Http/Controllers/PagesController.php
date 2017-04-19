@@ -288,11 +288,6 @@ class PagesController extends Controller {
 		$user->pages()->save($page);
 		$user->following_pages()->sync([$page->id]);
 
-		$hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
-		$page->unique_id = $hashids->encode($page->id);
-		$page->slug = str_slug($page->title);
-		$page->save();
-
 		// post update
 		$update = new Update;
 		$update->user_id = $user->id;
@@ -301,6 +296,13 @@ class PagesController extends Controller {
 		$update->entity_id = $page->id;
 		$update->entity_name = $page->title;
 		$update->save();
+
+
+		// generate unique_id and slug for page
+		$hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
+		$page->unique_id = $hashids->encode($page->id);
+		$page->slug = str_slug($page->title);
+		$page->save();
 
 		return response()->json(['status' => 'success', 'page_id' => $page->id]);
 
