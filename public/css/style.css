@@ -271,3 +271,8 @@
     height:25px;
     display:inline-block;
 }
+
+.profile-card .profile-card-photo img{
+    width:110px;
+    height:110px;
+}
