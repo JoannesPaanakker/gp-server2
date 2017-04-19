@@ -128,7 +128,7 @@ class ReviewsController extends Controller {
 		$message = $user->first_name . ' ' . $user->last_name . ' has reviewed ' . $page->title;
 		User::sendPushNotificationToMultipleUsers($user->followed_by, $message);
 
-		return response()->json(['status' => 'success', 'review_id' => $review->id]);
+		return response()->json(['status' => 'success', 'review_id' => $review->id, 'page_name' => $page->title]);
 
 	}
 
