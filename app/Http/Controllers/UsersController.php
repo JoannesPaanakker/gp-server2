@@ -119,6 +119,8 @@ class UsersController extends Controller {
 
 		$hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
 		$user->unique_id = $hashids->encode($user->id);
+		error_log('unique id');
+		error_log($user->unique_id);
 		$user->slug = str_slug($user->first_name . ' ' . $user->last_name);
 
 		$user->save();
