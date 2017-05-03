@@ -11,8 +11,8 @@
 						<br>
 						<a href="https://www.facebook.com/greenplatform.org/?fref=ts" target="_blank" class="social-link"><i class="fa fa-facebook"></i></a>
 						<br>
-						<a href="https://itunes.apple.com/de/app/greenplatform/id1170382180"><img src="/img/download-ios.png" target="_blank" alt="" class="download-button-ios"></a>
-						<a href="https://play.google.com/store/apps/details?id=org.greenplatform.gp"><img src="/img/download-android.png" target="_blank" alt="" class="download-button-android"></a>
+						<a href="https://itunes.apple.com/de/app/greenplatform/id1170382180" target="_blank"><img src="/img/download-ios.png" alt="" class="download-button-ios"></a>
+						<a href="https://play.google.com/store/apps/details?id=org.greenplatform.gp" target="_blank"><img src="/img/download-android.png" alt="" class="download-button-android"></a>
 					</div>
 				</div>
 			</div>
