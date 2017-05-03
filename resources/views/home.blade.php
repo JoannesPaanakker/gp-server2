@@ -6,10 +6,13 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="landing-content-copy">
-						<h2>GreenPlatform helps people and companies live a greener life in a fun and social way.</h2>
-						<p>GreenPlatform offers green advice, products and tips on green company pages. You can search your locality on the map to find green cafes, restaurants, products and companies. You can read or even post your own green reviews. There will prizes for the best green shops and products.</p>
+						<h2>Greenplatform is the new must have app to save the planet</h2>
+						<p>Check, review and reward your favorite bar, supermarket, NGO or school to make a statement. Be in control. Team up now and join your friends, expand your network and show what you are doing to make the world a better place.</p>
 						<br>
 						<a href="https://www.facebook.com/greenplatform.org/?fref=ts" target="_blank" class="social-link"><i class="fa fa-facebook"></i></a>
+						<br>
+						<a href="https://itunes.apple.com/de/app/greenplatform/id1170382180"><img src="/img/download-ios.png" target="_blank" alt="" class="download-button-ios"></a>
+						<a href="https://play.google.com/store/apps/details?id=org.greenplatform.gp"><img src="/img/download-android.png" target="_blank" alt="" class="download-button-android"></a>
 					</div>
 				</div>
 			</div>
