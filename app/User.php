@@ -57,10 +57,14 @@ class User extends Authenticatable {
 		$device_tokens_ios = [];
 		$device_tokens_android = [];
 
+		$message = PushNotification::Message($message, array(
+	    	'badge' => 1
+		));
+
 		foreach ($users as $user) {
 			if ($user->device_token) {
 				if (strlen($user->device_token) == 64) {
-					$device_tokens_ios[] = \PushNotification::Device($user->device_token, array('badge' => 1));
+					$device_tokens_ios[] = \PushNotification::Device($user->device_token);
 				} else {
 					$device_tokens_android[] = \PushNotification::Device($user->device_token);
 				}
