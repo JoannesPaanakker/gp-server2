@@ -108,8 +108,18 @@ Route::get('/push-notification', function () {
 		abort(404);
 	}
 
+	$message = PushNotification::Message('Message Text',array(
+	    'badge' => 1
+	));
+
+	$collection = PushNotification::app('iOS')
+	    ->to($deviceToken)
+	    ->send($message);
+
+	/*
 	PushNotification::app('iOS')
 		->to($deviceToken)
 		->send("Hello World, I'm a push message");
+	*/
 	return 'sent';
 });
