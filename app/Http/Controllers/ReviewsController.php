@@ -121,8 +121,9 @@ class ReviewsController extends Controller {
 		$update->entity_id = $page->id;
 		$update->entity_name = $page->title;
 		$update->save();
-
-		$user->following_pages()->sync([$page->id]);
+		if(!$user->following_pages->contains($page)){
+			$user->following_pages()->save($page);
+		}
 
 		// send a push notification to followers
 		$message = $user->first_name . ' ' . $user->last_name . ' has reviewed ' . $page->title;

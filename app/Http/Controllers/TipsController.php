@@ -48,6 +48,9 @@ class TipsController extends Controller
         $update->entity_name = $tip->title;
         $update->save();
 
+        $message = $user->first_name . ' ' . $user->last_name . ' has created a new tip';
+        User::sendPushNotificationToMultipleUsers($user->followed_by, $message);
+
         return response()->json(['status' => 'success']);
     }
 }
