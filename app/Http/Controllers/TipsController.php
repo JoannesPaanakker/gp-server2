@@ -37,7 +37,7 @@ class TipsController extends Controller
         $tip->title = $request['title'];
         $tip->user_id = $request['userID'];
         $tip->content = $request['content'];
-        $user->tips()->save($tip);
+        $tip->save();
 
         // post update
         $update = new Update;
