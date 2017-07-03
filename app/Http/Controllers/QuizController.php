@@ -28,6 +28,7 @@ class QuizController extends Controller {
 		$request = request()->all();
 		
 		// save quiz answers
+
 		//QuizAnswer::where('user_id', $user->id)->delete(); //delete all previous answers for the user
 		
 		$questions = QuizQuestion::with('answers')->get();
@@ -36,17 +37,22 @@ class QuizController extends Controller {
 			if (array_key_exists($question->id, $request['quiz_answers'])) {
 				// loop through all the possible answers
 				foreach ($question->answers as $possible_answer) {
+					// check if the question was skipped
+					if($request['quiz_answers'][$question->id] == 'skipped'){
+						//dd('skipped');
+					}
+
 					// if this is the answer, 
 					if ($possible_answer->id == $request['quiz_answers'][$question->id]) {
 						// save it or update it, if it exists
-						$answer = QuizAnswer::where('user_id', $user->id)->where('possible_answer_id', $possible_answer->id)->first();
+						$answer = QuizAnswer::where('user_id', $user->id)->where('question_id', $question->id)->first();
 						if(!$answer){
 							$answer = new QuizAnswer;	
 						}
 						$answer->user_id = $user->id;
 						$answer->question_text = $question->question;
 						$answer->answer = $possible_answer->answer;
-						$answer->possible_answer_id = $possible_answer;
+						$answer->question_id = $question->id;
 						$answer->score = $possible_answer->score;
 						$answer->save();
 					}
@@ -67,9 +73,6 @@ class QuizController extends Controller {
 		$user->save();
 
 
-		
-		
-
 		// post update
 		$update = new Update;
 		$update->user_id = $user->id;
@@ -85,32 +88,51 @@ class QuizController extends Controller {
 	// complete quiz
 	public function completeQuizPage(Page $page) {
 		$request = request()->all();
+		
+		// save quiz answers
+		//QuizAnswer::where('page_id', $page->id)->delete(); //delete all previous answers for the user
+		$questions = QuizQuestion::with('answers')->get();
+		foreach ($questions as $question) {
+			// if the question was answered,
+			if (array_key_exists($question->id, $request['quiz_answers'])) {
+				// loop through all the possible answers
+				foreach ($question->answers as $possible_answer) {
+					// check if the question was skipped
+					if($request['quiz_answers'][$question->id] == 'skipped'){
+						//dd('skipped');
+					}
+
+					// if this is the answer, 
+					if ($possible_answer->id == $request['quiz_answers'][$question->id]) {
+						// save it or update it, if it exists
+						$answer = QuizAnswer::where('page_id', $page->id)->where('question_id', $question->id)->first();
+						if(!$answer){
+							$answer = new QuizAnswer;	
+						}
+						$answer->page_id = $page->id;
+						$answer->question_text = $question->question;
+						$answer->answer = $possible_answer->answer;
+						$answer->question_id = $question->id;
+						$answer->score = $possible_answer->score;
+						$answer->save();
+					}
+				}
+			}
+		}
+
+
+		// calculate score from all stored answers
+		$answers = QuizAnswer::where('page_id', $page->id)->get();
+		$total_score = 0;
+		foreach($answers as $answer){
+			$total_score += $answer->score;
+		}
+
 		$page->quiz_completed = 1;
-		$page->quiz_score = $request['quiz_score'];
+		$page->quiz_score = $total_score;
 		$page->quiz_comments = $request['quiz_comments'];
 		$page->save();
 
-		// save quiz answers
-		QuizAnswer::where('page_id', $page->id)->delete(); //delete all previous answers for the user
-		$questions = QuizQuestion::with('answers')->get();
-		foreach ($questions as $question) {
-			if (array_key_exists($question->id, $request['quiz_answers'])) {
-				$answer_text = '';
-				$answer_score = 0;
-				foreach ($question->answers as $selected_answer) {
-					if ($selected_answer->id == $request['quiz_answers'][$question->id]) {
-						$answer_text = $selected_answer->answer;
-						$answer_score = $selected_answer->score;
-					}
-				}
-				$answer = new QuizAnswer;
-				$answer->page_id = $page->id;
-				$answer->question_text = $question->question;
-				$answer->answer = $answer_text;
-				$answer->score = $answer_score;
-				$answer->save();
-			}
-		}
 
 		// post an update
 		$update = new Update;
