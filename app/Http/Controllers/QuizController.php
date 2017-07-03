@@ -26,32 +26,49 @@ class QuizController extends Controller {
 	// complete quiz
 	public function completeQuizUser(User $user) {
 		$request = request()->all();
-		$user->quiz_completed = 1;
-		$user->quiz_score = $request['quiz_score'];
+		
+		// save quiz answers
+		//QuizAnswer::where('user_id', $user->id)->delete(); //delete all previous answers for the user
+		
+		$questions = QuizQuestion::with('answers')->get();
+		foreach ($questions as $question) {
+			// if the question was answered,
+			if (array_key_exists($question->id, $request['quiz_answers'])) {
+				// loop through all the possible answers
+				foreach ($question->answers as $possible_answer) {
+					// if this is the answer, 
+					if ($possible_answer->id == $request['quiz_answers'][$question->id]) {
+						// save it or update it, if it exists
+						$answer = QuizAnswer::where('user_id', $user->id)->where('possible_answer_id', $possible_answer->id)->first();
+						if(!$answer){
+							$answer = new QuizAnswer;	
+						}
+						$answer->user_id = $user->id;
+						$answer->question_text = $question->question;
+						$answer->answer = $possible_answer->answer;
+						$answer->possible_answer_id = $possible_answer;
+						$answer->score = $possible_answer->score;
+						$answer->save();
+					}
+				}
+			}
+		}
+
+		// calculate score from all stored answers
+		$answers = QuizAnswer::where('user_id', $user->id)->get();
+		$total_score = 0;
+		foreach($answers as $answer){
+			$total_score += $answer->score;
+		}
+
+		$user->quiz_completed = 1;		
+		$user->quiz_score = $total_score;
 		$user->quiz_comments = $request['quiz_comments'];
 		$user->save();
 
-		// save quiz answers
-		QuizAnswer::where('user_id', $user->id)->delete(); //delete all previous answers for the user
-		$questions = QuizQuestion::with('answers')->get();
-		foreach ($questions as $question) {
-			if (array_key_exists($question->id, $request['quiz_answers'])) {
-				$answer_text = '';
-				$answer_score = 0;
-				foreach ($question->answers as $selected_answer) {
-					if ($selected_answer->id == $request['quiz_answers'][$question->id]) {
-						$answer_text = $selected_answer->answer;
-						$answer_score = $selected_answer->score;
-					}
-				}
-				$answer = new QuizAnswer;
-				$answer->user_id = $user->id;
-				$answer->question_text = $question->question;
-				$answer->answer = $answer_text;
-				$answer->score = $answer_score;
-				$answer->save();
-			}
-		}
+
+		
+		
 
 		// post update
 		$update = new Update;
