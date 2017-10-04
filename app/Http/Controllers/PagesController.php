@@ -180,6 +180,14 @@ class PagesController extends Controller {
 		return view('user', compact('user'));
 	}
 
+	public function showOrCreateFromGoogle($place_id){
+		$page = Page::find($place_id);
+		if(!$page){
+			$page = $this->createPage(User::find(1), $place_id);
+		}
+		return $this->show($page);
+	}
+
 	public function show(Page $page) {
 		$page->photos = $page->photos()->get();
 		$page->followed = $page->followed()->get();
@@ -265,30 +273,25 @@ class PagesController extends Controller {
 		return $pages;
 	}
 
-	public function store(User $user) {
-
-		$request = request()->all();
-
-		error_log('store page');
-		error_log(print_r($request, true));
-
+	public function createPage(User $user, $google_id){
+		
 		// get info for the place
-		$place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $request['google_place_id'] . '&key=' . env('GOOGLE_API')));
+		$place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $google_id . '&key=' . env('GOOGLE_API')));
 
 		$page = Page::firstOrNew(['google_place_id' => $place->result->place_id]);
 
 		$page->title = $place->result->name;
 		$page->address = $place->result->formatted_address;
 		$page->categories = implode(',', $place->result->types);
-		$page->rating = $request['rating'];
-		$page->about = $request['about'];
+		$page->rating = 0;
+		$page->about = '';
 		$page->lat = $place->result->geometry->location->lat;
 		$page->lng = $place->result->geometry->location->lng;
 		$page->google_place_id = $place->result->place_id;
 		$user->pages()->save($page);
 		$user->following_pages()->sync([$page->id]);
 
-		// post update
+		// post an update
 		$update = new Update;
 		$update->user_id = $user->id;
 		$update->content = 'Has created the page';
@@ -297,15 +300,19 @@ class PagesController extends Controller {
 		$update->entity_name = $page->title;
 		$update->save();
 
-
 		// generate unique_id and slug for page
 		$hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
 		$page->unique_id = $hashids->encode($page->id);
 		$page->slug = str_slug($page->title);
 		$page->save();
 
-		return response()->json(['status' => 'success', 'page_id' => $page->id]);
+		return $page;
+	}
 
+	public function store(User $user) {
+		$request = request()->all();
+		$this->createPage($user, $request['google_place_id']);
+		return response()->json(['status' => 'success', 'page_id' => $page->id]);
 	}
 
 	public function addImage(Page $page) {

@@ -36,6 +36,7 @@ Route::get('/users/{user}/activity', 'UsersController@activity');
 
 Route::get('/pages', 'PagesController@index');
 Route::get('/pages/{page}', 'PagesController@show');
+Route::get('/pages/show-or-create/{page}', 'PagesController@showOrCreateFromGoogle');
 Route::get('/pages/search/{query}/{position}', 'PagesController@search');
 Route::post('/pages/{page}/images', 'PagesController@addImage');
 Route::get('/pages/{page}/reviews', 'ReviewsController@pageReviews');
