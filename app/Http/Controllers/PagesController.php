@@ -285,6 +285,7 @@ class PagesController extends Controller {
 		
 		// get info for the place
 		$place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $google_id . '&key=' . env('GOOGLE_API')));
+		dd($place);
 		if(!$place){
 			return false;
 		}
