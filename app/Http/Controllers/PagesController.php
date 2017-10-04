@@ -285,8 +285,7 @@ class PagesController extends Controller {
 		
 		// get info for the place
 		$place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $google_id . '&key=' . env('GOOGLE_API')));
-		dd($place);
-		if(!$place){
+		if($place->status != 'OK'){
 			return false;
 		}
 		$page = Page::firstOrNew(['google_place_id' => $place->result->place_id]);
