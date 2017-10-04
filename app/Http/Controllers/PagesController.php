@@ -184,7 +184,7 @@ class PagesController extends Controller {
 		$page = Page::find($place_id);
 		if(!$page){
 			// if the length of the id is > 12, is a google place (they have like 30 chars)
-			if(strlen($page) > 12){
+			if(strlen($place_id) > 12){
 				$page = $this->createPage(User::find(1), $place_id);
 				if(!$page){
 					return response()->json(['status' => 'error', 'message' => 'google place doesnt exist']);	
