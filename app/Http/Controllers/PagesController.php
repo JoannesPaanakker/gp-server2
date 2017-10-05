@@ -193,6 +193,7 @@ class PagesController extends Controller {
 				return response()->json(['status' => 'error', 'message' => 'place doesnt exist']);
 			}
 		}
+		$page->feed = $this->pageFeed($page);
 		return $this->show($page);
 	}
 
