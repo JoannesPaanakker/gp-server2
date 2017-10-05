@@ -181,7 +181,14 @@ class PagesController extends Controller {
 	}
 
 	public function showOrCreateFromGoogle($place_id){
-		$page = Page::find($place_id);
+
+		// if the length of the id is > 12, is a google place (they have like 30 chars)
+		if(strlen($place_id) > 12){
+			$page = Page::where(['google_place_id' => $place_id])->first();
+		}else{
+			$page = Page::find($place_id);	
+		}
+		
 		if(!$page){
 			// if the length of the id is > 12, is a google place (they have like 30 chars)
 			if(strlen($place_id) > 12){
@@ -193,7 +200,9 @@ class PagesController extends Controller {
 				return response()->json(['status' => 'error', 'message' => 'place doesnt exist']);
 			}
 		}
+
 		$page->feed = $this->pageFeed($page);
+
 		return $this->show($page);
 	}
 
