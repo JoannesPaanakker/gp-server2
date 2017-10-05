@@ -76,7 +76,8 @@ class UsersController extends Controller {
 	}
 
 	public function show(User $user){
-		$user->feed = $this->feed($user);
+		$feed = $this->feed($user);
+		$user->feed = $feed['feed'];
 		return $user;
 	}
 
