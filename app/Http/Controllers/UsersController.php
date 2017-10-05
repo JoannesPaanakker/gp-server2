@@ -75,6 +75,10 @@ class UsersController extends Controller {
 		return $result;
 	}
 
+	public function show(User $user){
+		dd($user);
+	}
+
 	public function forgot() {
 		$user = User::where('email', '=', request()->email)->first();
 		if ($user) {
