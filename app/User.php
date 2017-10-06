@@ -57,7 +57,7 @@ class User extends Authenticatable {
 		$device_tokens_ios = [];
 		$device_tokens_android = [];
 
-		$message = PushNotification::Message($message, array(
+		$message = \PushNotification::Message($message, array(
 	    	'badge' => 1
 		));
 
