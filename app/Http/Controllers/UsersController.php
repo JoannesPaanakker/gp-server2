@@ -76,7 +76,7 @@ class UsersController extends Controller {
 	}
 
 	public function show(User $user){
-		$feed = $this->feed($user);
+		$feed = $this->activity($user);
 		$user->feed = $feed['feed'];
 		return $user;
 	}
@@ -158,7 +158,7 @@ class UsersController extends Controller {
 	// get a feed with all the recent activity for this user
 	public function activity(User $user) {
 
-		// get latest 10 updates for those pages
+		// get latest 10 updates for this user
 		$updates = Update::where('user_id', $user->id)->with('user')->orderBy('updated_at', 'desc')->take(10)->get();
 
 		foreach ($updates as $update) {
