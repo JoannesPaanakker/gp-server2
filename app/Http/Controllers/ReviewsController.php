@@ -63,6 +63,7 @@ class ReviewsController extends Controller {
 	public function userReviews(User $user) {
 		$reviews = $user->reviews()->orderBy('created_at', 'desc')->with('photos')->get();
 		foreach ($reviews as $index => $review) {
+			$reviews[$index]->user = $user;
 			$reviews[$index]->thumb = $review->getThumb();
 			$reviews[$index]->place = '';
 			if (count($review->page)) {
