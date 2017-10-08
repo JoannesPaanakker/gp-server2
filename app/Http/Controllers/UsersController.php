@@ -9,6 +9,15 @@ use Image;
 
 class UsersController extends Controller {
 
+	public function updateProfile(User $user){
+		$user->first_name = request('first_name');
+		$user->last_name = request('last_name');
+		$user->bio = request('bio');
+		//$user->photo = request('photo');
+		$user->save();
+		return response()->json(['status' => 'success']);
+	}
+
 	public function search(User $user, $query) {
 		$following = $user->following_users;
 		$found_users = User::where('first_name', 'like', '%' . $query . '%')->orWhere('last_name', 'like', '%' . $query . '%')->get();

@@ -33,6 +33,7 @@ Route::get('/users/{user}/quiz-answers', 'QuizController@getQuizAnswersUser');
 
 Route::get('/users/{user}/feed', 'UsersController@feed');
 Route::post('/users/{user}/upload-profile-image', 'UsersController@uploadProfileImage');
+Route::post('/users/{user}/update-profile', 'UsersController@updateProfile');
 Route::get('/users/{user}/activity', 'UsersController@activity');
 
 Route::get('/pages', 'PagesController@index');
