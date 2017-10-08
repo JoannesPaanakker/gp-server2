@@ -20,7 +20,7 @@ class UsersController extends Controller {
 
 		$photo = request()->file('photo');
 		if (!is_null($photo)) {
-			$destinationPath = '/profile-images/';
+			$destinationPath = base_path() . '/public/profile-images/';
 			$path = $user->id . '-orig.jpg';
 			if ($photo->move($destinationPath, $path)) {
 				Image::make('profile-images/' . $user->id . '-orig.jpg')->fit(500, 500)->save('profile-images/' . $user->id . '.jpg');
