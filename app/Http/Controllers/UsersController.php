@@ -139,7 +139,9 @@ class UsersController extends Controller {
 
 		$user->first_name = $request['firstName'];
 		$user->last_name = $request['lastName'];
-		$user->picture = $request['picture'];
+		if(!$user->picture || $user->picture == ''){
+			$user->picture = $request['picture'];	
+		}
 		if ($request['deviceToken'] != 'null') {
 			$user->device_token = $request['deviceToken'];
 		}
