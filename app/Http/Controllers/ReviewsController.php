@@ -118,11 +118,11 @@ class ReviewsController extends Controller {
 		$photo = request()->file('photo');
 		if (!is_null($photo)) {
 			$destinationPath = public_path() . '/profile-images/';
-			$path = $user->id . '-orig.jpg';
+			$path = $review->id . '-orig.jpg';
 			if ($photo->move($destinationPath, $path)) {
-				Image::make($destinationPath . $user->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $user->id . '.jpg');
-				$user->picture = url('/profile-images') . '/' . $user->id . '.jpg';
-				$user->save();
+				Image::make($destinationPath . $review->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $review->id . '.jpg');
+				$review->picture = url('/profile-images') . '/' . $review->id . '.jpg';
+				$review->save();
 			}
 		}
 
