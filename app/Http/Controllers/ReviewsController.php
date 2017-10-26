@@ -117,11 +117,11 @@ class ReviewsController extends Controller {
 		// upload the review photo
 		$photo = request()->file('photo');
 		if (!is_null($photo)) {
-			$destinationPath = public_path() . '/review-photos/';
+			$destinationPath = public_path() . '/reviews-photos/';
 			$path = $review->id . '-orig.jpg';
 			if ($photo->move($destinationPath, $path)) {
 				Image::make($destinationPath . $review->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $review->id . '.jpg');
-				$review->picture = url('/review-photos') . '/' . $review->id . '.jpg';
+				$review->picture = url('/reviews-photos') . '/' . $review->id . '.jpg';
 				$review->save();
 			}
 		}
