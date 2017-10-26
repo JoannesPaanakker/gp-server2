@@ -14,6 +14,8 @@ class GPHelper
         $radius = 400; // in metres
         $rankby = '';
 
+        $query = urlencode($query);
+
         if ($type != 'any') {
             // search by type
             $type = strtolower($query);
