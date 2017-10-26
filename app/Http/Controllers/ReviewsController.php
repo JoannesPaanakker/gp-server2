@@ -117,7 +117,7 @@ class ReviewsController extends Controller {
 		// upload the review photo
 		$photo = request()->file('photo');
 		if (!is_null($photo)) {
-			$destinationPath = public_path() . '/profile-images/';
+			$destinationPath = public_path() . '/review-photos/';
 			$path = $review->id . '-orig.jpg';
 			if ($photo->move($destinationPath, $path)) {
 				Image::make($destinationPath . $review->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $review->id . '.jpg');
