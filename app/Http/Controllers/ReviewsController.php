@@ -101,6 +101,7 @@ class ReviewsController extends Controller {
 		$review->rating_2 = $request['rating_2'];
 		$review->rating_3 = $request['rating_3'];
 
+
 		$review->prize_thumb = $request['prize_thumb'];
 
 		$user->reviews()->save($review);
@@ -112,6 +113,18 @@ class ReviewsController extends Controller {
 
 		// update page prize thumbs count
 		$page->updateThumbs();
+
+		// upload the review photo
+		$photo = request()->file('photo');
+		if (!is_null($photo)) {
+			$destinationPath = public_path() . '/profile-images/';
+			$path = $user->id . '-orig.jpg';
+			if ($photo->move($destinationPath, $path)) {
+				Image::make($destinationPath . $user->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $user->id . '.jpg');
+				$user->picture = url('/profile-images') . '/' . $user->id . '.jpg';
+				$user->save();
+			}
+		}
 
 		// post update
 		$update = new Update;
