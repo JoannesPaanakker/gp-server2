@@ -41,7 +41,7 @@ class QuizController extends Controller {
 					if($request['quiz_answers'][$question->id] == 'skipped'){
 						//dd('skipped');
 					}
-
+					
 					// if this is the answer, 
 					if ($possible_answer->id == $request['quiz_answers'][$question->id]) {
 						// save it or update it, if it exists
@@ -120,7 +120,6 @@ class QuizController extends Controller {
 			}
 		}
 
-
 		// calculate score from all stored answers
 		$answers = QuizAnswer::where('page_id', $page->id)->get();
 		$total_score = 0;
@@ -132,7 +131,6 @@ class QuizController extends Controller {
 		$page->quiz_score = $total_score;
 		$page->quiz_comments = $request['quiz_comments'];
 		$page->save();
-
 
 		// post an update
 		$update = new Update;
