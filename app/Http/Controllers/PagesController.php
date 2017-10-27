@@ -208,7 +208,7 @@ class PagesController extends Controller {
 
 	public function show(Page $page) {
 		$page->photos = $page->photos()->get();
-		//$page->followed = $page->followed;
+		$page->followed = $page->followed;
 		$page->pictures = $page->getImages();
 		$page->thumb = $page->getThumb();
 		$page->user = $page->user()->get();
