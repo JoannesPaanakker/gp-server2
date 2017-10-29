@@ -129,7 +129,7 @@ class ReviewsController extends Controller {
 		// post update
 		$update = new Update;
 		$update->user_id = $user->id;
-		$update->content = 'Has posted a review';
+		$update->content = 'Posted a review';
 		$update->kind = 'create-review';
 		$update->entity_id = $page->id;
 		$update->entity_name = $page->title;

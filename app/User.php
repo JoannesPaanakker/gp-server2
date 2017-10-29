@@ -23,82 +23,92 @@ class User extends Authenticatable {
 		'password', 'remember_token',
 	];
 
+
+
+	// executes a push notification
+	public function triggerPush($message, $destination){
+	
+		$curl = curl_init();
+
+		// if $destination is a string, send only to that token
+		// if $destination is a list of users, send to all of them
+
+		$payload = ['content' => $message];
+
+		if(empty($destination)){
+			return false;
+		}
+
+		// destination is only one user
+		if (is_string($destination)) {
+
+			$data = [
+				[
+					'to' => $user->device_token,
+					'data' => json_encode($payload),
+					'sound' => 'default',
+					'body' => $message,
+					'badge' => '1',
+				],
+			];
+
+		}else{
+
+			// if $destination is empty, exit
+			if(!is_array($destination) || count($destination) == 0){
+				return false;
+			}
+
+			$data = [];
+			foreach($destination as $user){
+				$data[] = [
+					'to' => $user->device_token,
+					'data' => json_encode($payload),
+					'sound' => 'default',
+					'body' => $message,
+					'badge' => '1',
+				];
+			}
+
+		}
+
+
+		// splits the array and sends pushes
+		$push_queue = array_chunk($data, 98);
+		foreach ($push_queue as $batch) {
+			curl_setopt_array($curl, array(
+				CURLOPT_URL => env('PUSH_ENDPOINT'),
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => "",
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 30,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => "POST",
+				CURLOPT_POSTFIELDS => json_encode($batch),
+				CURLOPT_HTTPHEADER => array(
+					"content-type: application/json",
+					"accept: application/json",
+					"accept-encoding: application/json",
+				),
+			));
+		}
+
+		$response = curl_exec($curl);
+		$err = curl_error($curl);
+		curl_close($curl);
+
+		return $response;
+		
+	}
+
+
 	// sends a push notification to the user
 	public function sendPushNotification($message) {
-
-		if (!$this->device_token) {
-			return;
-		}
-
-		$system = 'Android';
-		if (strlen($this->device_token) == 64) {
-			$system = 'iOS';
-		}
-
-		if ($system == 'Android') {
-			// send an android push
-			$app = \PushNotification::app($system);
-			$new_client = new \Zend\Http\Client(null, array(
-				'adapter' => 'Zend\Http\Client\Adapter\Socket',
-				'sslverifypeer' => false,
-			));
-			$app->adapter->setHttpClient($new_client);
-			$app->to($this->device_token)->send($message);
-		} else {
-			// send an ios push
-			\PushNotification::app($system)
-				->to($this->device_token)
-				->send($message);
-		}
-
+		$this->triggerPush($message, $this->device_token);
 	}
 
 	public static function sendPushNotificationToMultipleUsers($users, $message) {
-		$device_tokens_ios = [];
-		$device_tokens_android = [];
-
-		$message = \PushNotification::Message($message, array(
-	    	'badge' => 1
-		));
-
-		foreach ($users as $user) {
-			if ($user->device_token) {
-				if (strlen($user->device_token) == 64) {
-					$device_tokens_ios[] = \PushNotification::Device($user->device_token);
-				} else {
-					$device_tokens_android[] = \PushNotification::Device($user->device_token);
-				}
-			}
-		}
-
-		if (count($device_tokens_android) > 0) {
-			$devices_android = \PushNotification::DeviceCollection($device_tokens_android);
-
-			$app = \PushNotification::app('Android');
-
-			$new_client = new \Zend\Http\Client(null, array(
-				'adapter' => 'Zend\Http\Client\Adapter\Socket',
-				'sslverifypeer' => false,
-			));
-
-			$app->adapter->setHttpClient($new_client);
-			$app->to($devices_android)->send($message);
-		}
-
-		if (count($device_tokens_ios) > 0) {
-			$devices_ios = \PushNotification::DeviceCollection($device_tokens_ios);
-			$push = \PushNotification::app('iOS')
-				->to($devices_ios)
-				->send($message);
-
-			ob_start();
-			var_dump($push->getFeedback());
-			$contents = ob_get_contents();
-			ob_end_clean();
-			error_log($contents);
-
-		}
-
+		$this->triggerPush($message, $users);
 	}
 
 	public function pages() {
