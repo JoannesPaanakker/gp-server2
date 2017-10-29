@@ -240,6 +240,19 @@ class PagesController extends Controller {
 		$update->content = $request['content'];
 		$update->kind = 'page-update';
 		$update->save();
+
+		// upload the review photo
+		$photo = request()->file('photo');
+		if (!is_null($photo)) {
+			$destinationPath = public_path() . '/photos_updates/';
+			$path = $update->id . '-orig.jpg';
+			if ($photo->move($destinationPath, $path)) {
+				Image::make($destinationPath . $update->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $update->id . '.jpg');
+				$update->with_image = 1;
+				$update->save();
+			}
+		}
+
 		return response()->json(['status' => 'success', 'update_id' => $update->id]);
 	}
 

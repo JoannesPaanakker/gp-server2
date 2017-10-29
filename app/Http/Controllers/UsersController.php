@@ -17,10 +17,6 @@ class UsersController extends Controller {
 		//$user->photo = request('photo');
 		$user->save();
 
-
-
-
-
 		$photo = request()->file('photo');
 		if (!is_null($photo)) {
 			$destinationPath = public_path() . '/profile-images/';
