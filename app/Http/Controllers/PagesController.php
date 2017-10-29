@@ -74,8 +74,9 @@ class PagesController extends Controller {
 			$google_places = \GPHelper::googleSearch($position, $query);
 		}
 
-		return $this->placesWithPages($google_places);
-
+		$search_results = $this->placesWithPages($google_places);
+		// limit the search to 5 results
+		return array_slice($search_results, 0, 5);
 	}
 
 	public function placesWithPages($google_places) {
