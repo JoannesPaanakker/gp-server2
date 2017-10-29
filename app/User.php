@@ -44,7 +44,7 @@ class User extends Authenticatable {
 
 			$data = [
 				[
-					'to' => $user->device_token,
+					'to' => $destination,
 					'data' => json_encode($payload),
 					'sound' => 'default',
 					'body' => $message,
