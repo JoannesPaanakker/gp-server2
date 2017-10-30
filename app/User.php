@@ -111,6 +111,24 @@ class User extends Authenticatable {
 		$this->triggerPush($message, $users);
 	}
 
+
+
+	public function getImage()
+    {
+
+    	if(empty($this->image)){
+    		return env('APP_URL') . '/photos/default-user.jpg';
+    	}
+
+    	if(strstr($this->image, 'facebook.com')){
+    		$hires = str_replace('picture?type=large', 'picture?width=500&height=500', $this->image);
+    		return $hires;
+    	}else{
+    		return $this->image;
+    	}
+        
+    }
+
 	public function pages() {
 		return $this->hasMany(Page::class);
 	}
