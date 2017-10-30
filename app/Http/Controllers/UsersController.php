@@ -99,6 +99,7 @@ class UsersController extends Controller {
 	public function show(User $user){
 		$feed = $this->activity($user);
 		$user->feed = $feed['feed'];
+		$user->picture = $user->getImage();
 		return $user;
 	}
 
