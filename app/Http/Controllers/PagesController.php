@@ -22,7 +22,7 @@ class PagesController extends Controller {
 		// gets the ids of the pages followed by a user to an array
 		// $pages_followed = $user->following()->pluck('pages.id')->toArray();
 		// get lateast 10 updates for those pages
-		$updates = $page->updates()->with('pages')->orderBy('updated_at', 'desc')->take(10)->get();
+		$updates = $page->updates()->with('page')->orderBy('updated_at', 'desc')->take(10)->get();
 
 		foreach ($updates as $update) {
 			if ($update->with_image == '1') {
