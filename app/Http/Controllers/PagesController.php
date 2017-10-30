@@ -102,7 +102,7 @@ class PagesController extends Controller {
 				'address' => $address,
 				'place_id' => $place->place_id,
 				'num_reviews' => 0,
-				'thumb' => env('APP_URL') . '/photos/default_page.jpg',
+				'thumb' => env('APP_URL') . '/img/default-page.jpg',
 				'about' => '',
 				'rating' => '0',
 				'lat' => $place->geometry->location->lat,

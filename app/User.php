@@ -117,7 +117,7 @@ class User extends Authenticatable {
     {
 
     	if(empty($this->picture)){
-    		return env('APP_URL') . '/photos/default-user.jpg';
+    		return env('APP_URL') . '/img/default-user.jpg';
     	}
 
     	if(strstr($this->picture, 'facebook.com')){

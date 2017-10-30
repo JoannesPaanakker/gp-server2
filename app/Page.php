@@ -36,7 +36,7 @@ class Page extends Model
         if (count($this->photos) > 0) {
             return env('APP_URL') . '/photos/' . $this->photos[0]->id . '_thumb.jpg';
         } else {
-            return env('APP_URL') . '/photos/default_page.jpg';
+            return env('APP_URL') . '/img/default-page.jpg';
         }
     }
 
@@ -48,7 +48,7 @@ class Page extends Model
                 $images[] = ['url' => env('APP_URL') . '/photos/' . $photo->id . '.jpg', 'id' => $photo->id, 'date' => date('d/m/Y', strtotime($photo->created_at))];
             }
         } else {
-            $images[] = ['url' => env('APP_URL') . '/photos/default_page.jpg', 'id' => 0];
+            $images[] = ['url' => env('APP_URL') . '/img/default-page.jpg', 'id' => 0];
         }
         return $images;
     }
