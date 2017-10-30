@@ -17,7 +17,7 @@ class TipsController extends Controller
 
     public function show(Tip $tip)
     {
-        $tip->user = $tip->user()->get();
+        //$tip->user = $tip->user()->get();
         $tip->formatted_date = $tip->updated_at->diffForHumans();
         return $tip;
     }
