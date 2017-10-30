@@ -193,7 +193,7 @@ class UsersController extends Controller {
 				$update->page->thumb = $update->page->getThumb();
 			}
 			if ($update->user) {
-				$update->user->thumb = $update->user->picture;
+				$update->user->thumb = $update->user->getImage();
 			}
 			$update->formatted_date = $update->updated_at->diffForHumans();
 		}
