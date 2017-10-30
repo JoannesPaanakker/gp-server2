@@ -116,15 +116,15 @@ class User extends Authenticatable {
 	public function getImage()
     {
 
-    	if(empty($this->image)){
+    	if(empty($this->picture)){
     		return env('APP_URL') . '/photos/default-user.jpg';
     	}
 
-    	if(strstr($this->image, 'facebook.com')){
-    		$hires = str_replace('picture?type=large', 'picture?width=500&height=500', $this->image);
+    	if(strstr($this->picture, 'facebook.com')){
+    		$hires = str_replace('picture?type=large', 'picture?width=500&height=500', $this->picture);
     		return $hires;
     	}else{
-    		return $this->image;
+    		return $this->picture;
     	}
         
     }
