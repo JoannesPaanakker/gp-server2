@@ -28,8 +28,15 @@ class PagesController extends Controller {
 			if ($update->with_image == '1') {
 				$update->image = $update->getImage();
 			}
+			if ($update->page) {
+				$update->page->thumb = $update->page->getThumb();
+			}
+			if ($update->user) {
+				$update->user->thumb = $update->user->picture;
+			}
 			$update->formatted_date = $update->updated_at->diffForHumans();
 		}
+
 		return $updates;
 	}
 
