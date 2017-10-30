@@ -26,7 +26,7 @@ class User extends Authenticatable {
 
 
 	// executes a push notification
-	public function triggerPush($message, $destination){
+	public static function triggerPush($message, $destination){
 	
 		$curl = curl_init();
 
@@ -104,11 +104,11 @@ class User extends Authenticatable {
 
 	// sends a push notification to the user
 	public function sendPushNotification($message) {
-		$this->triggerPush($message, $this->device_token);
+		User::triggerPush($message, $this->device_token);
 	}
 
 	public static function sendPushNotificationToMultipleUsers($users, $message) {
-		$this->triggerPush($message, $users);
+		User::triggerPush($message, $users);
 	}
 
 
