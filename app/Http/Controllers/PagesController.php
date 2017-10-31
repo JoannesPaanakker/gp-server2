@@ -236,6 +236,23 @@ class PagesController extends Controller {
 	public function update(Page $page) {
 		$request = request()->all();
 		$page->about = $request['about'];
+
+
+		$photo = request()->file('photo');
+		if (!is_null($photo)) {
+
+			$photo = new Photo;
+			$photo->page_id = $page->id;
+			$photo->save();
+
+			$destinationPath = public_path() . '/photos/';
+			$path = $photo->id . '-orig.jpg';
+			
+			if ($photo->move($destinationPath, $path)) {
+				Image::make($destinationPath . $photo->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $photo->id . '.jpg');
+			}
+		}
+
 		$page->save();
 		return response()->json(['status' => 'success']);
 	}
