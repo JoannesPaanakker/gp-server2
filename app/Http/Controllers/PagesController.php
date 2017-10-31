@@ -241,6 +241,9 @@ class PagesController extends Controller {
 		$file = request()->file('photo');
 		if (!is_null($file)) {
 
+			// TODO MULTIPLE PHOTOS PER PAGE
+			$page->photos()->delete();
+
 			$photo = new Photo;
 			$photo->page_id = $page->id;
 			$photo->save();
