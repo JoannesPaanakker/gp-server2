@@ -238,8 +238,8 @@ class PagesController extends Controller {
 		$page->about = $request['about'];
 
 
-		$photo = request()->file('photo');
-		if (!is_null($photo)) {
+		$file = request()->file('photo');
+		if (!is_null($file)) {
 
 			$photo = new Photo;
 			$photo->page_id = $page->id;
@@ -247,8 +247,8 @@ class PagesController extends Controller {
 
 			$destinationPath = public_path() . '/photos/';
 			$path = $photo->id . '-orig.jpg';
-			
-			if ($photo->move($destinationPath, $path)) {
+
+			if ($file->move($destinationPath, $path)) {
 				Image::make($destinationPath . $photo->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $photo->id . '.jpg');
 			}
 		}
