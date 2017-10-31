@@ -252,7 +252,7 @@ class PagesController extends Controller {
 			$path = $photo->id . '-orig.jpg';
 
 			if ($file->move($destinationPath, $path)) {
-				Image::make($destinationPath . $photo->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $photo->id . '.jpg');
+				Image::make($destinationPath . $photo->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $photo->id . '.jpg')->fit(200, 200)->save($destinationPath . $photo->id . '_thumb.jpg');
 			}
 		}
 
