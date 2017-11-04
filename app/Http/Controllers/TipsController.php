@@ -39,6 +39,18 @@ class TipsController extends Controller
         $tip->content = $request['content'];
         $tip->save();
 
+        // upload the review photo
+        $photo = request()->file('photo');
+        if (!is_null($photo)) {
+            $destinationPath = public_path() . '/tips-photos/';
+            $path = $tip->id . '-orig.jpg';
+            if ($photo->move($destinationPath, $path)) {
+                Image::make($destinationPath . $tip->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $tip->id . '.jpg');
+                $tip->picture = url('/tips-photos') . '/' . $tip->id . '.jpg';
+                $tip->save();
+            }
+        }
+
         // post update
         $update = new Update;
         $update->user_id = $user->id;
