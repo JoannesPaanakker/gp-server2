@@ -120,7 +120,17 @@ class UsersController extends Controller {
 		$user = User::where('email', '=', request()->email)->first();
 		if ($user) {
 			if (\Hash::check(request()->password, $user->password)) {
-				return response()->json(['status' => 'success', 'quiz_completed' => $user->quiz_completed, 'user_id' => $user->id, 'first_name' => $user->first_name, 'last_name' => $user->last_name, 'email' => $user->email]);
+				$user_data = [
+					'status' => 'success',
+					'quiz_completed' => $user->quiz_completed,
+					'user_id' => $user->id,
+					'first_name' => $user->first_name,
+					'last_name' => $user->last_name,
+					'picture' => $user->picture,
+					'provider' => 'email',
+					'email' => $user->email
+				];
+				return response()->json($user_data);
 			}
 		}
 		return response()->json(['status' => 'wrong email or password']);
