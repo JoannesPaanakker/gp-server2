@@ -6,6 +6,7 @@ use App\Tip;
 use App\Update;
 use App\User;
 use Illuminate\Http\Request;
+use Image;
 
 class TipsController extends Controller
 {
