@@ -19,7 +19,7 @@ class LogRequestsMiddleware
 
         error_log('##### New Request: (' . $request->method() . ') ' . $request->fullUrl());
         error_log('PARAMS:');
-        error_log(print_r($request->all(), 1);
+        error_log(print_r($request->all(), 1));
 
         $response = $next($request);
         error_log('---------------- Response --------------------');
