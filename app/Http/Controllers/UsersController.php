@@ -21,6 +21,7 @@ class UsersController extends Controller {
 			error_log('updating photo');
 			$destinationPath = public_path() . '/profile-images/';
 			$path = $user->id . '-orig.jpg';
+			if(file_exists($destinationPath.$path)) unlink($destinationPath.$path);
 			if ($photo->move($destinationPath, $path)) {
 				Image::make($destinationPath . $user->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $user->id . '.jpg');
 				$user->picture = url('/profile-images') . '/' . $user->id . '.jpg';
