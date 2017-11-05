@@ -28,6 +28,14 @@ class UsersController extends Controller {
 			}
 		}
 
+
+		// post update
+		$update = new Update;
+		$update->user_id = $user->id;
+		$update->content = 'Updated the profile';
+		$update->kind = 'profile-updated';
+		$update->save();
+
 		return response()->json(['status' => 'success']);
 	}
 

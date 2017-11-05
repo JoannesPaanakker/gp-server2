@@ -71,7 +71,7 @@ Route::post('/tips', 'TipsController@store');
 Route::post('/tips/{tip}/hearts', 'TipsController@hearts');
 
 // pages
-Route::get('/company/{slug}/{page_unique_id}', 'PagesController@companyPage');
+Route::get('/page/{slug}/{page_unique_id}', 'PagesController@companyPage');
 
 Route::get('/users/{user}/goals', 'GoalsController@index');
 Route::post('/users/{user}/goals', 'GoalsController@store');
