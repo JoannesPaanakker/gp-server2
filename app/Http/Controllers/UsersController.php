@@ -14,7 +14,6 @@ class UsersController extends Controller {
 		$user->first_name = request('first_name');
 		$user->last_name = request('last_name');
 		$user->bio = request('bio');
-		//$user->photo = request('photo');
 		$user->save();
 
 		$photo = request()->file('photo');

@@ -18,6 +18,9 @@ class LogRequestsMiddleware
         if(!env('APP_LOG_REQUESTS'))return $next($request);
 
         error_log('##### New Request: (' . $request->method() . ') ' . $request->fullUrl());
+        error_log('PARAMS:');
+        error_log(print_r($request->all(), 1);
+
         $response = $next($request);
         error_log('---------------- Response --------------------');
         error_log($response);
