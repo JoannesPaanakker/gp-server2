@@ -18,9 +18,10 @@ class UsersController extends Controller {
 
 		$photo = request()->file('photo');
 		if (!is_null($photo)) {
-			error_log('updating photo');
+			
 			$destinationPath = public_path() . '/profile-images/';
 			$path = $user->id . '-orig.jpg';
+			error_log('updating photo:' . $destinationPath.$path);
 			if(file_exists($destinationPath.$path)) unlink($destinationPath.$path);
 			if ($photo->move($destinationPath, $path)) {
 				Image::make($destinationPath . $user->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $user->id . '.jpg');
