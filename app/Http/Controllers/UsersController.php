@@ -18,6 +18,7 @@ class UsersController extends Controller {
 
 		$photo = request()->file('photo');
 		if (!is_null($photo)) {
+			error_log('updating photo');
 			$destinationPath = public_path() . '/profile-images/';
 			$path = $user->id . '-orig.jpg';
 			if ($photo->move($destinationPath, $path)) {
