@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Tip;
 use App\Update;
 use App\User;
+use App\TipComment;
 use Illuminate\Http\Request;
 use Image;
 
@@ -19,6 +20,7 @@ class TipsController extends Controller
     public function show(Tip $tip)
     {
         $tip->user = $tip->user()->get()[0];
+        $tip->comments = $tip->comments()->get();
         $tip->formatted_date = $tip->updated_at->diffForHumans();
         return $tip;
     }
@@ -66,4 +68,14 @@ class TipsController extends Controller
 
         return response()->json(['status' => 'success']);
     }
+
+    public function postComment(Tip $tip){
+        $comment = new TipComment;
+        $comment->comment = request('comment');
+        $comment->tip_id = $tip->id;
+        $comment->user_id = request('user_id');
+        $comment->save();
+        return response()->json(['status' => 'success']);
+    }
+
 }

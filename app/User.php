@@ -157,6 +157,10 @@ class User extends Authenticatable {
 		return $this->belongsToMany(User::class, 'follows', 'follow_id', 'user_id')->withTimestamps();
 	}
 
+	public function comments(){
+    	return $this->hasMany(TipComment::class);
+    }
+
 	public function sendEmail($subject, $body) {
 		$user = $this;
 		\Mail::send('emails.notification', ['title' => $subject, 'content' => $body], function ($m) use ($user, $subject) {

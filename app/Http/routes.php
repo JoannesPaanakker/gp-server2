@@ -68,6 +68,7 @@ Route::post('/photos/{photo}/delete', 'PhotosController@delete');
 Route::get('/tips', 'TipsController@index');
 Route::get('/tips/{tip}', 'TipsController@show');
 Route::post('/tips', 'TipsController@store');
+Route::post('/tips/{tip}/comments', 'TipsController@postComment');
 Route::post('/tips/{tip}/hearts', 'TipsController@hearts');
 
 // pages
