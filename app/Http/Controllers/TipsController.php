@@ -20,7 +20,7 @@ class TipsController extends Controller
     public function show(Tip $tip)
     {
         $tip->user = $tip->user()->get()[0];
-        $tip->comments = $tip->comments()->with('user')->get();
+        $tip->comments = $tip->comments()->with('user')->orderBy('created_at','DESC')->get();
         $tip->formatted_date = $tip->updated_at->diffForHumans();
         return $tip;
     }
