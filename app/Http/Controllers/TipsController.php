@@ -82,7 +82,7 @@ class TipsController extends Controller
 
         // post update
         $update = new Update;
-        $update->user_id = $user->id;
+        $update->user_id = $comment->user_id;
         $update->content = $comment->comment;
         $update->kind = 'commented-tip';
         $update->entity_id = $tip->id;
