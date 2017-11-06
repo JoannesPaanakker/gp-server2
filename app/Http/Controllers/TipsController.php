@@ -21,6 +21,9 @@ class TipsController extends Controller
     {
         $tip->user = $tip->user()->get()[0];
         $tip->comments = $tip->comments()->with('user')->orderBy('created_at','DESC')->get();
+        foreach($tip->comments as $comment){
+            $comment->formatted_date = $comment->updated_at->diffForHumans();
+        }
         $tip->formatted_date = $tip->updated_at->diffForHumans();
         return $tip;
     }
