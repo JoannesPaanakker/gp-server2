@@ -78,6 +78,17 @@ class TipsController extends Controller
         $comment->tip_id = $tip->id;
         $comment->user_id = request('user_id');
         $comment->save();
+
+
+        // post update
+        $update = new Update;
+        $update->user_id = $user->id;
+        $update->content = $comment->comment;
+        $update->kind = 'commented-tip';
+        $update->entity_id = $tip->id;
+        $update->entity_name = $tip->title;
+        $update->save();
+
         return response()->json(['status' => 'success']);
     }
 
