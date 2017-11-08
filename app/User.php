@@ -55,7 +55,7 @@ class User extends Authenticatable {
 		}else{
 
 			// if $destination is empty, exit
-			if(!is_array($destination) || count($destination) == 0){
+			if(count($destination) == 0){
 				return false;
 			}
 
