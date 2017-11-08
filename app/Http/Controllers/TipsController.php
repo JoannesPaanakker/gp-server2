@@ -32,6 +32,26 @@ class TipsController extends Controller
     {
         $tip->hearts = $tip->hearts + 1;
         $tip->save();
+
+
+        $user = User::find(request('user_id'));
+        if(!$user){
+        	return response()->json(['status' => 'error', 'message' => 'user not found']);
+        }
+
+        // post update
+        $update = new Update;
+        $update->user_id = $user->id;
+        $update->content = 'Liked a tip';
+        $update->kind = 'liked-tip';
+        $update->entity_id = $tip->id;
+        $update->entity_name = $tip->title;
+        $update->save();
+
+        // send notification to tip owner
+		$message = $user->first_name . ' ' . $user->last_name . ' liked your tip';
+        $tip->user->sendPushNotification($message);        
+
         return response()->json(['status' => 'success']);
     }
 
