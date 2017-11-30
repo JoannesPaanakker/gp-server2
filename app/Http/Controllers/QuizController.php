@@ -18,9 +18,13 @@ class QuizController extends Controller {
 	}
 
 	// get quiz for user
-	public function getQuizUser() {
+	public function getQuizUser(User $user) {
+		$current_result = $this->getQuizAnswersUser($user);
+		if(count($current_result['answers']) == 0){
+			$current_result = 'none';
+		}
 		$quiz = Quiz::where('id', 1)->with('categories.questions.answers')->get();
-		return $quiz;
+		return response()->json(['current_result' => $current_result, 'quiz' => $quiz]);
 	}
 
 	// complete quiz
