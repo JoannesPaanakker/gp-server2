@@ -310,7 +310,7 @@ class PagesController extends Controller {
 	}
 
 	public function userPages(User $user) {
-		$pages = $user->pages()->with('photos')->get();
+		$pages = $user->pages()->with('photos')->orderBy('title')->get();
 		foreach ($pages as $index => $page) {
 			$pages[$index]->thumb = $page->getThumb();
 			$pages[$index]->num_reviews = $page->reviews()->count();
