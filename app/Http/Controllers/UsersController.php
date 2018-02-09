@@ -179,7 +179,7 @@ class UsersController extends Controller {
 	}
 
 	public function following(User $user) {
-		$users = $user->following_users;
+		$users = $user->following_users()->orderBy('first_name')->get();
 		foreach ($users as $user) {
 			$user['is_followed_by_user'] = true;
 		}
@@ -187,7 +187,7 @@ class UsersController extends Controller {
 	}
 
 	public function followers(User $user) {
-		$followers = $user->followed_by;
+		$followers = $user->followed_by()->orderBy('first_name')->get();
 		$following = $user->following_users;
 		foreach ($followers as $follower) {
 			if ($following->contains($follower)) {
