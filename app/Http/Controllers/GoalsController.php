@@ -13,7 +13,7 @@ class GoalsController extends Controller
 
 	// list all goals for a user
     public function index(User $user){
-    	$goals = $user->goals()->get();
+    	$goals = $user->goals()->with('user')->get();
     	return $goals;
     }
 
