@@ -42,7 +42,9 @@ class GoalsController extends Controller
         // TODO: check if the goal belongs to the user, otherwise 404
         $request = request()->all();
         $goal->title = $request['title'];
-        $goal->completed = ($request['completed'] == 'true') ? 1 : 0;
+        $goal->content = $request['content'];
+        $goal->progress = $request['progress'];
+        // $goal->completed = ($request['completed'] == 'true') ? 1 : 0;
         $goal->save();
         return response()->json(['status' => 'success']);
     }
