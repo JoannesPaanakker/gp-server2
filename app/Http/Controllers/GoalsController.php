@@ -20,7 +20,9 @@ class GoalsController extends Controller
     public function store(User $user){
     	$request = request()->all();
     	$goal = new Goal;
-    	$goal->title = $request['title'];
+        $goal->title = $request['title'];
+        $goal->content = $request['content'];
+    	$goal->progress = $request['progress'];
     	$user->goals()->save($goal);
     	return response()->json(['status' => 'success']);
     }
