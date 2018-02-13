@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Goal;
+use App\Update;
 
 
 class GoalsController extends Controller
