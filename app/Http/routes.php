@@ -76,7 +76,7 @@ Route::get('/page/{slug}/{page_unique_id}', 'PagesController@companyPage');
 
 Route::get('/users/{user}/goals', 'GoalsController@index');
 Route::post('/users/{user}/goals', 'GoalsController@store');
-Route::get('/users/{user}/goals/{goal}', 'GoalsController@show');
+Route::get('/goals/{goal}', 'GoalsController@show');
 Route::get('/users/{user}/goals/{goal}/delete', 'GoalsController@delete');
 Route::post('/users/{user}/goals/{goal}', 'GoalsController@update');
 
