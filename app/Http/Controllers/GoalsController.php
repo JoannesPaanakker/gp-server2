@@ -24,6 +24,16 @@ class GoalsController extends Controller
         $goal->content = $request['content'];
     	$goal->progress = $request['progress'];
     	$user->goals()->save($goal);
+
+        // post update
+        $update = new Update;
+        $update->user_id = $user->id;
+        $update->content = 'Has created a new goal';
+        $update->kind = 'create-goal';
+        $update->entity_id = $goal->id;
+        $update->entity_name = $goal->title;
+        $update->save();
+
     	return response()->json(['status' => 'success']);
     }
 
