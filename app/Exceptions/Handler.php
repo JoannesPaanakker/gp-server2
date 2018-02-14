@@ -51,6 +51,8 @@ class Handler extends ExceptionHandler
             'error' => [
                 'code' => $e->getCode(),
                 'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
             ],
         ];
 
