@@ -58,7 +58,7 @@
 								<div class="p-a-md">
 
 									<div class="citate-speech-bubble">
-										<h6>{{ $review->page->title }}</h6>
+										<h6>{{ @$review->page->title }}</h6>
 										<b>{{ $review->title }}</b>
 										<p>{{ $review->content }}</p>
 									</div>
