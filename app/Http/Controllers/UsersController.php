@@ -96,7 +96,7 @@ class UsersController extends Controller {
 		return $users->toArray();
 	}
 
-	public function makePassword($length = 10) {
+	public function makePassword($length = 6) {
 		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		$count = mb_strlen($chars);
 		for ($i = 0, $result = ''; $i < $length; $i++) {
