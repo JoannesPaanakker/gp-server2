@@ -119,6 +119,10 @@ class UsersController extends Controller {
 			$new_password = $this->makePassword();
 			$user->password = \Hash::make($new_password);
 			$user->save();
+
+
+			$user->sendEmail('Your new password', '<b>Dear ' . $user->first_name . '.</b><br><br>You can login to GreenPlatform using your email and this password: <b>' . $new_password . '</b>.<br><br><br>Thank you.');
+
 			// send email with the new password to the user
 			return response()->json(['status' => 'success', 'password' => $new_password]);
 		} else {
