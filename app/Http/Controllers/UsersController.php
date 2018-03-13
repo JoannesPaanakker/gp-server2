@@ -222,7 +222,7 @@ class UsersController extends Controller {
 			if($update->kind == 'follow-user'){
 				$update->user2 = User::find($update->entity_id);
 			}
-			
+
 			$update->formatted_date = $update->updated_at->diffForHumans();
 		}
 		$user->followed = $user->followed_by()->get();
@@ -254,6 +254,11 @@ class UsersController extends Controller {
 			if ($update->user) {
 				$update->user->thumb = $update->user->picture;
 			}
+
+			if($update->kind == 'follow-user'){
+				$update->user2 = User::find($update->entity_id);
+			}
+
 			$update->formatted_date = $update->updated_at->diffForHumans();
 		}
 		$user->followed = $user->followed_by()->get();
