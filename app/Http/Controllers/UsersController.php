@@ -284,6 +284,8 @@ class UsersController extends Controller {
 		return response()->json(['status' => 'success']);
 	}
 
+
+
 	public function followUser(User $following, User $followed) {
 
 		$followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
@@ -294,8 +296,19 @@ class UsersController extends Controller {
 		$following->following_users()->detach($followed);
 		$following->following_users()->save($followed);
 
+		// post update
+		$update = new Update;
+        $update->user_id = $following->id;
+        $update->content = 'is now following';
+        $update->kind = 'follow-user';
+        $update->entity_id = $followed->id;
+        $update->entity_name = $followed->first_name . ' ' . $followed_last_name;
+        $update->save();
+
 		return response()->json(['status' => 'success']);
 	}
+
+
 
 	public function unFollowUser(User $following, User $followed) {
 		$following->following_users()->detach($followed);
