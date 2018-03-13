@@ -45,18 +45,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        
-        $json = [
-            'success' => false,
-            'error' => [
-                'code' => $e->getCode(),
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ],
-        ];
+        if($request->ajax()){
+            $json = [
+                'success' => false,
+                'error' => [
+                    'code' => $e->getCode(),
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ],
+            ];
 
-        return response()->json($json, 500);
-    
+            return response()->json($json, 500);
+        }
+        
+        return parent::render($request, $e);
     }
 }
