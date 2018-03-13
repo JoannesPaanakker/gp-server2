@@ -180,11 +180,17 @@ class PagesController extends Controller {
 
 	public function companyPage($slug, $unique_id) {
 		$page = Page::where('unique_id', $unique_id)->where('slug', $slug)->first();
+		if(!$page){
+			abort(404);
+		}
 		return view('company', compact('page'));
 	}
 
 	public function userPage($slug, $unique_id) {
 		$user = User::where('unique_id', $unique_id)->where('slug', $slug)->first();
+		if(!$user){
+			abort(404);
+		}
 		return view('user', compact('user'));
 	}
 
