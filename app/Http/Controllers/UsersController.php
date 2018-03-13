@@ -291,22 +291,20 @@ class UsersController extends Controller {
 		$followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
 
 
-		// post update
-		$update = new Update;
-        $update->user_id = $following->id;
-        $update->content = 'is now following';
-        $update->kind = 'follow-user';
-        $update->entity_id = $followed->id;
-        $update->entity_name = $followed->first_name . ' ' . $followed_last_name;
-        $update->save();
-
 		$followed->sendEmail('You have a new follower! ', '<b>' . $following->first_name . ' ' . $following->last_name . '</b> is now following you!');
 
 		// try to unfollow and follow again, to be sure only one record exists in the db
 		$following->following_users()->detach($followed);
 		$following->following_users()->save($followed);
 
-		
+		// post update
+		$update = new Update;
+        $update->user_id = $following->id;
+        $update->content = 'is now following';
+        $update->kind = 'follow-user';
+        $update->entity_id = $followed->id;
+        $update->entity_name = $followed->first_name . ' ' . $followed->last_name;
+        $update->save();
 
 		return response()->json(['status' => 'success']);
 	}
