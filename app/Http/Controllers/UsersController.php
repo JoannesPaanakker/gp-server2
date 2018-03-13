@@ -76,7 +76,8 @@ class UsersController extends Controller {
 		$user->email = request()->email;
 		$user->provider = 'email';
 		$user->password = \Hash::make(request()->password);
-
+		$user->save();
+		
 		$hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
 		$user->unique_id = $hashids->encode($user->id);
 		$user->slug = str_slug($user->first_name . ' ' . $user->last_name);
