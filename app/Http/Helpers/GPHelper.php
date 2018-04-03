@@ -26,7 +26,7 @@ class GPHelper
             } else {
                 // get all restaurants nearby
                 $type = \GPHelper::$types;
-                $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . env('GOOGLE_API') . '&location=' . $position . '&radius=' . $radius . '&types=' . $type . '&rankby=' . $rankby;
+                $google_places_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=' . env('GOOGLE_API') . '&location=' . $position . '&radius=' . $radius . '&rankby=' . $rankby;
             }
         }
 
