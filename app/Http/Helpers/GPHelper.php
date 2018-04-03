@@ -12,7 +12,7 @@ class GPHelper
     public static function googleSearch($position, $query = '', $type = 'any')
     {
         $radius = 600; // in metres
-        $rankby = '';
+        $rankby = 'distance';
 
         $query = urlencode($query);
 
