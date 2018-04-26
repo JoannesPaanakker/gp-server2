@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Page;
 use App\Photo;
 use App\Update;
@@ -10,12 +11,16 @@ use Image;
 
 class PagesController extends Controller {
 
-	public function index() {
-		$pages = Page::with('photos')->get();
+	public function index(Request $request) {
+    $search_value = $request->query('qry', '');
+		$pages = Page::where('title', 'LIKE', "%{$search_value}%")
+      -> orderBy('title')
+      ->get();
 		foreach ($pages as $index => $page) {
 			$pages[$index]->num_reviews = $page->reviews()->count();
 		}
-		return $pages;
+		// return $pages;
+		return view('pages', compact('pages'));
 	}
 
 	public function pageFeed(Page $page) {
@@ -200,15 +205,15 @@ class PagesController extends Controller {
 		if(strlen($place_id) > 12){
 			$page = Page::where(['google_place_id' => $place_id])->first();
 		}else{
-			$page = Page::find($place_id);	
+			$page = Page::find($place_id);
 		}
-		
+
 		if(!$page){
 			// if the length of the id is > 12, is a google place (they have like 30 chars)
 			if(strlen($place_id) > 12){
 				$page = $this->createPage(User::find(1), $place_id);
 				if(!$page){
-					return response()->json(['status' => 'error', 'message' => 'google place doesnt exist']);	
+					return response()->json(['status' => 'error', 'message' => 'google place doesnt exist']);
 				}
 			}else{
 				return response()->json(['status' => 'error', 'message' => 'place doesnt exist']);
@@ -339,7 +344,7 @@ class PagesController extends Controller {
 	}
 
 	public function createPage(User $user, $google_id){
-		
+
 		// get info for the place
 		$place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $google_id . '&key=' . env('GOOGLE_API')));
 		if($place->status != 'OK'){
