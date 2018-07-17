@@ -211,7 +211,7 @@ class PagesController extends Controller {
     $page->num_reviews = $page->reviews()->count();
     $page->num_updates = $page->updates()->count();
 
-    $updates = $page->updates()->orderBy('updated_at', 'desc')->take(10)->get();
+    $updates = $page->updates()->with('user')->orderBy('updated_at', 'desc')->take(10)->get();
     foreach ($updates as $update) {
       if ($update->with_image == '1') {
         $update->image = $update->getImage();
@@ -248,12 +248,12 @@ class PagesController extends Controller {
 		return view('user', compact('user'));
 	}
   // Show User page without slug or unique id
-  public function userPageId(User $user) {
-    if(!$user){
-      abort(404);
-    }
-    return view('user', compact('user'));
-  }
+  // public function userPageId(User $user) {
+  //   if(!$user){
+  //     abort(404);
+  //   }
+  //   return view('user', compact('user'));
+  // }
 
 	public function showOrCreateFromGoogle($place_id){
 

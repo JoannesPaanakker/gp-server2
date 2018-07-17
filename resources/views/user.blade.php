@@ -28,17 +28,35 @@
 									GP Standard
 								</div>
 								<div class="tbl-cell">
-									<b>{{ count($user->followed_by) }}</b>
-									Followers
+                  Followers
+                  @foreach( $user->followed_by as $follow)
+				  					<b>{{ $follow->id }}</b>
+                  @endforeach
 								</div>
+                <div class="tbl-cell">
+                  You are following these users:
+                 @foreach( $user->following_users as $following_user)
+                    <b>{{ $following_user->id }}</b>
+                  @endforeach
+                </div>
+                <div class="tbl-cell">
+                 You are following these companies:
+                 @foreach( $user->following_pages as $following_page)
+                    <b>{{ $following_page->id }}</b>
+                  @endforeach
+                </div>
 							</div>
 						</div>
 					</section><!--.box-typical-->
           <section>
+          </section>
+          <section>
             @if($user->id == Auth::user()->id)
-            <div id="updateprofileimage">
-              <button class="btn" id="update-profile-image-button">Change Profile Image</button>
-            </div>
+              <div id="updateprofileimage">
+                <button class="btn" id="update-profile-image-button">Change Profile Image</button>
+              </div>
+            @else
+              @include('partials.followuser')
             @endif
           </section>
           <section class="box-typical">
@@ -142,10 +160,9 @@
 						<header class="box-typical-header-sm">
 							GP Standard
 						</header>
+						@if(count($user->quiz_answers)>0)
 
-						@if(count($user->quizAnswers)>0)
-
-							@foreach($user->quizAnswers as $answer)
+							@foreach($user->quiz_answers as $answer)
 
 								<div class="p-x-md">
 
@@ -167,16 +184,38 @@
 
 				</div><!--.col- -->
 
-				<div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-6 col-sm-6">
 
-					<section class="box-typical">
-						<header class="box-typical-header-sm">Feed</header>
+          <section class="box-typical">
+            <header class="box-typical-header-sm">Feeds</header>
 
-						<div class="p-a-md">
-						</div>
+            <div class="p-a-md">
+              <div class="tbl-cell">
+@foreach( $user->feeds as $feet )
+<b>{{ $feet->formatted_date }}</b>
+<p>{{ $feet->entity_name}} {{ $feet->content}}</p>
+@endforeach
+              </div>
+            </div>
 
-					</section><!--.box-typical-->
-				</div><!--.col- -->
+          </section><!--.box-typical-->
+        </div><!--.col- -->
+        <div class="col-lg-3 col-md-6 col-sm-6">
+
+          <section class="box-typical">
+            <header class="box-typical-header-sm">Feed</header>
+
+            <div class="p-a-md">
+              <div class="tbl-cell">
+                @foreach( $user->feed as $feed)
+                  <b>{{ $feed->formatted_date }}</b>
+                  <p>{{ $feed->content }} {{ $feed->entity_name }}</p>
+                @endforeach
+              </div>
+            </div>
+
+          </section><!--.box-typical-->
+        </div><!--.col- -->
 			</div><!--.row-->
 		</div><!--.container-fluid-->
 

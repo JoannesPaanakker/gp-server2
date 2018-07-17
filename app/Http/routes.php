@@ -47,12 +47,6 @@ Route::post('/user/login', 'UsersController@loginPage');
 // new user HTML page
 Route::get('/user/register-page', 'PagesController@userRegister');
 Route::post('/users/register-nohashid', 'UsersController@registerNoHashid');
-// User HTML page
-Route::get('/user/{slug}/{user_unique_id}', 'PagesController@userPage');
-// User HTML page selected on DB id
-Route::get('/user/{user}', ['as' => 'user', 'uses' => 'PagesController@userPageId']);
-// Browser show all users
-Route::get('/users', 'UsersController@index');
 
 Route::get('/users/{user}/following', 'UsersController@following');
 Route::get('/users/{user}/followers', 'UsersController@followers');
@@ -65,14 +59,31 @@ Route::get('/users/{user}/quiz-answers', 'QuizController@getQuizAnswersUser');
 
 // Keep session when switching user pages
 Route::group(['middleware' => ['web']], function () {
+
+  // User HTML page
+  Route::get('/user/{slug}/{user_unique_id}', 'PagesController@userPage');
+  // User HTML page selected on DB id
+  Route::get('/user/{user}', ['as' => 'user', 'uses' => 'UsersController@userPageId']);
+  // Browser show all users
+  Route::get('/users', 'UsersController@index');
   // user quiz for browser
   Route::get('/users/{user}/quizpage', 'QuizController@getQuizUserPage');
   // save quiz answer from browser
   Route::post('/users/{user}/quiz-answer', 'QuizController@saveQuizAnswer');
   Route::post('/users/{user}/quiz-completed-browser', 'QuizController@completeQuizUserFromBrowser');
-  // User HTML page selected on DB id
-  Route::get('/user/{user}', ['as' => 'user', 'uses' => 'PagesController@userPageId']);
 
+  Route::post('/users/{user}/follow-page-browser/{page}', 'UsersController@followPageBrowser');
+  Route::post('/users/{user}/unfollow-page-browser/{page}', 'UsersController@unFollowPageBrowser');
+
+  Route::post('/users/{following}/follow-user-browser/{followed}', 'UsersController@followUserBrowser');
+  Route::post('/users/{following}/unfollow-user-browser/{followed}', 'UsersController@unFollowUserBrowser');
+  // pages
+  Route::get('/page/{slug}/{page_unique_id}', 'PagesController@companyPage');
+  Route::get('/pages', 'PagesController@index');
+
+  Route::get('/pages/claim/{page}', 'PagesController@claimCompanyPage');
+  Route::post('/pages/{page}/claimPage', 'PagesController@claimPage');
+  // Route::get('/pages/edit/{page}', 'PagesController@editCompanyPage');
 });
 
 
@@ -87,11 +98,9 @@ Route::post('/users/{user}/update-bio-page', 'UsersController@updateBioPage');
 Route::post('/users/{user}/update-profile', 'UsersController@updateProfile');
 Route::get('/users/{user}/activity', 'UsersController@activity');
 
-Route::get('/pages', 'PagesController@index');
 
-Route::get('/pages/edit/{page}', 'PagesController@editCompanyPage');
-Route::get('/pages/claim/{page}', 'PagesController@claimCompanyPage');
-Route::post('/pages/{page}/claimPage', 'PagesController@claimPage');
+
+
 
 Route::get('/pages/{page}', 'PagesController@show');
 Route::get('/pages/show-or-create/{page}', 'PagesController@showOrCreateFromGoogle');
@@ -129,8 +138,7 @@ Route::post('/tips', 'TipsController@store');
 Route::post('/tips/{tip}/comments', 'TipsController@postComment');
 Route::post('/tips/{tip}/hearts', 'TipsController@hearts');
 
-// pages
-Route::get('/page/{slug}/{page_unique_id}', 'PagesController@companyPage');
+
 
 Route::get('/users/{user}/goals', 'GoalsController@index');
 Route::post('/users/{user}/goals', 'GoalsController@store');

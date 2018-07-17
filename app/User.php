@@ -27,7 +27,7 @@ class User extends Authenticatable {
 
 	// executes a push notification
 	public static function triggerPush($message, $destination){
-	
+
 		$curl = curl_init();
 
 		// if $destination is a string, send only to that token
@@ -98,7 +98,7 @@ class User extends Authenticatable {
 		curl_close($curl);
 
 		return $response;
-		
+
 	}
 
 
@@ -126,16 +126,20 @@ class User extends Authenticatable {
     	}else{
     		return $this->picture;
     	}
-        
+
     }
 
 	public function pages() {
 		return $this->hasMany(Page::class);
 	}
 
-	public function reviews() {
-		return $this->hasMany(Review::class);
-	}
+  public function quiz_answers() {
+    return $this->hasMany(QuizAnswer::class);
+  }
+
+  public function reviews() {
+    return $this->hasMany(Review::class);
+  }
 
 	public function goals() {
 		return $this->hasMany(Goal::class);

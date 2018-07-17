@@ -40,6 +40,7 @@
 
 		@yield('content')
 
+
 	</div><!--.page-content-->
   	<div class="page-footer">
 			<div class="container">

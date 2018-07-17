@@ -171,6 +171,17 @@ class UsersController extends Controller {
 		return $user;
 	}
 
+  // Show User page without slug or unique id
+  public function userPageId(User $user) {
+    $feed = $this->activity($user);
+    $user->feed = $feed['feed'];
+    $feeds = $this->feed($user);
+    $user->feeds = $feeds['feed'];
+    if(!$user){
+      abort(404);
+    }
+    return view('user', compact('user', 'feeds'));
+  }
 
 
 
@@ -368,21 +379,38 @@ class UsersController extends Controller {
 		return response()->json(['status' => 'success']);
 	}
 
+  public function followPageBrowser(User $user, Page $page) {
+    $user->following_pages()->save($page);
+
+    // post update
+    $update = new Update;
+    $update->user_id = $user->id;
+    $update->content = 'Is now following ' . $page->title;
+    $update->kind = 'follow-page';
+    $update->entity_id = $page->id;
+    $update->entity_name = $page->title;
+    $update->save();
+    return back()->withInput();
+  }
+
+  public function unFollowPageBrowser(User $user, Page $page) {
+    $user->following_pages()->detach($page);
+    return response()->json(['status' => 'success']);
+  }
+
+  public function followUser(User $following, User $followed) {
+
+    $followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
 
 
-	public function followUser(User $following, User $followed) {
+    $followed->sendEmail('You have a new follower! ', '<b>' . $following->first_name . ' ' . $following->last_name . '</b> is now following you!');
 
-		$followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
+    // try to unfollow and follow again, to be sure only one record exists in the db
+    $following->following_users()->detach($followed);
+    $following->following_users()->save($followed);
 
-
-		$followed->sendEmail('You have a new follower! ', '<b>' . $following->first_name . ' ' . $following->last_name . '</b> is now following you!');
-
-		// try to unfollow and follow again, to be sure only one record exists in the db
-		$following->following_users()->detach($followed);
-		$following->following_users()->save($followed);
-
-		// post update
-		$update = new Update;
+    // post update
+    $update = new Update;
         $update->user_id = $following->id;
         $update->content = 'is now following';
         $update->kind = 'follow-user';
@@ -390,12 +418,40 @@ class UsersController extends Controller {
         $update->entity_name = $followed->first_name . ' ' . $followed->last_name;
         $update->save();
 
-		return response()->json(['status' => 'success']);
-	}
+    return response()->json(['status' => 'success']);
+  }
 
-	public function unFollowUser(User $following, User $followed) {
-		$following->following_users()->detach($followed);
-		return response()->json(['status' => 'success']);
-	}
+  public function unFollowUser(User $following, User $followed) {
+    $following->following_users()->detach($followed);
+    return response()->json(['status' => 'success']);
+  }
+
+  public function followUserBrowser(User $following, User $followed) {
+
+    $followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
+
+
+    // $followed->sendEmail('You have a new follower! ', '<b>' . $following->first_name . ' ' . $following->last_name . '</b> is now following you!');
+
+    // try to unfollow and follow again, to be sure only one record exists in the db
+    $following->following_users()->detach($followed);
+    $following->following_users()->save($followed);
+
+    // post update
+    $update = new Update;
+        $update->user_id = $following->id;
+        $update->content = 'is now following';
+        $update->kind = 'follow-user';
+        $update->entity_id = $followed->id;
+        $update->entity_name = $followed->first_name . ' ' . $followed->last_name;
+        $update->save();
+
+    return back()->withInput();
+  }
+
+  public function unFollowUserBrowser(User $following, User $followed) {
+    $following->following_users()->detach($followed);
+    return response()->json(['status' => 'success']);
+  }
 
 }

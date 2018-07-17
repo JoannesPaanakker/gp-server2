@@ -32,7 +32,7 @@
 		                <tbody>
 		                  @foreach($pages as $page)
         								<tr>
-        									<td style="width:200px"><a href="/page/{{ $page->slug }}/{{ $page->unique_id }}?current_user_id=0">{{ $page->title }}</a></td>
+        									<td style="width:200px"><a href="/page/{{ $page->slug }}/{{ $page->unique_id }}">{{ $page->title }}</a></td>
         									<td style="width:500px">{{ $page->address }}</td>
                           <td style="max-width:500px">{{ $page->categories }}</td>
 <!-- 									<td style="text-align:center">{{ count($page->reviews) }}</td>

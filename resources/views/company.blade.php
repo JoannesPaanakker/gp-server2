@@ -41,7 +41,7 @@
 					</section><!--.box-typical-->
           @if($page->user_id == 1 && Auth::check())
             <a href="/pages/claim/{{ $page->id }}">
-              <button type="button" class="btn btn-rounded">Claim this CompanyPage</button>
+              <button type="button" class="btn btn-rounded">Claim {{ $page->title}}</button>
             </a>
           @endif
 
@@ -96,7 +96,7 @@
 							</div>
 						</header>
 						@if(count($page->photos) == 0)
-							<div style="padding:18px">This company has no photos uploaded</div>
+							<div style="padding:18px">{{ $page->title}} has no photos uploaded</div>
 						@else
 							<div class="posts-slider">
 								@foreach($page->photos as $photo)
@@ -204,13 +204,16 @@
                   <b>{{ $update->formatted_date }}</b>
                   <b>{{ $update->content }}</b>
                   <b>{{ $update->kind }}</b>
-                  <b>{{ $update->user_id }}</b>
+                  <b>{{ $update->user->first_name }} {{ $update->user->last_name }}</b>
                 </div>
 
               @endforeach
 
 					</section><!--.box-typical-->
 				</div><!--.col- -->
+        <!-- Follow this page -->
+        @include('partials.followpage')
+        <!-- end of Follow this page -->
 			</div><!--.row-->
 		</div><!--.container-fluid-->
 @endsection
