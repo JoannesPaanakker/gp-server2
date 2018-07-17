@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appuser')
 
 @section('content')
 
@@ -18,10 +18,9 @@
 							</div>
 							@for($i = 0; $i < 5; $i++)<img src="/img/leaf-120.png" style="width:28px; display:inline-block; @if($user->rating-1 < $i) opacity:0.5 @endif">@endfor
 							<div class="profile-card-name">{{ $user->first_name}} {{ $user->last_name}}</div>
-							{{-- <button type="button" class="btn btn-rounded">Follow</button> --}}
+							<!-- <button type="button" class="btn btn-rounded">Follow</button> -->
 							<div id="share"></div>
 						</div><!--.profile-card-->
-
 						<div class="profile-statistic tbl">
 							<div class="tbl-row">
 								<div class="tbl-cell">
@@ -34,17 +33,70 @@
 								</div>
 							</div>
 						</div>
-
-
 					</section><!--.box-typical-->
+          <section>
+            @if($user->id == Auth::user()->id)
+            <div id="updateprofileimage">
+              <button class="btn" id="update-profile-image-button">Change Profile Image</button>
+            </div>
+            @endif
+          </section>
+          <section class="box-typical">
 
+              <div class="profile-card">
+                <div class="box-typical">
+                  <input type="hidden" id="updatebiotext" value="{{ $user->bio }}">
+                  <b>This is me</b>
+                  <div id="updatebio">
+                    {{ $user->bio }} <br>
+                  @if($user->id == Auth::user()->id)
+                    <button class="btn" id="update-bio-button">Change Bio</button>
+                  @endif
+                  </div>
+                </div>
 
+              </div>
+
+          </section>
 				</div><!--.col- -->
 
-				<div class="col-lg-6 col-lg-push-3 col-md-12">
+				<div class="col-lg-6 col-lg-push-3 col-md-6 col-sm-6">
+          <section class="box-typical">
+            <header class="box-typical-header-sm">
+              Pages managed by {{ $user->first_name}} {{ $user->last_name}}
+            </header>
+            @if(count($user->pages) > 0)
 
+              @foreach($user->pages as $page)
+                <div class="p-a-md">
 
-					</section><!--.box-typical-->
+                  <div class="citate-speech-bubble">
+                    <h6><a href="/page/{{ $page->slug }}/{{ $page->unique_id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h6>
+                    <div>
+                      <b class="text-block-input">{{ $page->about }}</b>
+                    </div>
+                  </div>
+                  <div class="user-card-row">
+                    <div class="tbl-row">
+                      <div class="tbl-cell tbl-cell-photo">
+                        @if(count($page->photos)>0)
+                          <img src="/photos/{{ $page->photos[0]->id }}.jpg" alt=""/>
+                        @else
+                          <img src="/img/default-company.png" alt=""/>
+                        @endif
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              @endforeach
+
+            @else
+              <div class="p-a-md">
+                This user has no pages yet.
+              </div>
+            @endif
+          </section>
 
 					<section class="box-typical">
 						<header class="box-typical-header-sm">
@@ -84,7 +136,6 @@
 								This user has no reviews yet.
 							</div>
 						@endif
-
 					</section>
 
 					<section class="box-typical">
@@ -119,10 +170,9 @@
 				<div class="col-lg-3 col-md-6 col-sm-6">
 
 					<section class="box-typical">
-						<header class="box-typical-header-sm">About GreenPlatform</header>
+						<header class="box-typical-header-sm">Feed</header>
 
 						<div class="p-a-md">
-							GreenPlatform is a social orientated platform with the goal to stimulate consumers and business owners to live a greener life. The platform offers users an overview of places rated by visitors. The more leafs a place has, the greener it’s policy is.
 						</div>
 
 					</section><!--.box-typical-->
@@ -130,4 +180,31 @@
 			</div><!--.row-->
 		</div><!--.container-fluid-->
 
+<script>
+  var updateprofileimagebutton = document.getElementById("update-profile-image-button");
+  updateprofileimagebutton.addEventListener("click", updateProfileImage );
+
+  function updateProfileImage() {
+    document.getElementById("updateprofileimage").innerHTML='<form method="POST" action="/users/{{ $user->id }}/upload-profile-image-page" enctype="multipart/form-data">{{ csrf_field() }}<input type="file" name="photo"></input><button type="submit" class="btn">Save Profile Image</button></form>';
+  }
+
+  var updatebiobutton = document.getElementById("update-bio-button");
+  updatebiobutton.addEventListener("click", updateBio );
+  var updatebiotext = document.getElementById("updatebiotext").value;
+
+  function updateBio() {
+    document.getElementById("updatebio").innerHTML='<form method="POST" action="/users/{{ $user->id }}/update-bio-page">{{ csrf_field() }}<textarea type="text" name="bio">' + updatebiotext + '</textarea><button type="submit" class="btn">Save Bio</button></form>';
+
+    var tx = document.getElementsByTagName('textarea');
+    for (var i = 0; i < tx.length; i++) {
+      tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+      tx[i].addEventListener("input", OnInput, false);
+    }
+    function OnInput() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    }
+  }
+
+</script>
 @endsection

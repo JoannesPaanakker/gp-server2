@@ -11,7 +11,8 @@
         "intervention/httpauth": "^2.0",
         "davibennun/laravel-push-notification": "dev-laravel5",
         "guzzlehttp/guzzle": "^6.2",
-        "vinkla/hashids": "3.0.0"
+        "vinkla/hashids": "3.0.0",
+        "laravel/socialite": "~2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -8,17 +8,28 @@ use App\Photo;
 use App\Update;
 use App\User;
 use Image;
+use Auth;
 
 class PagesController extends Controller {
 
 	public function index(Request $request) {
     $search_value = $request->query('qry', '');
-		$pages = Page::where('title', 'LIKE', "%{$search_value}%")
-      -> orderBy('title')
-      ->get();
-		foreach ($pages as $index => $page) {
-			$pages[$index]->num_reviews = $page->reviews()->count();
-		}
+    $search_type = $request->searchtype;
+    if ($search_type == 'name') {
+      $pages = Page::where('title', 'LIKE', "%{$search_value}%")
+        ->orderBy('title')
+        ->get();
+    } elseif ($search_type == 'category') {
+      $pages = Page::where('categories', 'LIKE', "%{$search_value}%")
+        ->orderBy('title')
+        ->get();
+    } else {
+      $pages = Page::all();
+    }
+
+    foreach ($pages as $index => $page) {
+      $pages[$index]->num_reviews = $page->reviews()->count();
+    }
 		// return $pages;
 		return view('pages', compact('pages'));
 	}
@@ -183,13 +194,51 @@ class PagesController extends Controller {
 		return $places_nearby_without_pages;
 	}
 
+  // Show Company Page
 	public function companyPage($slug, $unique_id) {
+    if (Auth::check()) {
+      $cuser_id = Auth::user()->id;
+    }else {
+      $cuser_id = 0;
+    }
 		$page = Page::where('unique_id', $unique_id)->where('slug', $slug)->first();
 		if(!$page){
 			abort(404);
 		}
-		return view('company', compact('page'));
+    $lng = floatval($page->lng);
+    $lat = floatval($page->lat);
+
+    $page->num_reviews = $page->reviews()->count();
+    $page->num_updates = $page->updates()->count();
+
+    $updates = $page->updates()->orderBy('updated_at', 'desc')->take(10)->get();
+    foreach ($updates as $update) {
+      if ($update->with_image == '1') {
+        $update->image = $update->getImage();
+      }
+      $update->formatted_date = $update->updated_at->diffForHumans();
+    }
+
+    $page->updates = $updates;
+
+
+
+
+
+		return view('company', compact('page', 'cuser_id', 'current_user_id', 'lng', 'lat'));
 	}
+
+  // Edit Company Page
+
+  Public function editCompanyPage($id) {
+    $page = Page::where("id", $id)->first();
+    return view('editcompany', compact('page'));
+  }
+
+  Public function claimCompanyPage($id) {
+    $page = Page::where("id", $id)->first();
+    return view('claimcompany', compact('page'));
+  }
 
 	public function userPage($slug, $unique_id) {
 		$user = User::where('unique_id', $unique_id)->where('slug', $slug)->first();
@@ -198,6 +247,13 @@ class PagesController extends Controller {
 		}
 		return view('user', compact('user'));
 	}
+  // Show User page without slug or unique id
+  public function userPageId(User $user) {
+    if(!$user){
+      abort(404);
+    }
+    return view('user', compact('user'));
+  }
 
 	public function showOrCreateFromGoogle($place_id){
 
@@ -271,6 +327,56 @@ class PagesController extends Controller {
 		return response()->json(['status' => 'success']);
 	}
 
+  // JS/Ajax call to update "about"
+  public function updatePageAbout(Page $page) {
+    $request = request()->all();
+    $page->about = $request['about'];
+    $page->save();
+  }
+
+  // JS/Ajax call to update "categories"
+  public function updatePageCategories(Page $page) {
+    $request = request()->all();
+    $page->categories = $request['categories'];
+    $page->save();
+    return response()->json(['status' => 'success', 'data' => $page->categories ]);
+  }
+
+  public function updatePage(Page $page) {
+    $request = request()->all();
+    $page->about = $request['about'];
+    $page->categories = $request['categories'];
+    $page->title = $request['title'];
+
+    $file = request()->file('photo');
+    if (!is_null($file)) {
+
+      // TODO MULTIPLE PHOTOS PER PAGE
+      $page->photos()->delete();
+
+      $photo = new Photo;
+      $photo->page_id = $page->id;
+      $photo->save();
+
+      $destinationPath = public_path() . '/photos/';
+      $path = $photo->id . '-orig.jpg';
+
+      if ($file->move($destinationPath, $path)) {
+        Image::make($destinationPath . $photo->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $photo->id . '.jpg')->fit(200, 200)->save($destinationPath . $photo->id . '_thumb.jpg');
+      }
+    }
+    $page->save();
+    return redirect()->to('/page/'.$page->slug.'/'.$page->unique_id.'?current_user_id='.$page->user_id);
+  }
+
+    public function claimPage(Page $page) {
+    $request = request()->all();
+    $id = Auth::id();
+    $page->user_id = $id;
+    $page->save();
+    return redirect()->to('/page/'.$page->slug.'/'.$page->unique_id);
+  }
+
 	public function postFeedUpdate(Page $page) {
 		$request = request()->all();
 		$update = new Update;
@@ -321,12 +427,22 @@ class PagesController extends Controller {
 	}
 
 	public function userPages(User $user) {
+    $request = request()->all();
 		$pages = $user->pages()->with('photos')->orderBy('title')->get();
 		foreach ($pages as $index => $page) {
 			$pages[$index]->thumb = $page->getThumb();
 			$pages[$index]->num_reviews = $page->reviews()->count();
 		}
-		return $pages;
+     if (request()->ajax())
+    // if(Request::ajax())
+    {
+      return $pages;
+    }
+    else
+    {
+      return view('userpages', compact('pages'));
+    }
+
 	}
 
 	public function getById() {
@@ -395,13 +511,22 @@ class PagesController extends Controller {
 		$photo->page_id = $page->id;
 		$photo->save();
 		// upload photo and generate thumbs
-		if (isset($request['file'])) {
-			$request['file']->move('photos', $photo->id . '.jpg');
+		if (isset($request['photo'])) {
+			$request['photo']->move('photos', $photo->id . '.jpg');
 			// generate thumbs
 			Image::make('photos/' . $photo->id . '.jpg')->fit(1000, 1000)->save('photos/' . $photo->id . '.jpg')->fit(160, 160)->save('photos/' . $photo->id . '_thumb.jpg');
 		}
-		return response()->json(['status' => 'success']);
-
+		// return response()->json(['status' => 'success']);
+    return back()->withInput();
 	}
+
+  public function userLogin() {
+    return view('auth.login');
+  }
+
+  public function userRegister() {
+    return view('auth.register');
+  }
+
 
 }

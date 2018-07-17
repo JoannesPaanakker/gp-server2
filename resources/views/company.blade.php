@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appcompany')
 
 @section('content')
 
@@ -6,7 +6,6 @@
 		<div class="container-fluid main-content">
 			<div class="row">
 				<div class="col-lg-3 col-lg-pull-6 col-md-6 col-sm-6">
-
 					<section class="box-typical">
 						<div class="profile-card">
 							<div class="profile-card-photo">
@@ -20,13 +19,11 @@
 								@endif
 							</div>
 
-							@for($i = 0; $i < 5; $i++)<img src="/img/leaf-120.png" style="width:28px; display:inline-block; @if($page->rating-1 < $i) opacity:0.5 @endif">@endfor
+							@for($i = 0; $i < 5; $i++)<img src="/img/leaf-120.png" style="width:28px; display:inline-block; @if($page->rating-1 < $i) opacity:0.3 @endif">@endfor
 							<div class="profile-card-name">{{ $page->title}}</div>
 							<div class="profile-card-location">{{ $page->address }}</div>
 							{{-- <button type="button" class="btn btn-rounded">Follow</button> --}}
-
 							<div id="share"></div>
-
 						</div><!--.profile-card-->
 
 						<div class="profile-statistic tbl">
@@ -41,27 +38,47 @@
 								</div>
 							</div>
 						</div>
-
-
 					</section><!--.box-typical-->
+          @if($page->user_id == 1 && Auth::check())
+            <a href="/pages/claim/{{ $page->id }}">
+              <button type="button" class="btn btn-rounded">Claim this CompanyPage</button>
+            </a>
+          @endif
 
-
-				</div><!--.col- -->
-
+          <!-- Map and marker -->
+            <input type="hidden" id="lat" value="{{ $lat }}">
+            <input type="hidden" id="lng" value="{{ $lng }}">
+            <input type="hidden" id="title" value="{{ $page->title }}">
+          <div id="map">
+          </div>
+        </div><!--.col- -->
 				<div class="col-lg-6 col-lg-push-3 col-md-12">
-
-
 					<section class="box-typical">
-
 						<div class="p-a-md">
-							<div class="text-block text-block-typical">
-								{{ $page->about }}
-							</div>
-							<div class="profile-interests" style="margin-top:30px">
-								@foreach(explode(',',$page->categories) as $category)
-									<a href="#" class="label label-light-grey">{{ $category }}</a>
-								@endforeach
-							</div>
+              @if($page->user_id == $cuser_id )
+                <input type="hidden" id="pageid" value="{{ $page->id }}">
+                <div class="text-block text-block-typical" id="textabout">
+                  <input type="hidden" id="txt_about_org" value="{{ $page->about }}">
+                    {{ $page->about }}
+                  <button type="button" id="editabout" class="btn btn-rounded">Edit</button>
+                </div>
+                <div class="profile-interests" id="textcategories" style="margin-top:30px">
+                  <input type="hidden" id="txt_categories_org" value="{{ $page->categories }}">
+                  @foreach(explode(',',$page->categories) as $category)
+                    <a href="#" class="label label-light-grey">{{ $category }}</a>
+                  @endforeach
+                  <button type="button" id="editcat" class="btn btn-rounded">Edit</button>
+                </div>
+              @else
+                <div class="text-block text-block-typical">
+                {{ $page->about }}
+                </div>
+                <div class="profile-interests" style="margin-top:30px">
+                @foreach(explode(',',$page->categories) as $category)
+                  <a href="#" class="label label-light-grey">{{ $category }}</a>
+                 @endforeach
+                </div>
+              @endif
 						</div>
 					</section><!--.box-typical-->
 
@@ -97,6 +114,13 @@
 
 							</div><!--.posts-slider-->
 						@endif
+            @if($page->user_id == $cuser_id )
+            <form method="POST" action="/pages/{{ $page->id }}/images" enctype="multipart/form-data">
+              {{ csrf_field() }}
+              <input type="file" name="photo"></input>
+              <button class="btn" type="submit">Add Image</button>
+            </form>
+            @endif
 					</section><!--.box-typical-->
 
 					<section class="box-typical">
@@ -171,15 +195,22 @@
 				<div class="col-lg-3 col-md-6 col-sm-6">
 
 					<section class="box-typical">
-						<header class="box-typical-header-sm">About GreenPlatform</header>
+						<header class="box-typical-header-sm">Updates {{ $page->num_updates }}</header>
 
-						<div class="p-a-md">
-							GreenPlatform is a social orientated platform with the goal to stimulate consumers and business owners to live a greener life. The platform offers users an overview of places rated by visitors. The more leafs a place has, the greener it’s policy is.
-						</div>
+              @foreach($page->updates as $update)
+
+                <div class="p-x-md">
+
+                  <b>{{ $update->formatted_date }}</b>
+                  <b>{{ $update->content }}</b>
+                  <b>{{ $update->kind }}</b>
+                  <b>{{ $update->user_id }}</b>
+                </div>
+
+              @endforeach
 
 					</section><!--.box-typical-->
 				</div><!--.col- -->
 			</div><!--.row-->
 		</div><!--.container-fluid-->
-
 @endsection

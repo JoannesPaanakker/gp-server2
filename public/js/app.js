@@ -1,13 +1,113 @@
-$(document).ready(function(){
-	$("#share").jsSocials({
-        shares: ["facebook", "twitter", "googleplus", "email"],
-	    showLabel: true,
-	    showCount: true,
-	    shareIn: "popup"
+  var plat = document.getElementById("lat").value;
+  var plng = document.getElementById("lng").value;
+  var title = document.getElementById("title").value;
+
+
+  function initMap() {
+    var LatLng = new google.maps.LatLng(plat, plng);
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: LatLng,
+      zoom: 13
     });
-    $('.venobox').venobox({
-    	spinner: 'wave'
-    }); 
+    var marker = new google.maps.Marker({
+      position: LatLng,
+      map: map,
+      title: title
+    });
+  }
+
+
+
+$(document).ready(function(){
+
+  var editcategories = document.getElementById("editcat");
+  editcategories.addEventListener("click", editCat );
+
+  function editCat() {
+    var text = $('#txt_categories_org').val();
+    document.getElementById("textcategories").innerHTML='<textarea id="categories_new" class="form-control text-block-input" name="categories">' + text + '</textarea><button id="savecat" class="btn btn-rounded">save!</button>';
+    var saveabout = document.getElementById("savecat");
+    saveabout.addEventListener("click", saveCat );
+
+    var tx = document.getElementsByTagName('textarea');
+    for (var i = 0; i < tx.length; i++) {
+      tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+      tx[i].addEventListener("input", OnInput, false);
+    }
+
+    function OnInput() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    }
+  }
+
+  var editcategories = document.getElementById("editcat");
+  editcategories.addEventListener("click", editCat );
+
+  function saveCat(){
+    var text = $('#categories_new').val();
+    var kats = text.split(',');
+    var pageid = $('#pageid').val();
+    var urlp = '/pages/' + pageid + '/update-page-categories';
+
+    $.ajax({
+      type: 'POST',
+      url: urlp,
+      datatype: 'json',
+      data: { categories : text },
+    });
+
+    var catbasetext = `<input type="hidden" id="txt_categories_org" value="${text}">`;
+    // cats2.innerHTML = catbasetext;
+
+    function showCats(item, index) {
+      catbasetext = catbasetext + `<a href="#" class="label label-light-grey">` + item + `</a>  `;
+    }
+    kats.forEach(showCats);
+    catbasetext = catbasetext + '<button type="button" id="editcat" class="btn btn-rounded">Edit</button>';
+
+    document.getElementById("textcategories").innerHTML = catbasetext;
+    var editcategories = document.getElementById("editcat");
+    editcategories.addEventListener("click", editCat );
+  }
+
+  function editAbout() {
+    var text = $('#txt_about_org').val();
+    document.getElementById("textabout").innerHTML='<textarea id="txt_about_new" class="form-control text-block-input" name="about">' + text + '</textarea><button id="saveabout" class="btn btn-rounded">save!</button>';
+    var saveabout = document.getElementById("saveabout");
+    saveabout.addEventListener("click", saveAbout );
+    var tx = document.getElementsByTagName('textarea');
+    for (var i = 0; i < tx.length; i++) {
+      tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+      tx[i].addEventListener("input", OnInput, false);
+    }
+
+    function OnInput() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    }
+  }
+
+  var editabout = document.getElementById("editabout");
+  editabout.addEventListener("click", editAbout );
+
+  function saveAbout(){
+    var text = $('#txt_about_new').val();
+    var pageid = $('#pageid').val();
+    var urlp = '/pages/' + pageid + '/update-page-about';
+
+    $.ajax({
+      type: 'POST',
+      url: urlp,
+      datatype: 'json',
+      data: { about : text },
+    });
+
+    document.getElementById("textabout").innerHTML='<input type="hidden" id="txt_about_org" value="' + text + '">' + text + ' <button type="button" id="editabout" class="btn btn-rounded">Edit</button>';
+    var editabout = document.getElementById("editabout");
+    editabout.addEventListener("click", editAbout );
+  }
+
 /* ==========================================================================
 	Scroll
 	========================================================================== */
@@ -299,7 +399,7 @@ $(document).ready(function(){
 	$('[data-toggle="popover"]').popover({
 		trigger: 'focus'
 	});
-	
+
 /* ==========================================================================
 	Full height box
 	========================================================================== */
@@ -567,7 +667,7 @@ $(document).ready(function(){
 
 	$('.control-panel-toggle').on('click', function() {
 		var self = $(this);
-		
+
 		if (self.hasClass('open')) {
 			self.removeClass('open');
 			$('.control-panel').removeClass('open');

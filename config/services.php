@@ -34,5 +34,10 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'facebook' => [
+        'client_id' => '232176664230415',
+        'client_secret' => 'adb6ddbd0b4a0175636d20ab912dc159',
+        'redirect' => 'https://greenplatform.test/fbcallback/',
+    ],
 
 ];
