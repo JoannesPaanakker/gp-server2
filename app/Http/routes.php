@@ -57,7 +57,7 @@ Route::get('/users/{user}/quiz', 'QuizController@getQuizUser');
 Route::post('/users/{user}/quiz-completed', 'QuizController@completeQuizUser');
 Route::get('/users/{user}/quiz-answers', 'QuizController@getQuizAnswersUser');
 
-// Keep session when switching user pages
+// Keep session when switching pages
 Route::group(['middleware' => ['web']], function () {
 
   // User HTML page
@@ -84,23 +84,25 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/pages/claim/{page}', 'PagesController@claimCompanyPage');
   Route::post('/pages/{page}/claimPage', 'PagesController@claimPage');
   // Route::get('/pages/edit/{page}', 'PagesController@editCompanyPage');
+  Route::post('/users/{user}/upload-profile-image-page', 'UsersController@uploadProfileImagePage');
+  Route::post('/users/{user}/update-bio-page', 'UsersController@updateBioPage');
+
+  Route::post('/b-tips', 'TipsController@storeB');
+  Route::post('/b-tips/{tip}/comments', 'TipsController@postCommentB');
+  Route::post('/b-tips/{tip}/hearts', 'TipsController@heartsB');
+
+  Route::post('/users/{user}/b-goals', 'GoalsController@storeB');
+  Route::get('/users/{user}/b-goals/{goal}/delete', 'GoalsController@deleteB');
+  Route::post('/users/{user}/b-goals/{goal}', 'GoalsController@updateB');
 });
 
 
 Route::get('/users/{user}/feed', 'UsersController@feed');
 Route::post('/users/{user}/upload-profile-image', 'UsersController@uploadProfileImage');
 // New add image from browser
-Route::post('/users/{user}/upload-profile-image-page', 'UsersController@uploadProfileImagePage');
-Route::post('/users/{user}/update-bio-page', 'UsersController@updateBioPage');
-
-
 
 Route::post('/users/{user}/update-profile', 'UsersController@updateProfile');
 Route::get('/users/{user}/activity', 'UsersController@activity');
-
-
-
-
 
 Route::get('/pages/{page}', 'PagesController@show');
 Route::get('/pages/show-or-create/{page}', 'PagesController@showOrCreateFromGoogle');

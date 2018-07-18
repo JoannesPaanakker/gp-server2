@@ -4,84 +4,91 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Greenplatform {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</title>
-  <meta name="description" content="This is the user profile of {{ Auth::user()->first_name }} {{ Auth::user()->first_name }} on the Greenplatorm: a platform that supports a sustainable and eco-friendly environment.">
-  <meta name="keywords" content="">
-	<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon.png">
 
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
-	<link rel="stylesheet" href="/css/separate/vendor/slick.min.css">
-	<link rel="stylesheet" href="/css/separate/pages/profile.min.css">
-    <link rel="stylesheet" href="/css/lib/font-awesome/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/lib/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/main.css">
+  @if(Auth::check())
+    <title>Greenplatform {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</title>
+    <meta name="description" content="This is the user profile of {{ Auth::user()->first_name }} {{ Auth::user()->first_name }} on the Greenplatorm: a platform that supports a sustainable and eco-friendly environment.">
+  @else
+    <title>Greenplatform</title>
+    <meta name="description" content="The Greenplatorm: a platform that supports a sustainable and eco-friendly environment.">
+  @endif
+    <meta name="keywords" content="">
+  	<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
+      <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon.png">
 
-    <link rel="stylesheet" type="text/css" href="/js/lib/jssocials/jssocials.css" />
-    <link rel="stylesheet" type="text/css" href="/js/lib/jssocials/jssocials-theme-flat.css" />
+  	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  	<!--[if lt IE 9]>
+  	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  	<![endif]-->
+  	<link rel="stylesheet" href="/css/separate/vendor/slick.min.css">
+  	<link rel="stylesheet" href="/css/separate/pages/profile.min.css">
+      <link rel="stylesheet" href="/css/lib/font-awesome/font-awesome.min.css">
+      <link rel="stylesheet" href="/css/lib/bootstrap/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/main.css">
 
-	<link rel="stylesheet" href="/js/lib/venobox/venobox.css" type="text/css" media="screen" />
+      <link rel="stylesheet" type="text/css" href="/js/lib/jssocials/jssocials.css" />
+      <link rel="stylesheet" type="text/css" href="/js/lib/jssocials/jssocials-theme-flat.css" />
 
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/custom.css">
-</head>
-<body>
-	<header class="site-header">
-	  <div class="container-fluid">
+  	<link rel="stylesheet" href="/js/lib/venobox/venobox.css" type="text/css" media="screen" />
 
-      <a href="/user/{{ Auth::user()->id }}" class="site-logo">
-          <img class="hidden-md-down" src="/img/logo.png" alt="">
-          <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
-      </a>
-      <div class="site-header-content">
-        <div class="site-header-content-in">
-<!--           <a href="/pages/">
-            <button type="button" class="btn">Marketplace</button>
-          </a> -->
-          <form id="tfnewsearch" method="get" action="/pages/">
-            <input type="hidden" name="searchtype" value="name">
-            <input type="text" id="tfq" name="qry" size="21" maxlength="120" placeholder="Search Marketplace">
-            <input type="submit" value="Go" class="search-button">
-          </form>
-          <form id="tfnewsearch" method="get" action="/users/">
-            <input type="text" name="qry" size="21" maxlength="120" placeholder="Look for People">
-            <input type="submit" value="Go" class="search-button">
-          </form>
-          @if(Route::getCurrentRoute()->uri() == 'users')
-            <a href="/user/{{ Auth::user()->id }}">
-              <button type="button" class="btn">Profile Page</button>
-            </a>
-          @endif
-          <div class="site-header-shown">
-            <div class="dropdown">
-              <button class="btn" id="dd-header-add" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-2x fa-bars"></i>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/custom.css">
+  </head>
+  <body>
+  	<header class="site-header">
+  	  <div class="container-fluid">
+        @if(Auth::check())
+          <a href="/user/{{ Auth::user()->id }}" class="site-logo">
+              <img class="hidden-md-down" src="/img/logo.png" alt="">
+              <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
+          </a>
+        @else
+          <a href="/" class="site-logo">
+              <img class="hidden-md-down" src="/img/logo.png" alt="">
+              <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
+          </a>
+        @endif
+        <div class="site-header-content">
+          <div class="site-header-content-in">
+            @if(Auth::check())
+              <form id="tfnewsearch" method="get" action="/pages/">
+                <input type="hidden" name="searchtype" value="name">
+                <input type="text" id="tfq" name="qry" size="21" maxlength="120" placeholder="Search Marketplace">
+                <input type="submit" value="Go" class="search-button">
+              </form>
+              <form id="tfnewsearch" method="get" action="/users/">
+                <input type="text" name="qry" size="21" maxlength="120" placeholder="Look for People">
+                <input type="submit" value="Go" class="search-button">
+              </form>
+            @endif
+            @if(Route::getCurrentRoute()->uri() == 'users')
+              <a href="/user/{{ Auth::user()->id }}">
+                <button type="button" class="btn">Profile Page</button>
+              </a>
+            @endif
+            @if(Auth::check())
+              <div class="site-header-shown">
+                <div class="dropdown">
+                  <button class="btn" id="dd-header-add" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-2x fa-bars"></i>
 
-              </button>
-              <div class="dropdown-menu push-left" aria-labelledby="dd-header-add">
-                <a class="dropdown-item" href="/users/{{ Auth::user()->id }}/quizpage">GreenPlatform Score</a>
-                <a class="dropdown-item" href="" target="_blank">My Goals</a>
-                <a class="dropdown-item" href="" target="_blank">Green tips</a>
-                <a class="dropdown-item" href="/logout">Logout</a>
-              </div>
-            </div>
-          </div><!--.site-header-shown-->
-        </div><!--site-header-content-in-->
-	    </div><!--.site-header-content-->
-	  </div><!--.container-fluid-->
-	</header><!--.site-header-->
-
-	<div class="page-content">
-
-		@yield('content')
-
-	</div><!--.page-content-->
-
-
-
+                  </button>
+                  <div class="dropdown-menu push-left" aria-labelledby="dd-header-add">
+                    <a class="dropdown-item" href="/users/{{ Auth::user()->id }}/quizpage">GreenPlatform Score</a>
+                    <a class="dropdown-item" href="" target="_blank">My Goals</a>
+                    <a class="dropdown-item" href="" target="_blank">Green tips</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                  </div>
+                </div>
+              </div><!--.site-header-shown-->
+            @endif
+          </div><!--site-header-content-in-->
+  	    </div><!--.site-header-content-->
+  	  </div><!--.container-fluid-->
+  	</header><!--.site-header-->
+    	<div class="page-content">
+    		@yield('content')
+    	</div><!--.page-content-->
 		<div class="page-footer">
 			<div class="container">
 				<div class="row">
@@ -93,9 +100,6 @@
 				</div>
 			</div>
 		</div>
-
-
-
 	<script src="/js/lib/jquery/jquery.min.js"></script>
 	<script src="/js/lib/tether/tether.min.js"></script>
 	<script src="/js/lib/bootstrap/bootstrap.min.js"></script>

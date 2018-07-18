@@ -1,0 +1,52 @@
+<div class="col-lg-3 col-md-6 col-sm-6">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#followers">
+    Followers
+  </button>
+  <div class="modal" id="followers" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">People following {{ $user->first_name}} {{ $user->last_name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <header class="box-typical-header-sm">
+          People following {{ $user->first_name}} {{ $user->last_name}}
+        </header>
+            <div class="p-a-md">
+        @if(count($user->followed_by) > 0)
+          @foreach($user->followed_by as $user)
+              <div class="user-card-row">
+
+                  <div class="tbl-cell tbl-cell-photo">
+                    @if($user->picture)
+                      <a href="/user/{{ $user->id }}">
+                        <img class="avatar" src="{{ $user->picture }}" alt="profile image">
+                      </a>
+                    @else
+                      <a href="/user/{{ $user->id }}">
+                      <img class="avatar" src="/img/avatar-sign.png" alt="profile image"/>
+                      </a>
+                    @endif
+                  </div>
+                <h5><a href="/user/{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</a></h5>
+              </div>
+              <br>
+          @endforeach
+            </div>
+
+        @else
+          <div class="p-a-md">
+            This user is not followed by any people yet.
+          </div>
+        @endif
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!--.col- -->

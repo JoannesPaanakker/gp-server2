@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+  @if(Auth::check())
 		<div class="container-fluid main-content">
 			<div class="row">
 				<div class="col-lg-3 col-lg-pull-6 col-md-6 col-sm-6">
@@ -16,7 +16,7 @@
 									<img src="/img/avatar-sign.png" alt=""/>
 								@endif
 							</div>
-							@for($i = 0; $i < 5; $i++)<img src="/img/leaf-120.png" style="width:28px; display:inline-block; @if($user->rating-1 < $i) opacity:0.5 @endif">@endfor
+							@for($i = 0; $i < 290; $i = $i + 60)<img src="/img/feature-leaf.png" style="width:32px; display:inline-block; @if($user->quiz_score < $i) opacity:0.3 @endif">@endfor
 							<div class="profile-card-name">{{ $user->first_name}} {{ $user->last_name}}</div>
 							<!-- <button type="button" class="btn btn-rounded">Follow</button> -->
 							<div id="share"></div>
@@ -24,27 +24,13 @@
 						<div class="profile-statistic tbl">
 							<div class="tbl-row">
 								<div class="tbl-cell">
-									<b>{{ $user->quiz_score }}</b>
-									GP Standard
+                  GP score:<b>{{ $user->quiz_score }}</b>
+                  @include('partials.gpanswers')
 								</div>
 								<div class="tbl-cell">
-                  Followers
-                  @foreach( $user->followed_by as $follow)
-				  					<b>{{ $follow->id }}</b>
-                  @endforeach
+                  Followers: <b>{{ count($user->followed_by)}}</b>
+                  @include('partials.followers')
 								</div>
-                <div class="tbl-cell">
-                  You are following these users:
-                 @foreach( $user->following_users as $following_user)
-                    <b>{{ $following_user->id }}</b>
-                  @endforeach
-                </div>
-                <div class="tbl-cell">
-                 You are following these companies:
-                 @foreach( $user->following_pages as $following_page)
-                    <b>{{ $following_page->id }}</b>
-                  @endforeach
-                </div>
 							</div>
 						</div>
 					</section><!--.box-typical-->
@@ -78,36 +64,30 @@
           </section>
 				</div><!--.col- -->
 
+
 				<div class="col-lg-6 col-lg-push-3 col-md-6 col-sm-6">
           <section class="box-typical">
             <header class="box-typical-header-sm">
-              Pages managed by {{ $user->first_name}} {{ $user->last_name}}
+              Review Pages managed by {{ $user->first_name}} {{ $user->last_name}}
             </header>
-            @if(count($user->pages) > 0)
-
-              @foreach($user->pages as $page)
                 <div class="p-a-md">
-
-                  <div class="citate-speech-bubble">
-                    <h6><a href="/page/{{ $page->slug }}/{{ $page->unique_id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h6>
-                    <div>
-                      <b class="text-block-input">{{ $page->about }}</b>
-                    </div>
-                  </div>
+            @if(count($user->pages) > 0)
+              @foreach($user->pages as $page)
                   <div class="user-card-row">
-                    <div class="tbl-row">
+
                       <div class="tbl-cell tbl-cell-photo">
                         @if(count($page->photos)>0)
                           <img src="/photos/{{ $page->photos[0]->id }}.jpg" alt=""/>
                         @else
                           <img src="/img/default-company.png" alt=""/>
                         @endif
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
+                      </div>
+                    <h5><a href="/page/{{ $page->slug }}/{{ $page->unique_id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h5>
+                  </div>
+                  <br>
               @endforeach
+                </div>
 
             @else
               <div class="p-a-md">
@@ -115,6 +95,10 @@
               </div>
             @endif
           </section>
+
+          @include('partials.companiesfollowing')
+          @include('partials.usersfollowing')
+
 
 					<section class="box-typical">
 						<header class="box-typical-header-sm">
@@ -155,56 +139,61 @@
 							</div>
 						@endif
 					</section>
-
-					<section class="box-typical">
-						<header class="box-typical-header-sm">
-							GP Standard
-						</header>
-						@if(count($user->quiz_answers)>0)
-
-							@foreach($user->quiz_answers as $answer)
-
-								<div class="p-x-md">
-
-									<b>{{ $answer->question_text }}</b>
-									<p>{{ $answer->answer }}</p>
-
-								</div>
-
-							@endforeach
-
-						@else
-							<div class="p-a-md">
-								This user didn't complete the GP Standard quiz yet.
-							</div>
-						@endif
-
-					</section>
-
-
 				</div><!--.col- -->
-
+        <!-- New Tip -->
+        @include('partials.addgoal')
+        <!-- end New Tip -->
         <div class="col-lg-3 col-md-6 col-sm-6">
-
           <section class="box-typical">
-            <header class="box-typical-header-sm">Feeds</header>
-
+            <header class="box-typical-header-sm">Goals set by {{ $user->first_name}} {{ $user->last_name}}</header>
             <div class="p-a-md">
               <div class="tbl-cell">
-@foreach( $user->feeds as $feet )
-<b>{{ $feet->formatted_date }}</b>
-<p>{{ $feet->entity_name}} {{ $feet->content}}</p>
-@endforeach
+                @foreach( $user->goals as $goal )
+                  <b>{{ $goal->title }} </b>
+                  <p>{{ $goal->content}} </p>
+                  <div class="progress fits">
+                    <div class="progress-bar" role="progressbar"
+                    aria-valuenow="{{ $goal->progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{ $goal->progress}}%">
+                      {{ $goal->progress}}%
+                    </div>
+                  </div>
+                @endforeach
               </div>
             </div>
-
+          </section><!--.box-typical-->
+        </div><!--.col- -->
+        <!-- New Tip -->
+        @include('partials.addtip')
+        <!-- end New Tip -->
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <section class="box-typical">
+            <header class="box-typical-header-sm">Green tips from {{ $user->first_name}} {{ $user->last_name}}</header>
+            <div class="p-a-md">
+              <div class="tbl-cell">
+                @foreach( $user->tips as $tip )
+                  <b>{{ $tip->title }} </b>
+                  <p>{{ $tip->content }}</p>
+                  <div class="tbl-cell-photo">
+                    <img src="{{ $tip->picture }}" alt="" class="fit">
+                  </div>
+                @endforeach
+              </div>
+            </div>
           </section><!--.box-typical-->
         </div><!--.col- -->
         <div class="col-lg-3 col-md-6 col-sm-6">
-
           <section class="box-typical">
-            <header class="box-typical-header-sm">Feed</header>
-
+            <header class="box-typical-header-sm">Activities Communitiy</header>
+            <div class="p-a-md">
+              <div class="tbl-cell">
+                @foreach( $user->feeds as $feet )
+                  <b>{{ $feet->formatted_date }} </b>
+                  <p>{{ $feet->user->first_name}} {{ $feet->user->last_name}} {{ $feet->content}} on {{ $feet->entity_name}}</p>
+                  <p> ({{ $feet->kind}})</p>
+                @endforeach
+              </div>
+            </div>
+            <header class="box-typical-header-sm">My Activities</header>
             <div class="p-a-md">
               <div class="tbl-cell">
                 @foreach( $user->feed as $feed)
@@ -213,37 +202,45 @@
                 @endforeach
               </div>
             </div>
-
           </section><!--.box-typical-->
         </div><!--.col- -->
 			</div><!--.row-->
 		</div><!--.container-fluid-->
 
-<script>
-  var updateprofileimagebutton = document.getElementById("update-profile-image-button");
-  updateprofileimagebutton.addEventListener("click", updateProfileImage );
+    <script>
+      var updateprofileimagebutton = document.getElementById("update-profile-image-button");
+      updateprofileimagebutton.addEventListener("click", updateProfileImage );
 
-  function updateProfileImage() {
-    document.getElementById("updateprofileimage").innerHTML='<form method="POST" action="/users/{{ $user->id }}/upload-profile-image-page" enctype="multipart/form-data">{{ csrf_field() }}<input type="file" name="photo"></input><button type="submit" class="btn">Save Profile Image</button></form>';
-  }
+      function updateProfileImage() {
+        document.getElementById("updateprofileimage").innerHTML='<form method="POST" action="/users/{{ $user->id }}/upload-profile-image-page" enctype="multipart/form-data">{{ csrf_field() }}<input type="file" name="photo"></input><button type="submit" class="btn">Save Profile Image</button></form>';
+      }
 
-  var updatebiobutton = document.getElementById("update-bio-button");
-  updatebiobutton.addEventListener("click", updateBio );
-  var updatebiotext = document.getElementById("updatebiotext").value;
+      var updatebiobutton = document.getElementById("update-bio-button");
+      updatebiobutton.addEventListener("click", updateBio );
+      var updatebiotext = document.getElementById("updatebiotext").value;
 
-  function updateBio() {
-    document.getElementById("updatebio").innerHTML='<form method="POST" action="/users/{{ $user->id }}/update-bio-page">{{ csrf_field() }}<textarea type="text" name="bio">' + updatebiotext + '</textarea><button type="submit" class="btn">Save Bio</button></form>';
+      function updateBio() {
+        document.getElementById("updatebio").innerHTML='<form method="POST" action="/users/{{ $user->id }}/update-bio-page">{{ csrf_field() }}<textarea type="text" name="bio">' + updatebiotext + '</textarea><button type="submit" class="btn">Save Bio</button></form>';
 
-    var tx = document.getElementsByTagName('textarea');
-    for (var i = 0; i < tx.length; i++) {
-      tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
-      tx[i].addEventListener("input", OnInput, false);
-    }
-    function OnInput() {
-      this.style.height = 'auto';
-      this.style.height = (this.scrollHeight) + 'px';
-    }
-  }
+        var tx = document.getElementsByTagName('textarea');
+        for (var i = 0; i < tx.length; i++) {
+          tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+          tx[i].addEventListener("input", OnInput, false);
+        }
+        function OnInput() {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        }
+      }
 
-</script>
+    </script>
+@else
+      <p>Your Greenplatform session expired. PLease go to the HomePage tot login:</p>
+      <a href="/" class="site-logo">
+          Homepage:
+          <img src="/img/leaf-120.png" alt="">
+      </a>
+      <br><br>
+@endif
+
 @endsection

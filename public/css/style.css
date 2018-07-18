@@ -363,12 +363,22 @@ h4.ankor {
   margin-top: -140px;
 }
 
+.fit {
+  max-width: 100%;
+}
 
+.progress.fits {
+  width: 150px;
+  color: white;
+}
 
+.box-typical-header-sm {
+  padding: 10px !important;
+}
 
-
-
-
+.p-a-md {
+  padding: 10px !important;
+}
 
 
 
