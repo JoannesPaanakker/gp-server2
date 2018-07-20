@@ -24,4 +24,16 @@ class HomeController extends Controller {
     return view('testpage2', compact('user'));
   }
 
+  public static function reset() {
+    $pages = Page::all();
+    foreach ($pages as $page) {
+      if(is_null($page->user_id)) {
+        $page->user_id = 1;
+        $page->save();
+      }
+    }
+  }
+
+
+
 }

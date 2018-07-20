@@ -4,9 +4,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Greenplatform {{ $page->title }}</title>
-  <meta name="description" content="{{ $page->about }}. This is a Greenplatorm sustainability environmental eco-friendly Certificate.">
-  <meta name="keywords" content="{{ $page->categories }}">
+	<title>{{ $page->title }} Greenplatform</title>
+  <meta name="description" content="This is the Green certificate of {{ $page->title }} on the Greenplatform: a platform that supports a, green, sustainable and eco-friendly environment.">
+  <meta name="keywords" content="greenplatform, {{ $page->title }}, sustainable, eco-friendly, environment">
 	<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon.png">
 
@@ -37,11 +37,6 @@
       </a>
       <div class="site-header-content">
         <div class="site-header-content-in">
-
-
-          <a href="/pages/">
-            <button type="button" class="btn btn-rounded">Marketplace</button>
-          </a>
           @if(Auth::check())
           <a href="/logout">
             <button type="button" class="btn btn-rounded">Logout</button>

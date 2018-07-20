@@ -11,8 +11,6 @@ Route::get('/testlogin', [
    echo "You are allowed to view this page!";
 }]);
 
-
-
 Route::get('/', 'HomeController@index');
 
 Route::get('/test-page2', 'HomeController@testPage2');
@@ -72,13 +70,31 @@ Route::group(['middleware' => ['web']], function () {
   Route::post('/users/{user}/quiz-answer', 'QuizController@saveQuizAnswer');
   Route::post('/users/{user}/quiz-completed-browser', 'QuizController@completeQuizUserFromBrowser');
 
+
+
+
+
+  // page quiz for browser
+  Route::get('/pages/{page}/quizpage', 'QuizController@getQuizPageB');
+  // save quiz answer from browser
+  Route::post('/pages/{page}/quiz-answer', 'QuizController@saveQuizAnswerPage');
+  Route::post('/pages/{page}/quiz-completed-browser', 'QuizController@completeQuizPageFromBrowser');
+
+
+Route::post('/users/{user}/b-reviews', 'ReviewsController@storeB');
+
+
+
+
+
+
   Route::post('/users/{user}/follow-page-browser/{page}', 'UsersController@followPageBrowser');
   Route::post('/users/{user}/unfollow-page-browser/{page}', 'UsersController@unFollowPageBrowser');
 
   Route::post('/users/{following}/follow-user-browser/{followed}', 'UsersController@followUserBrowser');
   Route::post('/users/{following}/unfollow-user-browser/{followed}', 'UsersController@unFollowUserBrowser');
   // pages
-  Route::get('/page/{slug}/{page_unique_id}', 'PagesController@companyPage');
+  Route::get('/page/{slug}/{page}', 'PagesController@companyPage');
   Route::get('/pages', 'PagesController@index');
 
   Route::get('/pages/claim/{page}', 'PagesController@claimCompanyPage');

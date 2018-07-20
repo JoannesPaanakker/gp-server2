@@ -195,16 +195,24 @@ class PagesController extends Controller {
 	}
 
   // Show Company Page
-	public function companyPage($slug, $unique_id) {
+	public function companyPage($slug, $id) {
+    $page = Page::where("id", $id)->first();
+    if(!$page){
+      abort(404);
+    }
+
+    $follows = false;
     if (Auth::check()) {
       $cuser_id = Auth::user()->id;
+      foreach($page->followed as $follow) {
+        if ($follow->id == Auth::user()->id) {
+          $follows = true;
+        }
+      }
     }else {
       $cuser_id = 0;
     }
-		$page = Page::where('unique_id', $unique_id)->where('slug', $slug)->first();
-		if(!$page){
-			abort(404);
-		}
+
     $lng = floatval($page->lng);
     $lat = floatval($page->lat);
 
@@ -225,7 +233,7 @@ class PagesController extends Controller {
 
 
 
-		return view('company', compact('page', 'cuser_id', 'current_user_id', 'lng', 'lat'));
+		return view('company', compact('page', 'cuser_id', 'current_user_id', 'lng', 'lat', 'follows'));
 	}
 
   // Edit Company Page
@@ -374,7 +382,7 @@ class PagesController extends Controller {
     $id = Auth::id();
     $page->user_id = $id;
     $page->save();
-    return redirect()->to('/page/'.$page->slug.'/'.$page->unique_id);
+    return redirect()->to('/page/'.$page->slug.'/'.$page->id);
   }
 
 	public function postFeedUpdate(Page $page) {

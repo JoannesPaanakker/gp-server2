@@ -5,10 +5,10 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div id="1000" class="ankor">
-      Green Plaform Score: {{ $total_score }} for {{ $user->last_name }}
+      <h4> GPstandard Score: {{ $total_score }} for {{ $page->title }}</h4>
       </div>
-      <form role="form" method="POST" action="{{ url('/users/'.Auth::user()->id.'/quiz-completed-browser') }}">
-        <input type="hidden" name="quiz_comments" value="Quiz Comments">
+      <form role="form" method="POST" action="{{ url('/pages/'.$page->id.'/quiz-completed-browser') }}">
+        <input type="text" name="quiz_comments" placeholder="Any Comments?">
         <button type="submit" class="btn">
           Save Score
         </button>
@@ -27,16 +27,11 @@
               <h4 id="{{ $question->id }}" class="ankor">
                 {{ $qnumber }}. {{ $question->question }}
               </h4>
-              <p> {{count($useranswers)}}</p>
-
-              @php
-                $cc = 1
-              @endphp
               @php
                 $number = 1
               @endphp
               @foreach($question['answers'] as $answer)
-                <form class="form-horizontal" role="form" method="POST" action="{{ url('/users/'.Auth::user()->id.'/quiz-answer') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ url('/pages/'.$page->id.'/quiz-answer') }}">
                   <input type="hidden" name="answer" value="{{ $answer->answer }}">
                   <input type="hidden" name="score" value="{{ $answer->score }}">
                   <input type="hidden" name="qid" value="{{ $question->id }}">
@@ -44,9 +39,9 @@
                   <button type="submit" class="answer n{{ $number }}">
                     {{ $answer->answer }} {{ $answer->score }}
                   </button>
-                  @foreach($useranswers as $useranswer)
-                    @if( $answer->answer == $useranswer->answer && $answer->question_id == $useranswer->question_id)
-                      <i class="fa fa-check-circle"></i>  Current Answer {{$useranswer->answer}}
+                  @foreach($page_answers as $page_answer)
+                    @if( $answer->answer == $page_answer->answer && $answer->question_id == $page_answer->question_id)
+                      <i class="fa fa-check-circle"></i>  Current Answer
                     @endif
                   @endforeach
 

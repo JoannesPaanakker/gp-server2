@@ -65,7 +65,7 @@ class ReviewsController extends Controller {
 		$reviews = $user->reviews()->join('pages as page', 'reviews.page_id', '=', 'page.id')
    		->orderBy('page.title')
    		->select('reviews.*')->with('page')->get();
-		
+
 		foreach ($reviews as $index => $review) {
 			$reviews[$index]->user = $user;
 			$reviews[$index]->thumb = $review->getThumb();
@@ -91,64 +91,123 @@ class ReviewsController extends Controller {
 		return $reviews;
 	}
 
-	public function store(User $user) {
-		$request = request()->all();
-		$page = Page::find($request['page_id']);
+  public function store(User $user) {
+    $request = request()->all();
+    $page = Page::find($request['page_id']);
 
-		error_log(print_r($request, 1));
+    error_log(print_r($request, 1));
 
-		$review = new Review;
-		$review->title = $request['title'];
-		$review->content = $request['content'];
-		$review->rating_0 = $request['rating_0'];
-		$review->rating_1 = $request['rating_1'];
-		$review->rating_2 = $request['rating_2'];
-		$review->rating_3 = $request['rating_3'];
+    $review = new Review;
+    $review->title = $request['title'];
+    $review->content = $request['content'];
+    $review->rating_0 = $request['rating_0'];
+    $review->rating_1 = $request['rating_1'];
+    $review->rating_2 = $request['rating_2'];
+    $review->rating_3 = $request['rating_3'];
 
 
-		$review->prize_thumb = $request['prize_thumb'];
+    $review->prize_thumb = $request['prize_thumb'];
 
-		$user->reviews()->save($review);
-		$page->reviews()->save($review);
+    $user->reviews()->save($review);
+    $page->reviews()->save($review);
 
-		// update page rating
-		$page = $review->page;
-		$page->updateRating();
+    // update page rating
+    $page = $review->page;
+    $page->updateRating();
 
-		// update page prize thumbs count
-		$page->updateThumbs();
+    // update page prize thumbs count
+    $page->updateThumbs();
 
-		// upload the review photo
-		$photo = request()->file('photo');
-		if (!is_null($photo)) {
-			$destinationPath = public_path() . '/reviews-photos/';
-			$path = $review->id . '-orig.jpg';
-			if ($photo->move($destinationPath, $path)) {
-				Image::make($destinationPath . $review->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $review->id . '.jpg');
-				$review->picture = url('/reviews-photos') . '/' . $review->id . '.jpg';
-				$review->save();
-			}
-		}
+    // upload the review photo
+    $photo = request()->file('photo');
+    if (!is_null($photo)) {
+      $destinationPath = public_path() . '/reviews-photos/';
+      $path = $review->id . '-orig.jpg';
+      if ($photo->move($destinationPath, $path)) {
+        Image::make($destinationPath . $review->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $review->id . '.jpg');
+        $review->picture = url('/reviews-photos') . '/' . $review->id . '.jpg';
+        $review->save();
+      }
+    }
 
-		// post update
-		$update = new Update;
-		$update->user_id = $user->id;
-		$update->content = 'Posted a review';
-		$update->kind = 'create-review';
-		$update->entity_id = $page->id;
-		$update->entity_name = $page->title;
-		$update->save();
-		if(!$user->following_pages->contains($page)){
-			$user->following_pages()->save($page);
-		}
+    // post update
+    $update = new Update;
+    $update->user_id = $user->id;
+    $update->content = 'Posted a review';
+    $update->kind = 'create-review';
+    $update->entity_id = $page->id;
+    $update->entity_name = $page->title;
+    $update->save();
+    if(!$user->following_pages->contains($page)){
+      $user->following_pages()->save($page);
+    }
 
-		// send a push notification to followers
-		$message = $user->first_name . ' ' . $user->last_name . ' has reviewed ' . $page->title;
-		User::sendPushNotificationToMultipleUsers($user->followed_by, $message);
+    // send a push notification to followers
+    $message = $user->first_name . ' ' . $user->last_name . ' has reviewed ' . $page->title;
+    User::sendPushNotificationToMultipleUsers($user->followed_by, $message);
 
-		return response()->json(['status' => 'success', 'review_id' => $review->id, 'page_name' => $page->title, 'page_id' => $page->id]);
+    return response()->json(['status' => 'success', 'review_id' => $review->id, 'page_name' => $page->title, 'page_id' => $page->id]);
 
-	}
+  }
+
+  public function storeB(User $user) {
+    $request = request()->all();
+    $page = Page::find($request['page_id']);
+
+    error_log(print_r($request, 1));
+
+    $review = new Review;
+    $review->title = $request['title'];
+    $review->content = $request['content'];
+    $review->rating_0 = $request['rating_0'];
+    $review->rating_1 = $request['rating_1'];
+    $review->rating_2 = $request['rating_2'];
+    $review->rating_3 = $request['rating_3'];
+
+
+    // $review->prize_thumb = $request['prize_thumb'];
+
+    $user->reviews()->save($review);
+    $page->reviews()->save($review);
+
+    // update page rating
+    $page = $review->page;
+    $page->updateRating();
+
+    // update page prize thumbs count
+    $page->updateThumbs();
+
+    // upload the review photo
+    $photo = request()->file('photo');
+    if (!is_null($photo)) {
+      $destinationPath = public_path() . '/reviews-photos/';
+      $path = $review->id . '-orig.jpg';
+      if ($photo->move($destinationPath, $path)) {
+        Image::make($destinationPath . $review->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $review->id . '.jpg');
+        $review->picture = url('/reviews-photos') . '/' . $review->id . '.jpg';
+        $review->save();
+      }
+    }
+
+    // post update
+    $update = new Update;
+    $update->user_id = $user->id;
+    $update->content = 'Posted a review';
+    $update->kind = 'create-review';
+    $update->entity_id = $page->id;
+    $update->entity_name = $page->title;
+    $update->save();
+    if(!$user->following_pages->contains($page)){
+      $user->following_pages()->save($page);
+    }
+
+    // send a push notification to followers
+    $message = $user->first_name . ' ' . $user->last_name . ' has reviewed ' . $page->title;
+    User::sendPushNotificationToMultipleUsers($user->followed_by, $message);
+
+    // return response()->json(['status' => 'success', 'review_id' => $review->id, 'page_name' => $page->title, 'page_id' => $page->id]);
+  return back()->withInput();
+    }
 
 	public function addImage(Review $review) {
 

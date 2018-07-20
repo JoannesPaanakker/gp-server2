@@ -74,7 +74,7 @@
 
                   </button>
                   <div class="dropdown-menu push-left" aria-labelledby="dd-header-add">
-                    <a class="dropdown-item" href="/users/{{ Auth::user()->id }}/quizpage">GreenPlatform Score</a>
+                    <a class="dropdown-item" href="/users/{{ Auth::user()->id }}/quizpage">GreenPlatform Quiz</a>
                     <a class="dropdown-item" href="" target="_blank">My Goals</a>
                     <a class="dropdown-item" href="" target="_blank">Green tips</a>
                     <a class="dropdown-item" href="/logout">Logout</a>

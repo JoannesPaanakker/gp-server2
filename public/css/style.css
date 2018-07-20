@@ -380,8 +380,16 @@ h4.ankor {
   padding: 10px !important;
 }
 
+.btn {
+  font-size: .9rem;
+  padding: 4px;
+}
 
-
+label {
+  padding: 5px;
+  background-color: #a9e7be;
+  margin: 5px;
+}
 
 
 

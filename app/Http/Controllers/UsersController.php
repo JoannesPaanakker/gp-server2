@@ -173,6 +173,17 @@ class UsersController extends Controller {
 
   // Show User page without slug or unique id
   public function userPageId(User $user) {
+
+
+    $follows = false;
+
+    foreach($user->followed_by as $follow) {
+      if ($follow->id == Auth::user()->id) {
+        $follows = true;
+      }
+    }
+
+
     $feed = $this->activity($user);
     $user->feed = $feed['feed'];
     $feeds = $this->feed($user);
@@ -180,7 +191,7 @@ class UsersController extends Controller {
     if(!$user){
       abort(404);
     }
-    return view('user', compact('user', 'feeds'));
+    return view('user', compact('user', 'feeds', 'follows'));
   }
 
 

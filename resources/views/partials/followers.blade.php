@@ -1,4 +1,3 @@
-<div class="col-lg-3 col-md-6 col-sm-6">
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#followers">
     Followers
   </button>
@@ -49,4 +48,3 @@
       </div>
     </div>
   </div>
-</div><!--.col- -->

@@ -6,6 +6,11 @@
 		<div class="container-fluid main-content">
 			<div class="row">
 				<div class="col-lg-3 col-lg-pull-6 col-md-6 col-sm-6">
+        <!-- Follow this page -->
+          @if(Auth::check() && $follows == false)
+            @include('partials.followpage')
+          @endif
+        <!-- end of Follow this page -->
 					<section class="box-typical">
 						<div class="profile-card">
 							<div class="profile-card-photo">
@@ -30,32 +35,36 @@
 							<div class="tbl-row">
 								<div class="tbl-cell">
 									<b>{{ $page->quiz_score }}</b>
-									GP Standard
+                  @include('partials.pagegpanswers')
 								</div>
 								<div class="tbl-cell">
 									<b>{{ count($page->followed) }}</b>
-									Followers
+                  @include('partials.pagefollowers')
 								</div>
 							</div>
 						</div>
 					</section><!--.box-typical-->
           @if($page->user_id == 1 && Auth::check())
             <a href="/pages/claim/{{ $page->id }}">
-              <button type="button" class="btn btn-rounded">Claim {{ $page->title}}</button>
+              <button type="button" class="btn">Claim {{ $page->title}}</button>
             </a>
           @endif
-
+          <section>
           <!-- Map and marker -->
             <input type="hidden" id="lat" value="{{ $lat }}">
             <input type="hidden" id="lng" value="{{ $lng }}">
             <input type="hidden" id="title" value="{{ $page->title }}">
           <div id="map">
           </div>
+          </section>
         </div><!--.col- -->
-				<div class="col-lg-6 col-lg-push-3 col-md-12">
-					<section class="box-typical">
+
+
+        @include('partials.review')
+        <div class="col-lg-6 col-lg-push-3 col-md-12">
+        <section class="box-typical">
 						<div class="p-a-md">
-              @if($page->user_id == $cuser_id )
+              @if( Auth::check() && $page->user_id == Auth::user()->id)
                 <input type="hidden" id="pageid" value="{{ $page->id }}">
                 <div class="text-block text-block-typical" id="textabout">
                   <input type="hidden" id="txt_about_org" value="{{ $page->about }}">
@@ -81,8 +90,6 @@
               @endif
 						</div>
 					</section><!--.box-typical-->
-
-
 					<section class="box-typical">
 						<header class="box-typical-header-sm">
 							Photos
@@ -114,7 +121,7 @@
 
 							</div><!--.posts-slider-->
 						@endif
-            @if($page->user_id == $cuser_id )
+            @if( Auth::check() && $page->user_id == Auth::user()->id)
             <form method="POST" action="/pages/{{ $page->id }}/images" enctype="multipart/form-data">
               {{ csrf_field() }}
               <input type="file" name="photo"></input>
@@ -154,66 +161,24 @@
 								</div>
 
 							@endforeach
-
 						@else
 							<div class="p-a-md">
 								This page has no reviews yet.
 							</div>
 						@endif
-
 					</section>
-
-					<section class="box-typical">
-						<header class="box-typical-header-sm">
-							GP Standard
-						</header>
-
-						@if(count($page->quizAnswers)>0)
-
-							@foreach($page->quizAnswers as $answer)
-
-								<div class="p-x-md">
-
-									<b>{{ $answer->question_text }}</b>
-									<p>{{ $answer->answer }}</p>
-
-								</div>
-
-							@endforeach
-
-						@else
-							<div class="p-a-md">
-								This company didn't complete the GP Standard quiz yet.
-							</div>
-						@endif
-
-					</section>
-
-
 				</div><!--.col- -->
-
 				<div class="col-lg-3 col-md-6 col-sm-6">
-
 					<section class="box-typical">
 						<header class="box-typical-header-sm">Updates {{ $page->num_updates }}</header>
-
-              @foreach($page->updates as $update)
-
-                <div class="p-x-md">
-
-                  <b>{{ $update->formatted_date }}</b>
-                  <b>{{ $update->content }}</b>
-                  <b>{{ $update->kind }}</b>
-                  <b>{{ $update->user->first_name }} {{ $update->user->last_name }}</b>
-                </div>
-
-              @endforeach
-
+            @foreach($page->updates as $update)
+              <div class="p-x-md">
+                <b>{{ $update->formatted_date }}</b>
+                {{ $update->user->first_name }} {{ $update->user->last_name }} {{ $update->content }} for {{ $update->page->title }}
+              </div>
+            @endforeach
 					</section><!--.box-typical-->
 				</div><!--.col- -->
-        <!-- Follow this page -->
-        @include('partials.followpage')
-        <!-- end of Follow this page -->
 			</div><!--.row-->
 		</div><!--.container-fluid-->
 @endsection

@@ -6,7 +6,17 @@
 		<div class="container-fluid main-content">
 			<div class="row">
 				<div class="col-lg-3 col-lg-pull-6 col-md-6 col-sm-6">
-
+          <section>
+            @if($user->id == Auth::user()->id)
+              <div id="updateprofileimage">
+                <button class="btn" id="update-profile-image-button">Change Profile Image</button>
+              </div>
+            @else
+              @if ($follows == false)
+                @include('partials.followuser')
+              @endif
+            @endif
+          </section>
 					<section class="box-typical">
 						<div class="profile-card">
 							<div class="profile-card-photo">
@@ -28,7 +38,7 @@
                   @include('partials.gpanswers')
 								</div>
 								<div class="tbl-cell">
-                  Followers: <b>{{ count($user->followed_by)}}</b>
+                  Followers <b>{{ count($user->followed_by)}}</b>
                   @include('partials.followers')
 								</div>
 							</div>
@@ -38,11 +48,7 @@
           </section>
           <section>
             @if($user->id == Auth::user()->id)
-              <div id="updateprofileimage">
-                <button class="btn" id="update-profile-image-button">Change Profile Image</button>
-              </div>
-            @else
-              @include('partials.followuser')
+              <button class="btn" id="update-bio-button">Change Bio</button>
             @endif
           </section>
           <section class="box-typical">
@@ -53,9 +59,6 @@
                   <b>This is me</b>
                   <div id="updatebio">
                     {{ $user->bio }} <br>
-                  @if($user->id == Auth::user()->id)
-                    <button class="btn" id="update-bio-button">Change Bio</button>
-                  @endif
                   </div>
                 </div>
 
@@ -83,7 +86,7 @@
                         @endif
 
                       </div>
-                    <h5><a href="/page/{{ $page->slug }}/{{ $page->unique_id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h5>
+                    <h5><a href="/page/{{ $page->slug }}/{{ $page->id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h5>
                   </div>
                   <br>
               @endforeach
@@ -189,7 +192,6 @@
                 @foreach( $user->feeds as $feet )
                   <b>{{ $feet->formatted_date }} </b>
                   <p>{{ $feet->user->first_name}} {{ $feet->user->last_name}} {{ $feet->content}} on {{ $feet->entity_name}}</p>
-                  <p> ({{ $feet->kind}})</p>
                 @endforeach
               </div>
             </div>
