@@ -65,10 +65,6 @@
               </div>
 
           </section>
-				</div><!--.col- -->
-
-
-				<div class="col-lg-6 col-lg-push-3 col-md-6 col-sm-6">
           <section class="box-typical">
             <header class="box-typical-header-sm">
               Review Pages managed by {{ $user->first_name}} {{ $user->last_name}}
@@ -101,9 +97,32 @@
 
           @include('partials.companiesfollowing')
           @include('partials.usersfollowing')
+        </div><!--.col- -->
 
 
-					<section class="box-typical">
+				<div class="col-lg-6 col-lg-push-3 col-md-6 col-sm-6">
+
+          <section class="box-typical">
+            <header class="box-typical-header-sm">Activities Communitiy</header>
+            <div class="p-a-md">
+              <div class="tbl-cell">
+                @foreach( $user->feeds as $feet )
+                  <b>{{ $feet->formatted_date }} </b>
+                  <p>{{ $feet->user->first_name}} {{ $feet->user->last_name}} {{ $feet->content}} on {{ $feet->entity_name}}</p>
+                @endforeach
+              </div>
+            </div>
+            <header class="box-typical-header-sm">My Activities</header>
+            <div class="p-a-md">
+              <div class="tbl-cell">
+                @foreach( $user->feed as $feed)
+                  <b>{{ $feed->formatted_date }}</b>
+                  <p>{{ $feed->content }} {{ $feed->entity_name }}</p>
+                @endforeach
+              </div>
+            </div>
+          </section><!--.box-typical-->
+  				<section class="box-typical">
 						<header class="box-typical-header-sm">
 							Reviews by {{ $user->first_name}} {{ $user->last_name}}
 						</header>
@@ -118,6 +137,9 @@
 										<h6>{{ @$review->page->title }}</h6>
 										<b>{{ $review->title }}</b>
 										<p>{{ $review->content }}</p>
+                    @if($review->picture)
+                      <img class="fit" src="{{ $review->picture }}" alt="image"/>
+                    @endif
 									</div>
 									<div class="user-card-row">
 										<div class="tbl-row">
@@ -185,26 +207,7 @@
           </section><!--.box-typical-->
         </div><!--.col- -->
         <div class="col-lg-3 col-md-6 col-sm-6">
-          <section class="box-typical">
-            <header class="box-typical-header-sm">Activities Communitiy</header>
-            <div class="p-a-md">
-              <div class="tbl-cell">
-                @foreach( $user->feeds as $feet )
-                  <b>{{ $feet->formatted_date }} </b>
-                  <p>{{ $feet->user->first_name}} {{ $feet->user->last_name}} {{ $feet->content}} on {{ $feet->entity_name}}</p>
-                @endforeach
-              </div>
-            </div>
-            <header class="box-typical-header-sm">My Activities</header>
-            <div class="p-a-md">
-              <div class="tbl-cell">
-                @foreach( $user->feed as $feed)
-                  <b>{{ $feed->formatted_date }}</b>
-                  <p>{{ $feed->content }} {{ $feed->entity_name }}</p>
-                @endforeach
-              </div>
-            </div>
-          </section><!--.box-typical-->
+
         </div><!--.col- -->
 			</div><!--.row-->
 		</div><!--.container-fluid-->

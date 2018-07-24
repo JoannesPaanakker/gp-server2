@@ -34,7 +34,8 @@
 						<div class="profile-statistic tbl">
 							<div class="tbl-row">
 								<div class="tbl-cell">
-									<b>{{ $page->quiz_score }}</b>
+                  <!-- 0 if no score -->
+									<b>{{ $total_score }}</b>
                   @include('partials.pagegpanswers')
 								</div>
 								<div class="tbl-cell">
@@ -44,7 +45,7 @@
 							</div>
 						</div>
 					</section><!--.box-typical-->
-          @if($page->user_id == 1 && Auth::check())
+          @if( Auth::check() && $page->user_id == 1 )
             <a href="/pages/claim/{{ $page->id }}">
               <button type="button" class="btn">Claim {{ $page->title}}</button>
             </a>
@@ -60,23 +61,22 @@
         </div><!--.col- -->
 
 
-        @include('partials.review')
         <div class="col-lg-6 col-lg-push-3 col-md-12">
         <section class="box-typical">
 						<div class="p-a-md">
-              @if( Auth::check() && $page->user_id == Auth::user()->id)
+              @if( ( Auth::check() && $page->user_id == 1 ) || ( Auth::check() && $page->user_id == Auth::user()->id ) )
                 <input type="hidden" id="pageid" value="{{ $page->id }}">
                 <div class="text-block text-block-typical" id="textabout">
                   <input type="hidden" id="txt_about_org" value="{{ $page->about }}">
                     {{ $page->about }}
-                  <button type="button" id="editabout" class="btn btn-rounded">Edit</button>
+                  <button type="button" id="editabout" class="btn">Edit</button>
                 </div>
                 <div class="profile-interests" id="textcategories" style="margin-top:30px">
                   <input type="hidden" id="txt_categories_org" value="{{ $page->categories }}">
                   @foreach(explode(',',$page->categories) as $category)
                     <a href="#" class="label label-light-grey">{{ $category }}</a>
                   @endforeach
-                  <button type="button" id="editcat" class="btn btn-rounded">Edit</button>
+                  <button type="button" id="editcat" class="btn">Edit</button>
                 </div>
               @else
                 <div class="text-block text-block-typical">
@@ -90,7 +90,12 @@
               @endif
 						</div>
 					</section><!--.box-typical-->
+
+        @if( ( Auth::check() && $page->user_id == 1 ) || ( Auth::check() && $page->user_id == Auth::user()->id ) )
+          @include('partials.addphoto')
+        @endif
 					<section class="box-typical">
+            <div class="p-a-md">
 						<header class="box-typical-header-sm">
 							Photos
 							<div class="slider-arrs">
@@ -121,15 +126,11 @@
 
 							</div><!--.posts-slider-->
 						@endif
-            @if( Auth::check() && $page->user_id == Auth::user()->id)
-            <form method="POST" action="/pages/{{ $page->id }}/images" enctype="multipart/form-data">
-              {{ csrf_field() }}
-              <input type="file" name="photo"></input>
-              <button class="btn" type="submit">Add Image</button>
-            </form>
-            @endif
+          </div>
 					</section><!--.box-typical-->
-
+          @if( Auth::check())
+            @include('partials.review')
+          @endif
 					<section class="box-typical">
 						<header class="box-typical-header-sm">
 							Reviews
@@ -144,6 +145,9 @@
 									<div class="citate-speech-bubble">
 										<b>{{ $review->title }}</b>
 										<p>{{ $review->content }}</p>
+                    @if($review->picture)
+                      <img class="fit" src="{{ $review->picture }}" alt="image"/>
+                    @endif
 									</div>
 									<div class="user-card-row">
 										<div class="tbl-row">

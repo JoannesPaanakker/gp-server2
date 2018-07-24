@@ -6,12 +6,12 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{ $page->title}}'s GP Quiz Answers.</h5>
+          <h5 class="modal-title">{{ $page->title}}'s GPstandard certificate.</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body extra">
           @if(count($page->quizAnswers)>0)
             @foreach($page->quizAnswers as $answer)
               <div class="p-x-md">
@@ -24,7 +24,9 @@
               This company didn't complete the GreenPlatform Standard quiz yet.
             </div>
           @endif
-          <a href="/pages/{{ $page->id }}/quizpage" class="btn">GreenPlatform Quiz</a>
+          @if( ( Auth::check() && $page->user_id == 1 ) || ( Auth::check() && $page->user_id == Auth::user()->id ) )
+            <a href="/pages/{{ $page->id }}/quizpage" class="btn">GPstandard</a>
+          @endif
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

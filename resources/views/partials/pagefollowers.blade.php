@@ -10,7 +10,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body extra">
             <div class="p-a-md">
         @if(count($page->followed) > 0)
           @foreach($page->followed as $user)

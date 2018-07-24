@@ -7,6 +7,7 @@ use App\Page;
 use App\Photo;
 use App\Update;
 use App\User;
+use App\QuizAnswer;
 use Image;
 use Auth;
 
@@ -213,6 +214,12 @@ class PagesController extends Controller {
       $cuser_id = 0;
     }
 
+    $answers = QuizAnswer::where('page_id', $page->id)->get();
+    $total_score = 0;
+    foreach($answers as $answer){
+      $total_score += $answer->score;
+    }
+
     $lng = floatval($page->lng);
     $lat = floatval($page->lat);
 
@@ -228,12 +235,7 @@ class PagesController extends Controller {
     }
 
     $page->updates = $updates;
-
-
-
-
-
-		return view('company', compact('page', 'cuser_id', 'current_user_id', 'lng', 'lat', 'follows'));
+		return view('company', compact('page', 'cuser_id', 'current_user_id', 'lng', 'lat', 'follows', 'total_score'));
 	}
 
   // Edit Company Page
@@ -524,6 +526,15 @@ class PagesController extends Controller {
 			// generate thumbs
 			Image::make('photos/' . $photo->id . '.jpg')->fit(1000, 1000)->save('photos/' . $photo->id . '.jpg')->fit(160, 160)->save('photos/' . $photo->id . '_thumb.jpg');
 		}
+        // post an update
+    $update = new Update;
+    $update->user_id = $request['userID'];
+    $update->page_id = $page->id;
+    $update->content = 'Has added an image';
+    $update->kind = 'Image added';
+    $update->entity_id = $page->id;
+    $update->entity_name = $page->title;
+    $update->save();
 		// return response()->json(['status' => 'success']);
     return back()->withInput();
 	}

@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>{{ $page->title }} Greenplatform</title>
-  <meta name="description" content="This is the Green certificate of {{ $page->title }} on the Greenplatform: a platform that supports a, green, sustainable and eco-friendly environment.">
-  <meta name="keywords" content="greenplatform, {{ $page->title }}, sustainable, eco-friendly, environment">
+   <meta name="description" content="This is the climate ecological certificate reward review goal of {{ $page->title }} on Greenplatform: a platform that supports a, green, pollution, sustainable, global warming, carbon foodprint and eco-friendly environment.">
+  <meta name="keywords" content="green platform, {{ $page->title }}, sustainable, eco-friendly, environment, climate, rewards, review, pollution, global warming, carbon, goal, foodprint, ecological">
 	<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon.png">
 
@@ -27,55 +27,85 @@
 	<link rel="stylesheet" href="/js/lib/venobox/venobox.css" type="text/css" media="screen" />
 
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body>
 	<header class="site-header">
 	  <div class="container-fluid">
-      <a href="/" class="site-logo">
-          <img class="hidden-md-down" src="/img/logo.png" alt="">
-          <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
-      </a>
+      @if(Auth::check())
+        <a href="/user/{{ Auth::user()->id }}" class="site-logo">
+            <img class="hidden-md-down" src="/img/logo.png" alt="">
+            <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
+        </a>
+      @else
+        <a href="/" class="site-logo">
+            <img class="hidden-md-down" src="/img/logo.png" alt="">
+            <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
+        </a>
+      @endif
       <div class="site-header-content">
         <div class="site-header-content-in">
           @if(Auth::check())
-          <a href="/logout">
-            <button type="button" class="btn btn-rounded">Logout</button>
-          </a>
-          <a href="/user/{{ Auth::user()->id }}">
-            <button type="button" class="btn btn-rounded">Profile Page</button>
-          </a>
-          @else
-          <a href="/login">
-            <button type="button" class="btn btn-rounded">Login</button>
-          </a>
-           or
-          <a href="/">
-            <button type="button" class="btn btn-rounded">Register</button>
-          </a>
-          @endif
-          <div class="site-header-shown">
-				   	<div class="dropdown">
-              <button class="btn btn-rounded dropdown-toggle" id="dd-header-add" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Download App
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dd-header-add">
-                <a class="dropdown-item" href="https://itunes.apple.com/app/greenplatform/id1170382180" target="_blank">iOS</a>
-                <a class="dropdown-item" href="https://play.google.com/store/apps/details?id=org.greenplatform.gpandroid" target="_blank">Android</a>
+            <form class="hidden-xs-down" id="tfnewsearch" method="get" action="/pages/">
+              <input type="hidden" name="searchtype" value="name">
+              <input type="text" id="tfq" name="qry" size="21" maxlength="120" placeholder="Search Marketplace">
+              <input type="submit" value="Go" class="search-button">
+            </form>
+            <form class="hidden-xs-down" id="tfnewsearch" method="get" action="/users/">
+              <input type="text" name="qry" size="21" maxlength="120" placeholder="Look for People">
+              <input type="submit" value="Go" class="search-button">
+            </form>
+            <div class="site-header-shown">
+              <div class="dropdown">
+                <button class="btn" id="dd-header-add" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-2x fa-bars"></i>
+
+                </button>
+                <div class="dropdown-menu push-left" aria-labelledby="dd-header-add">
+                  @include('partials.dropdown')
+                </div>
               </div>
-            </div>
-          </div><!--.site-header-shown-->
+            </div><!--.site-header-shown-->
+          @else
+            <a href="/login">
+              <button type="button" class="btn">Login</button>
+            </a>
+             or
+            <a href="/">
+              <button type="button" class="btn">Register</button>
+            </a>
+
+            <div class="site-header-shown">
+              <div class="dropdown">
+                <button class="btn btn-rounded dropdown-toggle" id="dd-header-add" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Download App
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dd-header-add">
+                  <a class="dropdown-item" href="https://itunes.apple.com/app/greenplatform/id1170382180" target="_blank">iOS</a>
+                  <a class="dropdown-item" href="https://play.google.com/store/apps/details?id=org.greenplatform.gpandroid" target="_blank">Android</a>
+                </div>
+              </div>
+            </div><!--.site-header-shown-->
+          @endif
           <div class="mobile-menu-right-overlay"></div>
-          <div class="site-header-collapsed">
-            <div class="site-header-collapsed-in">
-            </div><!--.site-header-collapsed-in-->
-          </div><!--.site-header-collapsed-->
         </div><!--site-header-content-in-->
 	    </div><!--.site-header-content-->
 	  </div><!--.container-fluid-->
 	</header><!--.site-header-->
-
 	<div class="page-content">
-
+    <div class="centre">
+    @if(Auth::check() && (Route::getCurrentRoute()->uri() != 'pages'))
+      <form class="hidden-sm-up" id="tfnewsearch" method="get" action="/pages/">
+        <input type="hidden" name="searchtype" value="name">
+        <input type="text" id="tfq" name="qry" size="21" maxlength="120" placeholder="Search Marketplace">
+        <input type="submit" value="Go" class="search-button">
+      </form>
+<br>
+      <form class="hidden-sm-up" id="tfnewsearch" method="get" action="/users/">
+        <input type="text" name="qry" size="21" maxlength="120" placeholder="Look for People">
+        <input type="submit" value="Go" class="search-button">
+      </form>
+    @endif
+</div>
 		@yield('content')
 
 	</div><!--.page-content-->

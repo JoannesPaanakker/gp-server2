@@ -178,19 +178,17 @@ class ReviewsController extends Controller {
     $page->updateThumbs();
 
     // upload the review photo
-    $photo = request()->file('photo');
-    if (!is_null($photo)) {
-      $destinationPath = public_path() . '/reviews-photos/';
-      $path = $review->id . '-orig.jpg';
-      if ($photo->move($destinationPath, $path)) {
-        Image::make($destinationPath . $review->id . '-orig.jpg')->fit(500, 500)->save($destinationPath . $review->id . '.jpg');
-        $review->picture = url('/reviews-photos') . '/' . $review->id . '.jpg';
-        $review->save();
-      }
+    if (isset($request['photo'])) {
+      $request['photo']->move('reviews-photos', $review->id . '-orig.jpg');
+      // generate thumbs
+      Image::make('reviews-photos/' . $review->id . '-orig.jpg')->fit(500, 500)->save('reviews-photos/' . $review->id . '.jpg');
+      $review->picture = '/reviews-photos/' . $review->id . '.jpg';
+      $review->save();
     }
 
     // post update
     $update = new Update;
+    $update->page_id = $page->id;
     $update->user_id = $user->id;
     $update->content = 'Posted a review';
     $update->kind = 'create-review';
@@ -206,7 +204,7 @@ class ReviewsController extends Controller {
     User::sendPushNotificationToMultipleUsers($user->followed_by, $message);
 
     // return response()->json(['status' => 'success', 'review_id' => $review->id, 'page_name' => $page->title, 'page_id' => $page->id]);
-  return back()->withInput();
+    return back()->withInput();
     }
 
 	public function addImage(Review $review) {

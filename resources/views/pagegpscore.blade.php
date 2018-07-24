@@ -8,9 +8,9 @@
       <h4> GPstandard Score: {{ $total_score }} for {{ $page->title }}</h4>
       </div>
       <form role="form" method="POST" action="{{ url('/pages/'.$page->id.'/quiz-completed-browser') }}">
-        <input type="text" name="quiz_comments" placeholder="Any Comments?">
+        <input type="text" name="quiz_comments" placeholder="Add a question">
         <button type="submit" class="btn">
-          Save Score
+          All questions answered? Click here
         </button>
       </form>
       @foreach($quiz as $quiz)
@@ -37,7 +37,7 @@
                   <input type="hidden" name="qid" value="{{ $question->id }}">
                   <input type="hidden" name="q_text" value="{{ $question->question }}">
                   <button type="submit" class="answer n{{ $number }}">
-                    {{ $answer->answer }} {{ $answer->score }}
+                    {{ $answer->answer }}
                   </button>
                   @foreach($page_answers as $page_answer)
                     @if( $answer->answer == $page_answer->answer && $answer->question_id == $page_answer->question_id)

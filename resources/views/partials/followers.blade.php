@@ -10,7 +10,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body extra">
         <header class="box-typical-header-sm">
           People following {{ $user->first_name}} {{ $user->last_name}}
         </header>

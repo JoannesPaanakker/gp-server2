@@ -13,12 +13,7 @@ Route::get('/testlogin', [
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/test-page2', 'HomeController@testPage2');
-Route::get('/test-page/{page}', 'HomeController@testPage');
-
-
-Route::post('/pages/{page}/update-page-about', 'PagesController@updatePageAbout');
-Route::post('/pages/{page}/update-page-categories', 'PagesController@updatePageCategories');
+Route::get('/default', 'HomeController@dflt');
 
 // admin
 Route::get('/admin', 'AdminController@index');
@@ -58,6 +53,10 @@ Route::get('/users/{user}/quiz-answers', 'QuizController@getQuizAnswersUser');
 // Keep session when switching pages
 Route::group(['middleware' => ['web']], function () {
 
+  Route::post('/pages/{page}/update-page-about', 'PagesController@updatePageAbout');
+  Route::post('/pages/{page}/update-page-categories', 'PagesController@updatePageCategories');
+
+
   // User HTML page
   Route::get('/user/{slug}/{user_unique_id}', 'PagesController@userPage');
   // User HTML page selected on DB id
@@ -70,23 +69,12 @@ Route::group(['middleware' => ['web']], function () {
   Route::post('/users/{user}/quiz-answer', 'QuizController@saveQuizAnswer');
   Route::post('/users/{user}/quiz-completed-browser', 'QuizController@completeQuizUserFromBrowser');
 
-
-
-
-
   // page quiz for browser
   Route::get('/pages/{page}/quizpage', 'QuizController@getQuizPageB');
   // save quiz answer from browser
   Route::post('/pages/{page}/quiz-answer', 'QuizController@saveQuizAnswerPage');
   Route::post('/pages/{page}/quiz-completed-browser', 'QuizController@completeQuizPageFromBrowser');
-
-
-Route::post('/users/{user}/b-reviews', 'ReviewsController@storeB');
-
-
-
-
-
+  Route::post('/users/{user}/b-reviews', 'ReviewsController@storeB');
 
   Route::post('/users/{user}/follow-page-browser/{page}', 'UsersController@followPageBrowser');
   Route::post('/users/{user}/unfollow-page-browser/{page}', 'UsersController@unFollowPageBrowser');

@@ -4,13 +4,12 @@
 	<div class="landing-content">
 		<div class="container-fluid">
 			<div class="row home">
-				<div class="col-sm-8">
-					<div class="home">
-						<h2>Greenplatform is the new must have app to save the planet</h2>
+				<div class="col-sm-7">
+					<div class="hidden-sm-down">
+						<h4>Greenplatform is the new must have app to save the planet</h4>
 						<p>Check, review and reward your favorite bar, supermarket, NGO or school to make a statement. Be in control. Team up now and join your friends, expand your network and show what you are doing to make the world a better place.</p>
 						<br>
 						<a href="https://www.facebook.com/greenplatform.org/?fref=ts" target="_blank" class="social-link"><i class="fa fa-facebook"></i></a>
-            <br>
             <br>
             <br>
             <br>
@@ -25,23 +24,24 @@
 				</div>
         <div>
           <div class="form-group">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <a href="/fbredirect">
                 <button type="button" class="btn"><i class="fa fa-facebook"></i>
                   Register with Facebook
                 </button>
               </a>
-             <h2>or register with eMail:</h2>
+             <h4 class="hidden-sm-down">or register with eMail:</h4>
+             <p class="hidden-md-up">or email-register:</p>
             </div>
           </div>
           <form class="form-horizontal" role="form" method="POST" action="{{ url('/users/register-nohashid') }}">
               {!! csrf_field() !!}
 
               <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                  <label class="col-md-4 control-label">First Name</label>
+                  <label class="col-md-3 control-label hidden-sm-down">First Name</label>
 
-                  <div class="col-md-4">
-                      <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}">
+                  <div class="col-md-3">
+                      <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" placeholder="Firstname">
 
                       @if ($errors->has('firstname'))
                           <span class="help-block">
@@ -52,10 +52,10 @@
               </div>
 
               <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
-                  <label class="col-md-4 control-label">Last Name</label>
+                  <label class="col-md-3 control-label hidden-sm-down">Last Name</label>
 
-                  <div class="col-md-4">
-                      <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}">
+                  <div class="col-md-3">
+                      <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" placeholder="Lastname">
 
                       @if ($errors->has('lastname'))
                           <span class="help-block">
@@ -66,10 +66,10 @@
               </div>
 
               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                  <label class="col-md-4 control-label">E-Mail Address</label>
+                  <label class="col-md-3 control-label hidden-sm-down">E-Mail Address</label>
 
-                  <div class="col-md-4">
-                      <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                  <div class="col-md-3">
+                      <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="eMail address">
 
                       @if ($errors->has('email'))
                           <span class="help-block">
@@ -80,10 +80,10 @@
               </div>
 
               <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                  <label class="col-md-4 control-label">Password</label>
+                  <label class="col-md-3 control-label hidden-sm-down">Password</label>
 
-                  <div class="col-md-4">
-                      <input type="password" class="form-control" name="password">
+                  <div class="col-md-3">
+                      <input type="password" class="form-control" name="password"placeholder="Password">
 
                       @if ($errors->has('password'))
                           <span class="help-block">
@@ -94,10 +94,10 @@
               </div>
 
               <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                  <label class="col-md-4 control-label">Confirm Password</label>
+                  <label class="col-md-3 control-labe hidden-sm-down">Confirm Password</label>
 
-                  <div class="col-md-4">
-                      <input type="password" class="form-control" name="password_confirmation">
+                  <div class="col-md-3">
+                      <input type="password" class="form-control" name="password_confirmation" placeholder="Re-enter Password">
 
                       @if ($errors->has('password_confirmation'))
                           <span class="help-block">
@@ -107,7 +107,7 @@
                   </div>
               </div>
               <div class="form-group">
-                  <div class="col-md-4 control-label">
+                  <div class="col-md-3 control-label">
                     <br>
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-btn fa-user"></i> Submit eMail registration
@@ -120,5 +120,5 @@
         </div>
 			</div>
 		</div>
-	</div>
+
 @endsection

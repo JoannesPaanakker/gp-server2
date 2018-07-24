@@ -11,12 +11,12 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body extra">
         <form class="form-horizontal" role="form" method="POST" action="/b-tips">
 
           <input type="hidden" name="userID" value="{{ Auth::user()->id }}">
           <input type="text" name="title" placeholder="Title"><br><br>
-          <textarea type="text" name="content">Tip description</textarea><br><br>
+          <textarea class="tekst" type="text" name="content">Tip description</textarea><br><br>
               <button type="submit" class="btn btn-rounded">
                   Save tip
               </button>

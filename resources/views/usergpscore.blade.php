@@ -8,9 +8,9 @@
       Green Plaform Score: {{ $total_score }} for {{ $user->last_name }}
       </div>
       <form role="form" method="POST" action="{{ url('/users/'.Auth::user()->id.'/quiz-completed-browser') }}">
-        <input type="hidden" name="quiz_comments" value="Quiz Comments">
+        <input type="hidden" name="quiz_comments" value="Add a question">
         <button type="submit" class="btn">
-          Save Score
+          Save
         </button>
       </form>
       @foreach($quiz as $quiz)
@@ -42,7 +42,7 @@
                   <input type="hidden" name="qid" value="{{ $question->id }}">
                   <input type="hidden" name="q_text" value="{{ $question->question }}">
                   <button type="submit" class="answer n{{ $number }}">
-                    {{ $answer->answer }} {{ $answer->score }}
+                    {{ $answer->answer }}
                   </button>
                   @foreach($useranswers as $useranswer)
                     @if( $answer->answer == $useranswer->answer && $answer->question_id == $useranswer->question_id)

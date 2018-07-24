@@ -52,12 +52,12 @@
         <div class="site-header-content">
           <div class="site-header-content-in">
             @if(Auth::check())
-              <form id="tfnewsearch" method="get" action="/pages/">
+              <form class="hidden-sm-down" id="tfnewsearch" method="get" action="/pages/">
                 <input type="hidden" name="searchtype" value="name">
                 <input type="text" id="tfq" name="qry" size="21" maxlength="120" placeholder="Search Marketplace">
                 <input type="submit" value="Go" class="search-button">
               </form>
-              <form id="tfnewsearch" method="get" action="/users/">
+              <form class="hidden-md-down" id="tfnewsearch" method="get" action="/users/">
                 <input type="text" name="qry" size="21" maxlength="120" placeholder="Look for People">
                 <input type="submit" value="Go" class="search-button">
               </form>
@@ -74,10 +74,7 @@
 
                   </button>
                   <div class="dropdown-menu push-left" aria-labelledby="dd-header-add">
-                    <a class="dropdown-item" href="/users/{{ Auth::user()->id }}/quizpage">GreenPlatform Quiz</a>
-                    <a class="dropdown-item" href="" target="_blank">My Goals</a>
-                    <a class="dropdown-item" href="" target="_blank">Green tips</a>
-                    <a class="dropdown-item" href="/logout">Logout</a>
+                    @include('partials.dropdown')
                   </div>
                 </div>
               </div><!--.site-header-shown-->
@@ -87,6 +84,23 @@
   	  </div><!--.container-fluid-->
   	</header><!--.site-header-->
     	<div class="page-content">
+        <div class="centre-u">
+          @if(Auth::check())
+            <form class="hidden-sm-up" id="tfnewsearch" method="get" action="/pages/">
+              <input type="hidden" name="searchtype" value="name">
+              <input type="text" id="tfq" name="qry" size="21" maxlength="120" placeholder="Search Marketplace">
+              <input type="submit" value="Go" class="search-button">
+            </form>
+            <br>
+            <form class="hidden-sm-up" id="tfnewsearch" method="get" action="/users/">
+              <input type="text" name="qry" size="21" maxlength="120" placeholder="Look for People">
+              <input type="submit" value="Go" class="search-button">
+            </form>
+          @endif
+        </div>
+
+
+
     		@yield('content')
     	</div><!--.page-content-->
 		<div class="page-footer">

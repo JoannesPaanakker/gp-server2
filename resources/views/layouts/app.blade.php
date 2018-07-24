@@ -22,35 +22,42 @@
 
     <link rel="stylesheet" type="text/css" href="/js/lib/jssocials/jssocials.css" />
     <link rel="stylesheet" type="text/css" href="/js/lib/jssocials/jssocials-theme-flat.css" />
-
-	<link rel="stylesheet" href="/js/lib/venobox/venobox.css" type="text/css" media="screen" />
-
+  <link rel="stylesheet" href="/js/lib/venobox/venobox.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<header class="site-header">
 	  <div class="container-fluid">
+          @if(Auth::check())
+      <a href="/user/{{ Auth::user()->id }}" class="site-logo">
+          <img class="hidden-md-down" src="/img/logo.png" alt="">
+          <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
+      </a>
+          @else
       <a href="/" class="site-logo">
           <img class="hidden-md-down" src="/img/logo.png" alt="">
           <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
       </a>
+          @endif
+
+
       <div class="site-header-content">
         <div class="site-header-content-in">
           @if(Auth::check())
-            <a href="/logout">
+            <a href="/logout" class="hidden-sm-down">
               <button type="button" class="btn">Logout</button>
             </a>
-            <a href="/user/{{ Auth::user()->id }}">
+            <a href="/user/{{ Auth::user()->id }}" class="hidden-sm-down">
               <button type="button" class="btn">Profile Page</button>
             </a>
-            <a href="/users">
+            <a href="/users" class="hidden-sm-down">
               <button type="button" class="btn">People</button>
             </a>
           @else
-            <a href="/login">
+            <a href="/login" class="hidden-sm-down">
               <button type="button" class="btn">eMail Login</button>
             </a>
-            <a href="/fbredirect">
+            <a href="/fbredirect" class="hidden-sm-down">
               <button type="button" class="btn"><i class="fa fa-facebook"></i>
                 Facebook Login
               </button>
@@ -65,6 +72,36 @@
                 <a class="dropdown-item" href="https://itunes.apple.com/app/greenplatform/id1170382180" target="_blank">iOS</a>
                 <a class="dropdown-item" href="https://play.google.com/store/apps/details?id=org.greenplatform.gpandroid" target="_blank">Android</a>
                 <a class="dropdown-item" href='/pages'>Top Members</a>
+
+
+
+
+
+          @if(Auth::check())
+            <a href="/logout" class="dropdown-item hidden-md-up">
+              Logout
+            </a>
+            <a href="/user/{{ Auth::user()->id }}" class="dropdown-item hidden-md-up">
+              Profile Page
+            </a>
+            <a href="/users" class="dropdown-item hidden-md-up">
+              People
+            </a>
+          @else
+            <a href="/login" class="dropdown-item hidden-md-up">
+              eMail Login
+            </a>
+            <a href="/fbredirect" class="dropdown-item hidden-md-up">
+              <i class="fa fa-facebook"></i>
+                Facebook Login
+
+            </a>
+          @endif
+
+
+
+
+
 
               </div>
             </div>

@@ -11,10 +11,10 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body extra">
         <form class="form-horizontal" role="form" method="POST" action="/users/{{ Auth::user()->id }} /b-goals">
           <input type="text" name="title" placeholder="Title"><br><br>
-          <textarea type="text" name="content" placeholder="Goal description"></textarea><br><br>
+          <textarea class="tekst" type="text" name="content" placeholder="Goal description"></textarea><br><br>
           <input type="number" min="0" max="100" name="progress" placeholder="Number between 0 and 100"><br><br>
               <button type="submit" class="btn btn-rounded">
                   Save Goal
