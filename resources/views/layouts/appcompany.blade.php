@@ -187,10 +187,9 @@
 
 		});
 	</script>
+  <script src="/js/app.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrTzy4Ni-jP0qghaTe1wWdEuL01-j9I4s&callback=initMap">
    </script>
-  <script src="/js/app.js"></script>
   <script src="/js/share.js"></script>
-
   </body>
 </html>

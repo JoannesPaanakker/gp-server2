@@ -16,8 +16,6 @@
     });
   }
 
-
-
 $(document).ready(function(){
 
   var editcategories = document.getElementById("editcat");
