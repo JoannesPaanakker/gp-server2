@@ -1,4 +1,4 @@
-@extends('layouts.appcompany')
+@extends('layouts.appcompanies')
 
 @section('content')
   <form id="tfnewsearch" method="get" action="/pages/">

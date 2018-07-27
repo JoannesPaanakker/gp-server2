@@ -175,6 +175,9 @@ thead th {
     .landing-content-copy h2{
         font-size: 1.8em!important;
     }
+    .landing-content {
+      height: 700px !important;
+    }
 }
 
 @media only screen and (min-width: 0px) and (max-width: 600px)  {
@@ -401,20 +404,4 @@ h4.ankor {
 
 html {
   height: 100vh;
-}
-
-.footer-arus {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin-top: 10px;
-  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.07),0 1px 0 0 rgba(0,0,0,0.03);
-
-  transition: all 0.3s ease;
-  padding: 0px 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }

@@ -26,9 +26,13 @@
           <label>Outcome:
           <input class="number" type="number" min="0" max="5" name="rating_3" value="5"></label>
 
+
+          <label> Nominate for award? (0 = no, 1 = yes)
+          <input class="number" type="number" min="0" max="1" name="prize_num" value="1"></label>
+
           <br>
           <label for="file">Image upload</label>
-          <input id="file" type="file" name="photo" accept="image/*" required="required" ></input>
+          <input id="file" type="file" name="photo" accept="image/*" ></input>
           <br>
           <br>
               <button type="submit" class="btn">

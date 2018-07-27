@@ -25,6 +25,9 @@
         <div>
           <div class="form-group">
             <div class="col-md-3">
+              <p class="hidden-md-up">Greenplatform is the new must have app to save the planet</p>
+              <p class="hidden-md-up">Check, review and reward your favorite bar, supermarket, NGO or school to make a statement. Be in control. Team up now and join your friends, expand your network and show what you are doing to make the world a better place.</p>
+
               <a href="/fbredirect">
                 <button type="button" class="btn"><i class="fa fa-facebook"></i>
                   Register with Facebook

@@ -165,7 +165,12 @@ class ReviewsController extends Controller {
     $review->rating_3 = $request['rating_3'];
 
 
-    // $review->prize_thumb = $request['prize_thumb'];
+    $prize_num = $request['prize_num'];
+    if ( $prize_num == 1) {
+     $review->prize_thumb = "up";
+    } else {
+     $review->prize_thumb = "down";
+    }
 
     $user->reviews()->save($review);
     $page->reviews()->save($review);

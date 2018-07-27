@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Page;
 use App\Update;
 use App\User;
+use App\QuizAnswer;
 use Image;
 use View;
 use Hashids;
@@ -183,6 +184,11 @@ class UsersController extends Controller {
       }
     }
 
+    $answers = QuizAnswer::where('user_id', $user->id)->get();
+    $total_score = 0;
+    foreach($answers as $answer){
+      $total_score += $answer->score;
+    }
 
     $feed = $this->activity($user);
     $user->feed = $feed['feed'];
@@ -191,7 +197,7 @@ class UsersController extends Controller {
     if(!$user){
       abort(404);
     }
-    return view('user', compact('user', 'feeds', 'follows'));
+    return view('user', compact('user', 'feeds', 'follows', 'total_score'));
   }
 
 

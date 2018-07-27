@@ -27,8 +27,6 @@
               <h4 id="{{ $question->id }}" class="ankor">
                 {{ $qnumber }}. {{ $question->question }}
               </h4>
-              <p> {{count($useranswers)}}</p>
-
               @php
                 $cc = 1
               @endphp
@@ -46,7 +44,7 @@
                   </button>
                   @foreach($useranswers as $useranswer)
                     @if( $answer->answer == $useranswer->answer && $answer->question_id == $useranswer->question_id)
-                      <i class="fa fa-check-circle"></i>  Current Answer {{$useranswer->answer}}
+                      <i class="fa fa-check-circle"></i>  Current Answer
                     @endif
                   @endforeach
 

@@ -34,7 +34,7 @@
 						<div class="profile-statistic tbl">
 							<div class="tbl-row">
 								<div class="tbl-cell">
-                  GP score:<b>{{ $user->quiz_score }}</b>
+                  GP score:<b>{{ $total_score }}</b>
                   @include('partials.gpanswers')
 								</div>
 								<div class="tbl-cell">
@@ -65,43 +65,8 @@
               </div>
 
           </section>
-          <section class="box-typical">
-            <header class="box-typical-header-sm">
-              Review Pages managed by {{ $user->first_name}} {{ $user->last_name}}
-            </header>
-                <div class="p-a-md">
-            @if(count($user->pages) > 0)
-              @foreach($user->pages as $page)
-                  <div class="user-card-row">
-
-                      <div class="tbl-cell tbl-cell-photo">
-                        @if(count($page->photos)>0)
-                          <img src="/photos/{{ $page->photos[0]->id }}.jpg" alt=""/>
-                        @else
-                          <img src="/img/default-company.png" alt=""/>
-                        @endif
-
-                      </div>
-                    <h5><a href="/page/{{ $page->slug }}/{{ $page->id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h5>
-                  </div>
-                  <br>
-              @endforeach
-                </div>
-
-            @else
-              <div class="p-a-md">
-                This user has no pages yet.
-              </div>
-            @endif
-          </section>
-
-          @include('partials.companiesfollowing')
-          @include('partials.usersfollowing')
         </div><!--.col- -->
-
-
 				<div class="col-lg-6 col-lg-push-3 col-md-6 col-sm-6">
-
           <section class="box-typical">
             <header class="box-typical-header-sm">Activities Communitiy</header>
             <div class="p-a-md">
@@ -205,9 +170,37 @@
               </div>
             </div>
           </section><!--.box-typical-->
-        </div><!--.col- -->
-        <div class="col-lg-3 col-md-6 col-sm-6">
+          @include('partials.companiesfollowing')
+          @include('partials.usersfollowing')
+          <section class="box-typical">
+            <header class="box-typical-header-sm">
+              Review Pages managed by {{ $user->first_name}} {{ $user->last_name}}
+            </header>
+                <div class="p-a-md">
+            @if(count($user->pages) > 0)
+              @foreach($user->pages as $page)
+                  <div class="user-card-row">
 
+                      <div class="tbl-cell tbl-cell-photo">
+                        @if(count($page->photos)>0)
+                          <img src="/photos/{{ $page->photos[0]->id }}.jpg" alt=""/>
+                        @else
+                          <img src="/img/default-company.png" alt=""/>
+                        @endif
+
+                      </div>
+                    <h5><a href="/page/{{ $page->slug }}/{{ $page->id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h5>
+                  </div>
+                  <br>
+              @endforeach
+                </div>
+
+            @else
+              <div class="p-a-md">
+                This user has no pages yet.
+              </div>
+            @endif
+          </section>
         </div><!--.col- -->
 			</div><!--.row-->
 		</div><!--.container-fluid-->

@@ -24,6 +24,10 @@
               This user didn't complete the GP Standard quiz yet.
             </div>
           @endif
+          @if( ( Auth::check() && $user->id == Auth::user()->id ) )
+
+            <a href="/users/{{ Auth::user()->id }}/quizpage" class="btn">GPstandard</a>
+          @endif
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
