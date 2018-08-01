@@ -28,8 +28,12 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    public function authenticated($request , $user){
+      return redirect()->route('user', [$user]);
+    }
 
+
+    // protected $redirectTo = 'test-page2';
     /**
      * Create a new authentication controller instance.
      *

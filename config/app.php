@@ -160,6 +160,7 @@ return [
 		Intervention\Httpauth\HttpauthServiceProvider::class,
 		Davibennun\LaravelPushNotification\LaravelPushNotificationServiceProvider::class,
 		Vinkla\Hashids\HashidsServiceProvider::class,
+    Laravel\Socialite\SocialiteServiceProvider::class,
 	],
 
 	/*
@@ -211,6 +212,7 @@ return [
 		'PushNotification' => Davibennun\LaravelPushNotification\Facades\PushNotification::class,
 
 		'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
+    'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 	],
 
 ];

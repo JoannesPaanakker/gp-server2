@@ -5,12 +5,29 @@ namespace App\Http\Controllers;
 use App\Page;
 use App\Update;
 use App\User;
+use App\QuizAnswer;
 use Image;
+use View;
+use Hashids;
+use Auth;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller {
 
+  public function index(Request $request){
+    if (Auth::check()) {
+    $search_value = $request->query('qry', '');
+    $users = User::where('last_name', 'LIKE', "%{$search_value}%")
+        ->orderBy('last_name')
+        ->get();
+      return view ('users', compact('users'));
+    } else {
+      return redirect('/');
+    }
+  }
+
 	public function updateProfile(User $user){
-		
+
 		$user->first_name = request('first_name');
 		$user->last_name = request('last_name');
 		$user->bio = request('bio');
@@ -18,7 +35,7 @@ class UsersController extends Controller {
 
 		$photo = request()->file('photo');
 		if (!is_null($photo)) {
-			
+
 			$destinationPath = public_path() . '/profile-images/';
 			$path = $user->id . '-orig.jpg';
 			error_log('updating photo:' . $destinationPath.$path);
@@ -29,8 +46,6 @@ class UsersController extends Controller {
 				$user->save();
 			}
 		}
-
-
 		// post update
 		$update = new Update;
 		$update->user_id = $user->id;
@@ -40,6 +55,19 @@ class UsersController extends Controller {
 
 		return response()->json(['status' => 'success']);
 	}
+
+  public function updateBioPage(User $user){
+    $user->bio = request('bio');
+    $user->save();
+    // post update
+    $update = new Update;
+    $update->user_id = $user->id;
+    $update->content = 'Updated the profile';
+    $update->kind = 'profile-updated';
+    $update->save();
+    return back()->withInput();
+    // return response()->json(['status' => 'success']);
+  }
 
 	public function search(User $user, $query) {
 		$following = $user->following_users;
@@ -54,15 +82,28 @@ class UsersController extends Controller {
 		return $found_users->toArray();
 	}
 
-	public function uploadProfileImage(User $user) {
-		if (isset(request()->file)) {
-			request()->file->move('profile-images', $user->id . '-orig.jpg');
-			// generate thumbs
-			Image::make('profile-images/' . $user->id . '-orig.jpg')->fit(500, 500)->save('profile-images/' . $user->id . '.jpg');
-			$user->picture = 'http://www.greenplatform.org/profile-images/' . $user->id . '.jpg';
-			$user->save();
-		}
-	}
+  public function uploadProfileImage(User $user) {
+    if (isset(request()->file)) {
+      request()->file->move('profile-images', $user->id . '-orig.jpg');
+      // generate thumbs
+      Image::make('profile-images/' . $user->id . '-orig.jpg')->fit(500, 500)->save('profile-images/' . $user->id . '.jpg');
+      $user->picture = 'http://www.greenplatform.org/profile-images/' . $user->id . '.jpg';
+      $user->save();
+    }
+  }
+
+  public function uploadProfileImagePage(User $user) {
+    $request = request()->all();
+    if (isset($request['photo'])) {
+      $request['photo']->move('profile-images', $user->id . '-orig.jpg');
+      // generate thumbs
+      Image::make('profile-images/' . $user->id . '-orig.jpg')->fit(500, 500)->save('profile-images/' . $user->id . '.jpg');
+      $user->picture = '/profile-images/' . $user->id . '.jpg';
+      $user->save();
+    }
+    return back()->withInput();
+    // return response()->json(['status' => 'success']);
+  }
 
 	public function register() {
 		$user = User::where('email', '=', request()->email)->first();
@@ -77,7 +118,7 @@ class UsersController extends Controller {
 		$user->provider = 'email';
 		$user->password = \Hash::make(request()->password);
 		$user->save();
-		
+
 		$hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
 		$user->unique_id = $hashids->encode($user->id);
 		$user->slug = str_slug($user->first_name . ' ' . $user->last_name);
@@ -86,6 +127,23 @@ class UsersController extends Controller {
 
 		return response()->json(['status' => 'success']);
 	}
+
+  public function registerNoHashid() {
+    $user = User::where('email', '=', request()->email)->first();
+    if ($user) {
+      return response()->json(['status' => 'fail', 'reason' => 'email already registered']);
+    }
+
+    $user = new User;
+    $user->first_name = request()->firstname;
+    $user->last_name = request()->lastname;
+    $user->email = request()->email;
+    $user->provider = 'email';
+    $user->password = \Hash::make(request()->password);
+    $user->save();
+    request()->session()->flash('alert-success', 'Registered! Please log in now');
+    return redirect()->to('/user/login-page');
+  }
 
 	public function facebookFriends(User $user) {
 		$friends = request()->friends;
@@ -114,6 +172,36 @@ class UsersController extends Controller {
 		return $user;
 	}
 
+  // Show User page without slug or unique id
+  public function userPageId(User $user) {
+
+
+    $follows = false;
+
+    foreach($user->followed_by as $follow) {
+      if ($follow->id == Auth::user()->id) {
+        $follows = true;
+      }
+    }
+
+    $answers = QuizAnswer::where('user_id', $user->id)->get();
+    $total_score = 0;
+    foreach($answers as $answer){
+      $total_score += $answer->score;
+    }
+
+    $feed = $this->activity($user);
+    $user->feed = $feed['feed'];
+    $feeds = $this->feed($user);
+    $user->feeds = $feeds['feed'];
+    if(!$user){
+      abort(404);
+    }
+    return view('user', compact('user', 'feeds', 'follows', 'total_score'));
+  }
+
+
+
 	public function forgot() {
 		$user = User::where('email', '=', request()->email)->first();
 		if ($user) {
@@ -131,6 +219,7 @@ class UsersController extends Controller {
 		}
 	}
 
+  // Login function for React
 	public function login() {
 		$user = User::where('email', '=', request()->email)->first();
 		if ($user) {
@@ -151,6 +240,19 @@ class UsersController extends Controller {
 		return response()->json(['status' => 'wrong email or password']);
 	}
 
+  // ALternate login page (from browser)
+  public function loginPage() {
+    $user = User::where('email', '=', request()->email)->first();
+    if ($user) {
+      if (\Hash::check(request()->password, $user->password)) {
+        $myvar = config('custom.myvar');
+        return redirect()->route('user', [$user]);
+      }
+    }
+    request()->session()->flash('alert-danger', 'wrong email or password!');
+    return back()->withInput();
+  }
+
 	public function store() {
 		$request = request()->all();
 
@@ -162,7 +264,7 @@ class UsersController extends Controller {
 		$user->first_name = $request['firstName'];
 		$user->last_name = $request['lastName'];
 		if(!$user->picture || $user->picture == ''){
-			$user->picture = $request['picture'];	
+			$user->picture = $request['picture'];
 		}
 		if ($request['deviceToken'] != 'null') {
 			$user->device_token = $request['deviceToken'];
@@ -294,21 +396,38 @@ class UsersController extends Controller {
 		return response()->json(['status' => 'success']);
 	}
 
+  public function followPageBrowser(User $user, Page $page) {
+    $user->following_pages()->save($page);
+
+    // post update
+    $update = new Update;
+    $update->user_id = $user->id;
+    $update->content = 'Is now following ' . $page->title;
+    $update->kind = 'follow-page';
+    $update->entity_id = $page->id;
+    $update->entity_name = $page->title;
+    $update->save();
+    return back()->withInput();
+  }
+
+  public function unFollowPageBrowser(User $user, Page $page) {
+    $user->following_pages()->detach($page);
+    return response()->json(['status' => 'success']);
+  }
+
+  public function followUser(User $following, User $followed) {
+
+    $followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
 
 
-	public function followUser(User $following, User $followed) {
+    $followed->sendEmail('You have a new follower! ', '<b>' . $following->first_name . ' ' . $following->last_name . '</b> is now following you!');
 
-		$followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
+    // try to unfollow and follow again, to be sure only one record exists in the db
+    $following->following_users()->detach($followed);
+    $following->following_users()->save($followed);
 
-
-		$followed->sendEmail('You have a new follower! ', '<b>' . $following->first_name . ' ' . $following->last_name . '</b> is now following you!');
-
-		// try to unfollow and follow again, to be sure only one record exists in the db
-		$following->following_users()->detach($followed);
-		$following->following_users()->save($followed);
-
-		// post update
-		$update = new Update;
+    // post update
+    $update = new Update;
         $update->user_id = $following->id;
         $update->content = 'is now following';
         $update->kind = 'follow-user';
@@ -316,14 +435,40 @@ class UsersController extends Controller {
         $update->entity_name = $followed->first_name . ' ' . $followed->last_name;
         $update->save();
 
-		return response()->json(['status' => 'success']);
-	}
+    return response()->json(['status' => 'success']);
+  }
+
+  public function unFollowUser(User $following, User $followed) {
+    $following->following_users()->detach($followed);
+    return response()->json(['status' => 'success']);
+  }
+
+  public function followUserBrowser(User $following, User $followed) {
+
+    $followed->sendPushNotification($following->first_name . ' ' . $following->last_name . ' is following you');
 
 
+    // $followed->sendEmail('You have a new follower! ', '<b>' . $following->first_name . ' ' . $following->last_name . '</b> is now following you!');
 
-	public function unFollowUser(User $following, User $followed) {
-		$following->following_users()->detach($followed);
-		return response()->json(['status' => 'success']);
-	}
+    // try to unfollow and follow again, to be sure only one record exists in the db
+    $following->following_users()->detach($followed);
+    $following->following_users()->save($followed);
+
+    // post update
+    $update = new Update;
+        $update->user_id = $following->id;
+        $update->content = 'is now following';
+        $update->kind = 'follow-user';
+        $update->entity_id = $followed->id;
+        $update->entity_name = $followed->first_name . ' ' . $followed->last_name;
+        $update->save();
+
+    return back()->withInput();
+  }
+
+  public function unFollowUserBrowser(User $following, User $followed) {
+    $following->following_users()->detach($followed);
+    return response()->json(['status' => 'success']);
+  }
 
 }

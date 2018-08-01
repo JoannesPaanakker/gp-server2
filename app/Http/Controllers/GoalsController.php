@@ -18,13 +18,17 @@ class GoalsController extends Controller
     	return $goals;
     }
 
-    public function store(User $user){
-    	$request = request()->all();
-    	$goal = new Goal;
+    public function show(Goal $goal){
+        return $goal;
+    }
+
+    public function storeB(User $user){
+      $request = request()->all();
+      $goal = new Goal;
         $goal->title = $request['title'];
         $goal->content = $request['content'];
-    	$goal->progress = $request['progress'];
-    	$user->goals()->save($goal);
+      $goal->progress = $request['progress'];
+      $user->goals()->save($goal);
 
         // post update
         $update = new Update;
@@ -35,20 +39,17 @@ class GoalsController extends Controller
         $update->entity_name = $goal->title;
         $update->save();
 
-    	return response()->json(['status' => 'success']);
+    return back()->withInput();
     }
 
-    public function show(Goal $goal){
-        return $goal;
-    }
 
-    public function delete(User $user, Goal $goal){
+    public function deleteB(User $user, Goal $goal){
         // TODO: check if the goal belongs to the user, otherwise 404
         $goal->delete();
-        return response()->json(['status' => 'success']);
+    return back()->withInput();
     }
 
-    public function update(User $user, Goal $goal){
+    public function updateB(User $user, Goal $goal){
         // TODO: check if the goal belongs to the user, otherwise 404
         $request = request()->all();
         $goal->title = $request['title'];
@@ -56,7 +57,7 @@ class GoalsController extends Controller
         $goal->progress = $request['progress'];
         // $goal->completed = ($request['completed'] == 'true') ? 1 : 0;
         $goal->save();
-        return response()->json(['status' => 'success']);
+    return back()->withInput();
     }
 
 }
