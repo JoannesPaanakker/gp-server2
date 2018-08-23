@@ -29,7 +29,7 @@
 	<header class="site-header">
 	  <div class="container-fluid">
           @if(Auth::check())
-      <a href="/user/{{ Auth::user()->id }}" class="site-logo">
+      <a href="/user/{{ Auth::user()->slug }}/{{ Auth::user()->id }}" class="site-logo">
           <img class="hidden-md-down" src="/img/logo.png" alt="">
           <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
       </a>
@@ -71,17 +71,13 @@
               <div class="dropdown-menu" aria-labelledby="dd-header-add">
                 <a class="dropdown-item" href="https://itunes.apple.com/app/greenplatform/id1170382180" target="_blank">iOS</a>
                 <a class="dropdown-item" href="https://play.google.com/store/apps/details?id=org.greenplatform.gpandroid" target="_blank">Android</a>
-                <a class="dropdown-item" href='/pages'>Top Members</a>
-
-
-
-
+                <a class="dropdown-item" href='/topmembers'>Top Members</a>
 
           @if(Auth::check())
             <a href="/logout" class="dropdown-item hidden-md-up">
               Logout
             </a>
-            <a href="/user/{{ Auth::user()->id }}" class="dropdown-item hidden-md-up">
+            <a href="/user/{{ Auth::user()->slug }}/{{ Auth::user()->id }}" class="dropdown-item hidden-md-up">
               Profile Page
             </a>
             <a href="/users" class="dropdown-item hidden-md-up">

@@ -4,6 +4,17 @@
 	<div class="landing-content">
 		<div class="container-fluid">
 			<div class="row home">
+
+<div class="flash-message">
+    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+      @if(Session::has('alert-' . $msg))
+
+      <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+      @endif
+    @endforeach
+</div> <!-- end .flash-message -->
+
+
 				<div class="col-sm-7">
 					<div class="hidden-sm-down">
 						<h4>Greenplatform is the new must have app to save the planet</h4>
@@ -44,7 +55,7 @@
                   <label class="col-md-3 control-label hidden-sm-down">First Name</label>
 
                   <div class="col-md-3">
-                      <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" placeholder="Firstname">
+                      <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" placeholder="Firstname" required>
 
                       @if ($errors->has('firstname'))
                           <span class="help-block">
@@ -58,7 +69,7 @@
                   <label class="col-md-3 control-label hidden-sm-down">Last Name</label>
 
                   <div class="col-md-3">
-                      <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" placeholder="Lastname">
+                      <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" placeholder="Lastname" required>
 
                       @if ($errors->has('lastname'))
                           <span class="help-block">
@@ -72,7 +83,7 @@
                   <label class="col-md-3 control-label hidden-sm-down">E-Mail Address</label>
 
                   <div class="col-md-3">
-                      <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="eMail address">
+                      <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="eMail address" required>
 
                       @if ($errors->has('email'))
                           <span class="help-block">
@@ -86,7 +97,7 @@
                   <label class="col-md-3 control-label hidden-sm-down">Password</label>
 
                   <div class="col-md-3">
-                      <input type="password" class="form-control" name="password"placeholder="Password">
+                      <input type="password" class="form-control" name="password"placeholder="Password" required>
 
                       @if ($errors->has('password'))
                           <span class="help-block">
@@ -100,7 +111,7 @@
                   <label class="col-md-3 control-labe hidden-sm-down">Confirm Password</label>
 
                   <div class="col-md-3">
-                      <input type="password" class="form-control" name="password_confirmation" placeholder="Re-enter Password">
+                      <input type="password" class="form-control" name="password_confirmation" placeholder="Re-enter Password" required>
 
                       @if ($errors->has('password_confirmation'))
                           <span class="help-block">
@@ -112,7 +123,7 @@
               <div class="form-group">
                   <div class="col-md-3 control-label">
                     <br>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn">
                         <i class="fa fa-btn fa-user"></i> Submit eMail registration
                     </button>
                     <br>

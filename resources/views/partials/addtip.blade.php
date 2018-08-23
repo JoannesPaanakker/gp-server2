@@ -1,5 +1,5 @@
 <div class="col-lg-3 col-md-6 col-sm-6">
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtip">
+  <button type="button" class="btn" data-toggle="modal" data-target="#addtip">
     New Tip
   </button>
   <div class="modal" id="addtip" tabindex="-1" role="dialog">

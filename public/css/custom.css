@@ -19,3 +19,8 @@
 input.number {
   min-width:20px;
 }
+
+textarea {
+  height: 60px;
+  width: 300px;
+}

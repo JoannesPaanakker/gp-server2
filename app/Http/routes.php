@@ -12,15 +12,18 @@ Route::get('/testlogin', [
 }]);
 
 Route::get('/', 'HomeController@index');
+Route::get('/members', 'HomeController@members');
 
+// add default values to pages after seed:
 Route::get('/default', 'HomeController@dflt');
+//  add slug to user if null
+Route::get('/addslugtouser', 'HomeController@addslugtouser');
 
 // admin
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/companies/{order?}', 'AdminController@companies');
 
 Route::get('/users/{user}', 'UsersController@show');
-Route::get('/users/{user}/pages', 'PagesController@userPages');
 Route::post('/users/{user}/pages', 'PagesController@store');
 Route::get('/users/{user}/reviews', 'ReviewsController@userReviews');
 Route::post('/users/{user}/reviews', 'ReviewsController@store');
@@ -58,9 +61,11 @@ Route::group(['middleware' => ['web']], function () {
 
 
   // User HTML page
-  Route::get('/user/{slug}/{user_unique_id}', 'PagesController@userPage');
-  // User HTML page selected on DB id
-  Route::get('/user/{user}', ['as' => 'user', 'uses' => 'UsersController@userPageId']);
+  // Route::get('/user/{slug}/{user_unique_id}', 'PagesController@userPage');
+  // User HTML page selected on DB id and slug
+  Route::get('/user/{slug}/{user}', 'UsersController@userPageId');
+  // User HTML page selected on DB id and slug
+  Route::get('/user/{slug}/{user}/public', 'UsersController@userPageIdPublic');
   // Browser show all users
   Route::get('/users', 'UsersController@index');
   // user quiz for browser
@@ -82,8 +87,9 @@ Route::group(['middleware' => ['web']], function () {
   Route::post('/users/{following}/follow-user-browser/{followed}', 'UsersController@followUserBrowser');
   Route::post('/users/{following}/unfollow-user-browser/{followed}', 'UsersController@unFollowUserBrowser');
   // pages
-  Route::get('/page/{slug}/{page}', 'PagesController@companyPage');
+  Route::get('/{slug}/{page}', 'PagesController@companyPage');
   Route::get('/pages', 'PagesController@index');
+  Route::get('/topmembers', 'PagesController@topMembers');
 
   Route::get('/pages/claim/{page}', 'PagesController@claimCompanyPage');
   Route::post('/pages/{page}/claimPage', 'PagesController@claimPage');

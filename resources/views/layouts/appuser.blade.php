@@ -6,11 +6,11 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 
   @if(Auth::check())
-    <title>Greenplatform {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</title>
+    <title>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} - Greenplatform</title>
     <meta name="description" content="This is the user profile of {{ Auth::user()->first_name }} {{ Auth::user()->first_name }} on the Greenplatorm: a platform that supports a sustainable and eco-friendly environment.">
   @else
-    <title>Greenplatform</title>
-    <meta name="description" content="The Greenplatorm: a platform that supports a sustainable and eco-friendly environment.">
+    <title>{{ $user->first_name }} {{ $user->last_name }} - Greenplatform</title>
+    <meta name="description" content="{{ $user->first_name }} {{ $user->last_name }} is a member of The Greenplatorm: a platform that supports a sustainable and eco-friendly environment.">
   @endif
     <meta name="keywords" content="">
   	<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
@@ -39,7 +39,7 @@
   	<header class="site-header">
   	  <div class="container-fluid">
         @if(Auth::check())
-          <a href="/user/{{ Auth::user()->id }}" class="site-logo">
+          <a href="/user/{{ Auth::user()->slug }}/{{ Auth::user()->id }}" class="site-logo">
               <img class="hidden-md-down" src="/img/logo.png" alt="">
               <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
           </a>
@@ -63,7 +63,7 @@
               </form>
             @endif
             @if(Route::getCurrentRoute()->uri() == 'users')
-              <a href="/user/{{ Auth::user()->id }}">
+              <a href="/user/{{ Auth::user()->slug }}/{{ Auth::user()->id }}">
                 <button type="button" class="btn">Profile Page</button>
               </a>
             @endif

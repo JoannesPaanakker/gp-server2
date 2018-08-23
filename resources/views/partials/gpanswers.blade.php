@@ -1,5 +1,5 @@
 
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#quizanswers">
+  <button type="button" class="btn" data-toggle="modal" data-target="#quizanswers">
     GPstandard
   </button>
   <div class="modal" id="quizanswers" tabindex="-1" role="dialog">

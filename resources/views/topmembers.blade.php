@@ -1,14 +1,28 @@
-@extends('layouts.appuser')
+@extends('layouts.appcompanies')
+
 @section('content')
-
-<form id="tfnewsearch" method="get" action="/users/">
-  <input type="text" name="qry" size="21" maxlength="120" placeholder="Name">
-  <input type="submit" value="Search" class="search-button">
-</form>
-
-
-<div class="row">
-  <div class="col-md-12">
+	<div class="row">
+		<div class="col-md-12">
+      <div class="card">
+	      <div class="content table-responsive table-full-width">
+	        <table class="table table-striped">
+            <thead>
+              <th>Company</th>
+			        <th>Address</th>
+              <th>Categories</th>
+            </thead>
+            <tbody>
+              @foreach($pages as $page)
+ 								<tr>
+									<td style="width:200px"><a href="/{{ $page->slug }}/{{ $page->id }}">{{ $page->title }}</a></td>
+									<td style="width:500px">{{ $page->address }}</td>
+                  <td style="max-width:500px">{{ $page->categories }}</td>
+				       </tr>
+			        @endforeach
+            </tbody>
+          </table>
+        </div>
+	    </div>
       <div class="card">
         <div class="content table-responsive table-full-width">
           <table class="table table-striped">
@@ -16,13 +30,12 @@
                 <th></th>
                 <th>First name</th>
                 <th>Last name</th>
-                <th>Email</th>
               </thead>
               <tbody>
                 @foreach($users as $user)
                   <tr>
                     <td>
-                      <a href="/user/{{ $user->slug }}/{{ $user->id }}">
+                      <a href="/user/{{ $user->slug }}/{{ $user->id }}/public">
                         @if($user->picture)
                           <img class="avatar" src="{{ $user->picture }}" alt="profile image">
                         @else
@@ -32,13 +45,12 @@
                     </td>
                     <td>{{ $user->first_name }}</td>
                     <td>{{ $user->last_name }}</td>
-                    <td>{{ $user->email }}</td>
                   </tr>
                 @endforeach
             </tbody>
           </table>
         </div>
       </div>
-  </div>
-</div>
+		</div>
+	</div>
 @endsection

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>{{ $page->title }} Greenplatform</title>
+	<title>{{ $page->title }} - Greenplatform</title>
    <meta name="description" content="This is the climate ecological certificate reward review goal of {{ $page->title }} on Greenplatform: a platform that supports a, green, pollution, sustainable, global warming, carbon foodprint and eco-friendly environment.">
   <meta name="keywords" content="green platform, {{ $page->title }}, sustainable, eco-friendly, environment, climate, rewards, review, pollution, global warming, carbon, goal, foodprint, ecological">
 	<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
@@ -33,7 +33,7 @@
 	<header class="site-header">
 	  <div class="container-fluid">
       @if(Auth::check())
-        <a href="/user/{{ Auth::user()->id }}" class="site-logo">
+        <a href="/user/{{ Auth::user()->slug }}/{{ Auth::user()->id }}" class="site-logo">
             <img class="hidden-md-down" src="/img/logo.png" alt="">
             <img class="hidden-lg-up" src="/img/leaf-120.png" alt="">
         </a>

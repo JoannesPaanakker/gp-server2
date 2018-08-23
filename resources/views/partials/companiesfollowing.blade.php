@@ -15,7 +15,7 @@
                         @endif
 
                       </div>
-                    <h5><a href="/page/{{ $page->slug }}/{{ $page->id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h5>
+                    <h5><a href="/{{ $page->slug }}/{{ $page->id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h5>
                   </div>
                   <br>
               @endforeach

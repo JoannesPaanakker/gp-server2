@@ -76,7 +76,7 @@ class QuizController extends Controller {
     $update->entity_id = $page->id;
     $update->entity_name = $page->title;
     $update->save();
-    return redirect('/page/' . $page->slug . '/' . $page->id);
+    return redirect('/' . $page->slug . '/' . $page->id);
   }
 
 	// get quiz for user
@@ -150,7 +150,7 @@ public function completeQuizUserFromBrowser(User $user) {
     $update->entity_name = $user->first_name + $user->last_name;
     $update->save();
 
-    return redirect('/user/'.$user->id);
+    return redirect('/user/' . $user->slug . '/' . $user->id);
   }
 
 

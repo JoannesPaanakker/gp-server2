@@ -15,6 +15,9 @@ class HomeController extends Controller {
 		return view('home');
 	}
 
+
+
+// function to add default vallues after seed (if necessary)
   public static function dflt() {
     $pages = Page::all();
     foreach ($pages as $page) {
@@ -36,4 +39,15 @@ class HomeController extends Controller {
       $page->save();
     }
   }
+
+  public static function addSlugToUser() {
+    $users = User::all();
+    foreach ($users as $user) {
+      if(is_null($user->slug)) {
+        $user->slug = str_slug($user->first_name . ' ' . $user->last_name);
+      }
+      $user->save();
+    }
+  }
+
 }
