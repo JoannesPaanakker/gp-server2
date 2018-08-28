@@ -1,5 +1,5 @@
 <div class="col-lg-3 col-md-6 col-sm-6">
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addgoal">
+  <button type="button" class="btn" data-toggle="modal" data-target="#addgoal">
     New Goal
   </button>
   <div class="modal" id="addgoal" tabindex="-1" role="dialog">

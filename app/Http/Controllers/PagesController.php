@@ -13,7 +13,7 @@ use Auth;
 
 class PagesController extends Controller {
 
-	public function index(Request $request) {
+  public function index(Request $request) {
     $search_value = $request->query('qry', '');
     $search_type = $request->searchtype;
     if ($search_type == 'name') {
@@ -27,13 +27,17 @@ class PagesController extends Controller {
     } else {
       $pages = Page::all();
     }
-
     foreach ($pages as $index => $page) {
       $pages[$index]->num_reviews = $page->reviews()->count();
     }
-		// return $pages;
-		return view('pages', compact('pages'));
-	}
+    return view('pages', compact('pages'));
+  }
+
+  public function topMembers(Request $request) {
+    $pages = Page::all();
+    $users = User::all();
+    return view('topmembers', compact('pages', 'users'));
+  }
 
 	public function pageFeed(Page $page) {
 		// gets the ids of the pages followed by a user to an array
@@ -434,25 +438,6 @@ class PagesController extends Controller {
 		$page->user_id = $request['user_id'];
 		$page->save();
 		return response()->json(['status' => 'success']);
-	}
-
-	public function userPages(User $user) {
-    $request = request()->all();
-		$pages = $user->pages()->with('photos')->orderBy('title')->get();
-		foreach ($pages as $index => $page) {
-			$pages[$index]->thumb = $page->getThumb();
-			$pages[$index]->num_reviews = $page->reviews()->count();
-		}
-     if (request()->ajax())
-    // if(Request::ajax())
-    {
-      return $pages;
-    }
-    else
-    {
-      return view('userpages', compact('pages'));
-    }
-
 	}
 
 	public function getById() {

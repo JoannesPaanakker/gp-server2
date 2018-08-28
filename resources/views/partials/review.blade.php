@@ -1,4 +1,4 @@
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addreview">
+  <button type="button" class="btn" data-toggle="modal" data-target="#addreview">
     Add Review
   </button>
   <div class="modal" id="addreview" tabindex="-1" role="dialog">
@@ -17,19 +17,34 @@
           <input class="tekst" type="text" name="title" Placeholder="Review for {{ $page->title }} by {{ Auth::user()->first_name }} {{Auth::user()->last_name}}"><br><br>
           <textarea class="tekst" type="text" name="content" placeholder="Write your review."></textarea><br><br>
           <p>Give rating between 1 and 5 for:</p>
-          <label>Sustainability:
-          <input class="number" type="number" min="0" max="5" name="rating_0" value="5"></label>
-          <label>Reliability:
-          <input class="number" type="number" min="0" max="5" name="rating_1" value="5"></label>
-          <label>Value:
-          <input class="number" type="number" min="0" max="5" name="rating_2" value="5"></label>
-          <label>Outcome:
-          <input class="number" type="number" min="0" max="5" name="rating_3" value="5"></label>
-
-
-          <label> Nominate for award? (0 = no, 1 = yes)
-          <input class="number" type="number" min="0" max="1" name="prize_num" value="1"></label>
-
+          <div class="rating">
+            <div>Sustainability:</div>
+            <div>
+              <input class="number" type="number" min="0" max="5" name="rating_0" value="5">
+            </div>
+          </div>
+          <div class="rating">
+            <div>Reliability:</div>
+            <div>
+              <input class="number" type="number" min="0" max="5" name="rating_1" value="5">
+            </div>
+          </div>
+          <div class="rating">
+            <div>Value:</div>
+            <div>
+              <input class="number" type="number" min="0" max="5" name="rating_2" value="5">
+            </div>
+          </div>
+          <div class="rating">
+            <div>Outcome:</div>
+            <div>
+              <input class="number" type="number" min="0" max="5" name="rating_3" value="5">
+            </div>
+          </div>
+          <div class="rating">
+            <label> Nominate for award? (0 = no, 1 = yes)
+            <input class="number" type="number" min="0" max="1" name="prize_num" value="1"></label>
+          </div>
           <br>
           <label for="file">Image upload</label>
           <input id="file" type="file" name="photo" accept="image/*" ></input>

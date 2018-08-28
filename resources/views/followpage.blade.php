@@ -1,5 +1,5 @@
 <div class="col-lg-3 col-md-6 col-sm-6">
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
     Follow {{ $page->title}}
   </button>
   <div class="modal" id="exampleModal" tabindex="-1" role="dialog">

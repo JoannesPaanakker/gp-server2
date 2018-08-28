@@ -66,7 +66,6 @@ class UsersController extends Controller {
     $update->kind = 'profile-updated';
     $update->save();
     return back()->withInput();
-    // return response()->json(['status' => 'success']);
   }
 
 	public function search(User $user, $query) {
@@ -131,7 +130,8 @@ class UsersController extends Controller {
   public function registerNoHashid() {
     $user = User::where('email', '=', request()->email)->first();
     if ($user) {
-      return response()->json(['status' => 'fail', 'reason' => 'email already registered']);
+      request()->session()->flash('alert-danger', 'Email address already in use!');
+      return back()->withInput();
     }
 
     $user = new User;
@@ -140,6 +140,7 @@ class UsersController extends Controller {
     $user->email = request()->email;
     $user->provider = 'email';
     $user->password = \Hash::make(request()->password);
+    $user->slug = str_slug($user->first_name . ' ' . $user->last_name);
     $user->save();
     request()->session()->flash('alert-success', 'Registered! Please log in now');
     return redirect()->to('/user/login-page');
@@ -172,9 +173,9 @@ class UsersController extends Controller {
 		return $user;
 	}
 
-  // Show User page without slug or unique id
-  public function userPageId(User $user) {
-
+  // Show User page without unique id
+  public function userPageId($slug, $id) {
+    $user = User::where("id", $id)->first();
 
     $follows = false;
 
@@ -183,13 +184,11 @@ class UsersController extends Controller {
         $follows = true;
       }
     }
-
     $answers = QuizAnswer::where('user_id', $user->id)->get();
     $total_score = 0;
     foreach($answers as $answer){
       $total_score += $answer->score;
     }
-
     $feed = $this->activity($user);
     $user->feed = $feed['feed'];
     $feeds = $this->feed($user);
@@ -200,7 +199,11 @@ class UsersController extends Controller {
     return view('user', compact('user', 'feeds', 'follows', 'total_score'));
   }
 
-
+  // Show Public User page without unique id
+  public function userPageIdPublic($slug, $id) {
+    $user = User::where("id", $id)->first();
+    return view('userpublic', compact('user'));
+  }
 
 	public function forgot() {
 		$user = User::where('email', '=', request()->email)->first();

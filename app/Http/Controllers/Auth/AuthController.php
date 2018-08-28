@@ -29,7 +29,8 @@ class AuthController extends Controller
      * @var string
      */
     public function authenticated($request , $user){
-      return redirect()->route('user', [$user]);
+      // return redirect()->route('user', [$user]);
+      return redirect()->to('/user/'.$user->slug.'/'.$user->id);
     }
 
 

@@ -8,17 +8,15 @@
         <div class="user-card-row">
 
             <div class="tbl-cell tbl-cell-photo">
-              @if($user->picture)
-                <a href="/user/{{ $user->id }}">
+              <a href="/user/{{ $user->slug }}/{{ $user->id }}">
+                @if($user->picture)
                   <img class="avatar" src="{{ $user->picture }}" alt="profile image">
-                </a>
-              @else
-                <a href="/user/{{ $user->id }}">
-                <img class="avatar" src="/img/avatar-sign.png" alt="profile image"/>
-                </a>
-              @endif
+                @else
+                  <img class="avatar" src="/img/avatar-sign.png" alt="profile image"/>
+                @endif
+              </a>
             </div>
-          <h5><a href="/user/{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</a></h5>
+          <h5><a href="/user/{{ $user->slug }}/{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</a></h5>
         </div>
         <br>
     @endforeach

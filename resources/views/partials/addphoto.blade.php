@@ -1,6 +1,6 @@
 
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addphoto">
+    <button type="button" class="btn" data-toggle="modal" data-target="#addphoto">
       Add Photo
     </button>
     <div class="modal" id="addphoto" tabindex="-1" role="dialog">

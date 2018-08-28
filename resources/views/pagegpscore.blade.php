@@ -4,13 +4,11 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <div id="1000" class="ankor">
-      <h4> GPstandard Score: {{ $total_score }} for {{ $page->title }}</h4>
-      </div>
+      <h4 id="1000" class="ankor"> GPstandard Score: {{ $total_score }} for {{ $page->title }}</h4>
       <form role="form" method="POST" action="{{ url('/pages/'.$page->id.'/quiz-completed-browser') }}">
-        <input type="text" name="quiz_comments" placeholder="Add a question">
+        <textarea type="text" name="quiz_comments" placeholder="Any comments or suggestions can be entered here."></textarea>
         <button type="submit" class="btn">
-          All questions answered? Click here
+          Click here to save the score
         </button>
       </form>
       @foreach($quiz as $quiz)

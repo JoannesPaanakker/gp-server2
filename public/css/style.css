@@ -364,14 +364,14 @@ thead th {
 }
 
 h4.ankor {
-  padding-top: 140px;
-  margin-top: -140px;
+  padding-top: 100px;
+  margin-top: -100px;
 }
 
 .fit {
   max-width: 100%;
+  max-height: 200px;
 }
-
 .progress.fits {
   width: 150px;
   color: white;
@@ -388,6 +388,8 @@ h4.ankor {
 .btn {
   font-size: .9rem;
   padding: 4px;
+  background-color: #00aa4f;
+  border-color:#00aa4f;
 }
 
 .modal-body.extra {
@@ -397,11 +399,19 @@ h4.ankor {
 .tekst {
   width: 95%;
 }
- .fix {
+
+.fix {
   margin-left: -14px;
   margin-bottom: 27px;
  }
 
 html {
   height: 100vh;
+}
+
+.rating {
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
 }

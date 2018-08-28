@@ -1,4 +1,4 @@
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
     Follow {{ $user->first_name }} {{ $user->last_name }}
   </button>
   <div class="modal" id="exampleModal" tabindex="-1" role="dialog">

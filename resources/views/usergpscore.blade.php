@@ -4,13 +4,11 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <div id="1000" class="ankor">
-      Green Plaform Score: {{ $total_score }} for {{ $user->last_name }}
-      </div>
+      <h4 id="1000" class="ankor">Green Plaform Score: {{ $total_score }} for {{ $user->last_name }}</h4>
       <form role="form" method="POST" action="{{ url('/users/'.Auth::user()->id.'/quiz-completed-browser') }}">
-        <input type="hidden" name="quiz_comments" value="Add a question">
+        <textarea type="text" name="quiz_comments" placeholder="Any comments or suggestions can be entered here."></textarea>
         <button type="submit" class="btn">
-          Save
+          Click here to save the score
         </button>
       </form>
       @foreach($quiz as $quiz)

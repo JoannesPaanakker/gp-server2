@@ -67,26 +67,28 @@
           </section>
         </div><!--.col- -->
 				<div class="col-lg-6 col-lg-push-3 col-md-6 col-sm-6">
-          <section class="box-typical">
-            <header class="box-typical-header-sm">Activities Communitiy</header>
-            <div class="p-a-md">
-              <div class="tbl-cell">
-                @foreach( $user->feeds as $feet )
-                  <b>{{ $feet->formatted_date }} </b>
-                  <p>{{ $feet->user->first_name}} {{ $feet->user->last_name}} {{ $feet->content}} on {{ $feet->entity_name}}</p>
-                @endforeach
+          @if($user->id == Auth::user()->id)
+            <section class="box-typical">
+              <header class="box-typical-header-sm">Activities Communitiy</header>
+              <div class="p-a-md">
+                <div class="tbl-cell">
+                  @foreach( $user->feeds as $feet )
+                    <b>{{ $feet->formatted_date }} </b>
+                    <p>{{ $feet->user->first_name}} {{ $feet->user->last_name}} {{ $feet->content}} on {{ $feet->entity_name}}</p>
+                  @endforeach
+                </div>
               </div>
-            </div>
-            <header class="box-typical-header-sm">My Activities</header>
-            <div class="p-a-md">
-              <div class="tbl-cell">
-                @foreach( $user->feed as $feed)
-                  <b>{{ $feed->formatted_date }}</b>
-                  <p>{{ $feed->content }} {{ $feed->entity_name }}</p>
-                @endforeach
+              <header class="box-typical-header-sm">My Activities</header>
+              <div class="p-a-md">
+                <div class="tbl-cell">
+                  @foreach( $user->feed as $feed)
+                    <b>{{ $feed->formatted_date }}</b>
+                    <p>{{ $feed->content }} {{ $feed->entity_name }}</p>
+                  @endforeach
+                </div>
               </div>
-            </div>
-          </section><!--.box-typical-->
+            </section><!--.box-typical-->
+          @endif
   				<section class="box-typical">
 						<header class="box-typical-header-sm">
 							Reviews by {{ $user->first_name}} {{ $user->last_name}}
@@ -130,9 +132,9 @@
 						@endif
 					</section>
 				</div><!--.col- -->
-        <!-- New Tip -->
-        @include('partials.addgoal')
-        <!-- end New Tip -->
+        @if($user->id == Auth::user()->id)
+          @include('partials.addgoal')
+        @endif
         <div class="col-lg-3 col-md-6 col-sm-6">
           <section class="box-typical">
             <header class="box-typical-header-sm">Goals set by {{ $user->first_name}} {{ $user->last_name}}</header>
@@ -152,9 +154,9 @@
             </div>
           </section><!--.box-typical-->
         </div><!--.col- -->
-        <!-- New Tip -->
-        @include('partials.addtip')
-        <!-- end New Tip -->
+        @if($user->id == Auth::user()->id)
+          @include('partials.addtip')
+        @endif
         <div class="col-lg-3 col-md-6 col-sm-6">
           <section class="box-typical">
             <header class="box-typical-header-sm">Green tips from {{ $user->first_name}} {{ $user->last_name}}</header>
@@ -189,7 +191,7 @@
                         @endif
 
                       </div>
-                    <h5><a href="/page/{{ $page->slug }}/{{ $page->id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h5>
+                    <h5><a href="/{{ $page->slug }}/{{ $page->id }}?current_user_id={{ $user->id }}">{{ $page->title }}</a></h5>
                   </div>
                   <br>
               @endforeach
