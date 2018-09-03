@@ -3220,9 +3220,7 @@ class DatabaseSeeder extends Seeder
 ['title' => "Amitabh Bachchan", 'slug'=>"Amitabh-Bachchan",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Julio Louis-Dreyfus", 'slug'=>"Julio-Louis-Dreyfus",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Matt Dillon", 'slug'=>"Matt-Dillon",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
-"['title' => ""CharlizeTheron
-"", 'slug'=>""CharlizeTheron
-"",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),about'=>""About"", 'quiz_score'=>0, 'categories'=>""new, greenplatform"", 'user_id'=>1,],"
+['title' => "CharlizeTheron", 'slug'=>"CharlizeTheron",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "kaka", 'slug'=>"kaka",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "kiefer sutherland", 'slug'=>"kiefer-sutherland",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "rowan atkinson", 'slug'=>"rowan-atkinson",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
@@ -3575,9 +3573,6 @@ class DatabaseSeeder extends Seeder
 ['title' => "bannerboy", 'slug'=>"bannerboy",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "igital signs and banners ltd", 'slug'=>"igital-signs-and-banners-ltd",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "banner and graphpics UK", 'slug'=>"banner-and-graphpics-UK",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
-"['title' => ""glasgow
-"", 'slug'=>""glasgow
-"",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),about'=>""About"", 'quiz_score'=>0, 'categories'=>""new, greenplatform"", 'user_id'=>1,],"
 ['title' => "banana banners", 'slug'=>"banana-banners",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "signs by dough", 'slug'=>"signs-by-dough",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "digital planners plus LCC", 'slug'=>"digital-planners-plus-LCC",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
@@ -3593,15 +3588,9 @@ class DatabaseSeeder extends Seeder
 ['title' => "internet marketing co.", 'slug'=>"internet-marketing-co.",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "internetmarketing inc.", 'slug'=>"internetmarketing-inc.",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "markitors", 'slug'=>"markitors",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
-"['title' => ""fullmedia
-"", 'slug'=>""fullmedia
-"",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),about'=>""About"", 'quiz_score'=>0, 'categories'=>""new, greenplatform"", 'user_id'=>1,],"
 ['title' => "marketing 1on1", 'slug'=>"marketing-1on1",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "all the way up media", 'slug'=>"all-the-way-up-media",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "jubilantweb", 'slug'=>"jubilantweb",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
-"['title' => ""fishbat
-"", 'slug'=>""fishbat
-"",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),about'=>""About"", 'quiz_score'=>0, 'categories'=>""new, greenplatform"", 'user_id'=>1,],"
 ['title' => "brand netizen", 'slug'=>"brand-netizen",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "monkeyfish marketing", 'slug'=>"monkeyfish-marketing",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "portent", 'slug'=>"portent",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
@@ -3622,17 +3611,11 @@ class DatabaseSeeder extends Seeder
 ['title' => "bel20", 'slug'=>"bel20",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Dow Jones Industrial Average", 'slug'=>"Dow-Jones-Industrial-Average",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "American Express", 'slug'=>"American-Express",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
-"['title' => ""Apple
-"", 'slug'=>""Apple
-"",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),about'=>""About"", 'quiz_score'=>0, 'categories'=>""new, greenplatform"", 'user_id'=>1,],"
 ['title' => "Cattarpillar", 'slug'=>"Cattarpillar",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Coca Cola", 'slug'=>"Coca-Cola",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "DowDuPont", 'slug'=>"DowDuPont",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Exxonmobile", 'slug'=>"Exxonmobile",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Goldman Sachs", 'slug'=>"Goldman-Sachs",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
-"['title' => ""Microsoft
-"", 'slug'=>""Microsoft
-"",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),about'=>""About"", 'quiz_score'=>0, 'categories'=>""new, greenplatform"", 'user_id'=>1,],"
 ['title' => "Procter & Gamble Company", 'slug'=>"Procter-&-Gamble-Company",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "UnitedHealthGroup", 'slug'=>"UnitedHealthGroup",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "UnitedTechnologies", 'slug'=>"UnitedTechnologies",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
@@ -4155,9 +4138,6 @@ class DatabaseSeeder extends Seeder
 ['title' => "OSAKA GAS ", 'slug'=>"OSAKA-GAS-",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "aalberts industrie", 'slug'=>"aalberts-industrie",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "ABN AMRO", 'slug'=>"ABN-AMRO",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
-"['title' => ""Aegon
-"", 'slug'=>""Aegon
-"",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),about'=>""About"", 'quiz_score'=>0, 'categories'=>""new, greenplatform"", 'user_id'=>1,],"
 ['title' => "Ahold Delhaize", 'slug'=>"Ahold-Delhaize",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "altice", 'slug'=>"altice",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "alcelorMittal", 'slug'=>"alcelorMittal",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
@@ -4165,9 +4145,6 @@ class DatabaseSeeder extends Seeder
 ['title' => "heineke", 'slug'=>"heineke",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "nationale nederlanden", 'slug'=>"nationale-nederlanden",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "relx", 'slug'=>"relx",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
-"['title' => ""royal dutch shell
-"", 'slug'=>""royal-dutch-shell
-"",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),about'=>""About"", 'quiz_score'=>0, 'categories'=>""new, greenplatform"", 'user_id'=>1,],"
 ['title' => "SBM Offshore", 'slug'=>"SBM-Offshore",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "tencent", 'slug'=>"tencent",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "ping an", 'slug'=>"ping-an",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
@@ -4283,9 +4260,6 @@ class DatabaseSeeder extends Seeder
 ['title' => "dali foods", 'slug'=>"dali-foods",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "china comms cons", 'slug'=>"china-comms-cons",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "future land", 'slug'=>"future-land",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
-"['title' => ""ronshinechina
-"", 'slug'=>""ronshinechina
-"",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),about'=>""About"", 'quiz_score'=>0, 'categories'=>""new, greenplatform"", 'user_id'=>1,],"
 ['title' => "stanchart", 'slug'=>"stanchart",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "fuson intl", 'slug'=>"fuson-intl",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "china oriental", 'slug'=>"china-oriental",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
@@ -6071,7 +6045,6 @@ class DatabaseSeeder extends Seeder
 ['title' => "Exxonmobil", 'slug'=>"Exxonmobil",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Santander", 'slug'=>"Santander",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Wellsfargo", 'slug'=>"Wellsfargo",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
-['title' => "", 'slug'=>"",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Shell ", 'slug'=>"Shell-",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Bnp", 'slug'=>"Bnp",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
 ['title' => "Petrochina", 'slug'=>"Petrochina",'rating' => 1,'created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'),'about'=>"About", 'quiz_score'=>0, 'categories'=>"new, greenplatform", 'user_id'=>1,],
