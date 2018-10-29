@@ -24,6 +24,14 @@
     <link rel="stylesheet" type="text/css" href="/js/lib/jssocials/jssocials-theme-flat.css" />
   <link rel="stylesheet" href="/js/lib/venobox/venobox.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="/css/style.css">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126746846-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-126746846-1');
+</script>
 </head>
 <body>
 	<header class="site-header">

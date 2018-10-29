@@ -28,6 +28,13 @@
 
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/custom.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126746846-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-126746846-1');
+  </script>
 </head>
 <body>
 	<header class="site-header">

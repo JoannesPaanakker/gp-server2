@@ -21,9 +21,9 @@
 						<div class="profile-card">
 							<div class="profile-card-photo">
 								@if($user->picture)
-									<img src="{{ $user->picture }}" alt=""/>
+									<img src="{{ $user->picture }}" alt="{{ $user->first_name}} {{ $user->last_name}}'s profile image"/>
 								@else
-									<img src="/img/avatar-sign.png" alt=""/>
+									<img src="/img/avatar-sign.png" alt="standard profile image"/>
 								@endif
 							</div>
 							@for($i = 0; $i < 290; $i = $i + 60)<img src="/img/feature-leaf.png" style="width:32px; display:inline-block; @if($user->quiz_score < $i) opacity:0.3 @endif">@endfor
