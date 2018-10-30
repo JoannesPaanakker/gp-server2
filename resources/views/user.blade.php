@@ -23,7 +23,7 @@
 								@if($user->picture)
 									<img src="{{ $user->picture }}" alt="{{ $user->first_name}} {{ $user->last_name}}'s profile image"/>
 								@else
-									<img src="/img/avatar-sign.png" alt="standard profile image"/>
+									<img src="/img/avatar-sign.png" alt="Default profile image"/>
 								@endif
 							</div>
 							@for($i = 0; $i < 290; $i = $i + 60)<img src="/img/feature-leaf.png" style="width:32px; display:inline-block; @if($user->quiz_score < $i) opacity:0.3 @endif">@endfor
@@ -53,16 +53,13 @@
           </section>
           <section class="box-typical">
 
-              <div class="profile-card">
                 <div class="box-typical">
                   <input type="hidden" id="updatebiotext" value="{{ $user->bio }}">
-                  <b>This is me</b>
-                  <div id="updatebio">
+                  <b class="profile-card-bio">This is me</b>
+                  <div id="updatebio" class="profile-card-bio">
                     {{ $user->bio }} <br>
                   </div>
                 </div>
-
-              </div>
 
           </section>
         </div><!--.col- -->
@@ -105,14 +102,14 @@
 										<b>{{ $review->title }}</b>
 										<p>{{ $review->content }}</p>
                     @if($review->picture)
-                      <img class="fit" src="{{ $review->picture }}" alt="image"/>
+                      <img class="fit" src="{{ $review->picture }}" alt="Review Image"/>
                     @endif
 									</div>
 									<div class="user-card-row">
 										<div class="tbl-row">
 											<div class="tbl-cell tbl-cell-photo">
 												<a href="#" tabindex="0">
-													<img src="{{ $review->user->picture }}" alt="">
+													<img src="{{ $review->user->picture }}" alt="Thumbnail of reveiwers Profile photo">
 												</a>
 											</div>
 											<div class="tbl-cell">

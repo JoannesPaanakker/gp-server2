@@ -18,9 +18,9 @@
 									<div class="taken-checkmark"></div>
 								@endif
 								@if(count($page->photos)>0)
-									<img src="/photos/{{ $page->photos[0]->id }}.jpg" alt=""/>
+									<img src="/photos/{{ $page->photos[0]->id }}.jpg" alt="Profile image of {{ $page->title}}"/>
 								@else
-									<img src="/img/default-company.png" alt=""/>
+									<img src="/img/default-company.png" alt="Default Profile Image"/>
 								@endif
 							</div>
 
@@ -116,7 +116,7 @@
 										<article class="post-announce">
 											<div class="post-announce-pic">
 												<a href="#">
-													<a class="venobox" href="/photos/{{ $photo->id }}.jpg"><img src="/photos/{{ $photo->id }}_thumb.jpg" alt=""></a>
+													<a class="venobox" href="/photos/{{ $photo->id }}.jpg"><img src="/photos/{{ $photo->id }}_thumb.jpg" alt="Photo {{ $photo->id }} of {{ $page->title}}"></a>
 												</a>
 											</div>
 										</article>

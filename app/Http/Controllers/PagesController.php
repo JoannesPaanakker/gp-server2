@@ -454,43 +454,67 @@ class PagesController extends Controller {
 		return $pages;
 	}
 
-	public function createPage(User $user, $google_id){
+  public function createPage(User $user, $google_id){
 
-		// get info for the place
-		$place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $google_id . '&key=' . env('GOOGLE_API')));
-		if($place->status != 'OK'){
-			return false;
-		}
-		$page = Page::firstOrNew(['google_place_id' => $place->result->place_id]);
+    // get info for the place
+    $place = json_decode(file_get_contents('https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $google_id . '&key=' . env('GOOGLE_API')));
+    if($place->status != 'OK'){
+      return false;
+    }
+    $page = Page::firstOrNew(['google_place_id' => $place->result->place_id]);
 
-		$page->title = $place->result->name;
-		$page->address = $place->result->formatted_address;
-		$page->categories = implode(',', $place->result->types);
-		$page->rating = 0;
-		$page->about = '';
-		$page->lat = $place->result->geometry->location->lat;
-		$page->lng = $place->result->geometry->location->lng;
-		$page->google_place_id = $place->result->place_id;
-		$user->pages()->save($page);
-		$user->following_pages()->sync([$page->id]);
+    $page->title = $place->result->name;
+    $page->address = $place->result->formatted_address;
+    $page->categories = implode(',', $place->result->types);
+    $page->rating = 0;
+    $page->about = '';
+    $page->lat = $place->result->geometry->location->lat;
+    $page->lng = $place->result->geometry->location->lng;
+    $page->google_place_id = $place->result->place_id;
+    $user->pages()->save($page);
+    $user->following_pages()->sync([$page->id]);
+    // post an update
+    $update = new Update;
+    $update->user_id = $user->id;
+    $update->content = 'Has created the page';
+    $update->kind = 'create-page';
+    $update->entity_id = $page->id;
+    $update->entity_name = $page->title;
+    $update->save();
+    // generate unique_id and slug for page
+    $hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
+    $page->unique_id = $hashids->encode($page->id);
+    $page->slug = str_slug($page->title);
+    $page->save();
+    return $page;
+  }
 
-		// post an update
-		$update = new Update;
-		$update->user_id = $user->id;
-		$update->content = 'Has created the page';
-		$update->kind = 'create-page';
-		$update->entity_id = $page->id;
-		$update->entity_name = $page->title;
-		$update->save();
-
-		// generate unique_id and slug for page
-		$hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
-		$page->unique_id = $hashids->encode($page->id);
-		$page->slug = str_slug($page->title);
-		$page->save();
-
-		return $page;
-	}
+  public function createPageB(User $user){
+    $request = request()->all();
+    $page->title = $request['title'];
+    $page->address = $request['address'];
+    $page->categories = $request['categories'];
+    $page->rating = 0;
+    $page->about = $request['about'];;
+    $page->lat = $request['lat'];
+    $page->lng = $request['long'];
+    $user->pages()->save($page);
+    $user->following_pages()->sync([$page->id]);
+    // post an update
+    $update = new Update;
+    $update->user_id = $user->id;
+    $update->content = 'Has created the page';
+    $update->kind = 'create-page';
+    $update->entity_id = $page->id;
+    $update->entity_name = $page->title;
+    $update->save();
+    // generate unique_id and slug for page
+    $hashids = new \Hashids\Hashids('', 5, '1234567890abcdef');
+    $page->unique_id = $hashids->encode($page->id);
+    $page->slug = str_slug($page->title);
+    $page->save();
+    return back()->withInput();
+  }
 
 	public function store(User $user) {
 		$request = request()->all();

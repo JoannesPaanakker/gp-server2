@@ -17,7 +17,18 @@
 
 				<div class="col-sm-7">
 					<div class="hidden-sm-down">
-						<p><span style="font-weight: bold">GreenPlatform - the app that shows your green contribution</span><br>For a sustainable future we need a greener planet. What is your contribution? GreenPlatform gives you the opportunity to show the world how green your business, ngo, organisation, school, restaurant or charity is.
+            <h4>
+              Greenplatform is the new must have app to save the planet
+            </h4>
+            <p>
+              Check, review and reward your favorite bar, supermarket, NGO or school to make a statement. Be in control. Team up now and join your friends, expand your network and show what you are doing to make the world a better place.
+            </p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+<!-- 						<p><span style="font-weight: bold">GreenPlatform - the app that shows your green contribution</span><br>For a sustainable future we need a greener planet. What is your contribution? GreenPlatform gives you the opportunity to show the world how green your business, ngo, organisation, school, restaurant or charity is.
             </p>
             <p><span style="font-weight: bold">Show your efforts for making the planet greener</span><br>Join the GreenPlatform app today and show your customers, contacts and clients what your efforts and responsibilities are for making your environment and our planer greener. Be inspired and benefit from the sustainable solutions of other businesses, ngo’s, restaurants, hospitals and venues. On GreenPlatform you find tips, advice and suggestions for free.<br>
             You can also contact GreenPlatform (<a href="mailto:info@greenplatform.org">info@greenplatform.org</a>) if you would like our professionals to start your account.
@@ -25,7 +36,8 @@
             <p><span style="font-weight: bold">Social responsibility rewards</span><br>GreenPlatform enables you to earn and assign ‘social responsibility rewards’ (green leaves) and green certificates for free. With the app you can rate and reward responsible and environmental-friendly companies, entrepreneurs, sport clubs, leisure venues and hotels. GreenPlatform also gives businesses, ngo’s and other organisations the opportunity to map reviews and likes they have been given by others.
             </p>
             <p><span style="font-weight: bold">Set your green goals with the app</span><br>With GreenPlatform you can set green goals, get reviews, rewards and certificates. Show and promote your contribution for increasing a greener future for our planet. The GreenPlatform-app is quick to install and easy to use. Download the GreenPlatform-app or join our online platform (<a href="https://www.greenplatform.org/">www.greenplatform.org</a>) today and help to create a greener planet.
-            </p>
+            </p> -->
+
 						<br>
 						<a href="https://www.facebook.com/greenplatform.org/?fref=ts" target="_blank" class="social-link"><i class="fa fa-facebook"></i></a>
             <br>
