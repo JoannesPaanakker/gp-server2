@@ -60,6 +60,9 @@ thead th {
     padding: 24px 20px !important;
 }
 
+.profile-card-bio {
+  padding: 10px;
+}
 
 .landing-features{
     position: absolute;

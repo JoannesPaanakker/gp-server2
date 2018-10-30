@@ -16,7 +16,6 @@
                 <th></th>
                 <th>First name</th>
                 <th>Last name</th>
-                <th>Email</th>
               </thead>
               <tbody>
                 @foreach($users as $user)
@@ -32,7 +31,6 @@
                     </td>
                     <td>{{ $user->first_name }}</td>
                     <td>{{ $user->last_name }}</td>
-                    <td>{{ $user->email }}</td>
                   </tr>
                 @endforeach
             </tbody>
